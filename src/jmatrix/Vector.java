@@ -26,27 +26,45 @@ public class Vector {
     @Override public String toString(){
         String Imprimible = "";
         
-        for (int x = 0; x < Elemento.length; x++){
+        for (int x = 0, A = Ancho(); x < A; x++){
             Imprimible += ",\t" + Elemento[x];
         }
         
         return "[" + Imprimible.substring(2) + "]";
     }
     
+    @Override public boolean equals(Object O){
+        Vector V = (Vector) O;
+        
+        if (V != null){
+            if (V.Ancho() != Ancho()){
+                return false;
+            }
+            
+            for (int x = 0, A = Ancho(); x < A; x++){
+                if (Obtener(x) != V.Obtener(x)){
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+    
     public void Establecer(int Indice, double Valor){
-        if (Indice >= 0 & Indice < Elemento.length){
+        if (Indice >= 0 & Indice < Ancho()){
             Elemento[Indice] = Valor;
         }
     }
     
     public void Sumar(int Indice, double Valor){
-        if (Indice >= 0 & Indice < Elemento.length){
+        if (Indice >= 0 & Indice < Ancho()){
             Elemento[Indice] += Valor;
         }
     }
     
     public double Obtener(int Indice){
-        if (Indice >= 0 & Indice < Elemento.length){
+        if (Indice >= 0 & Indice < Ancho()){
             return Elemento[Indice];
         }
         return 0;
@@ -94,5 +112,15 @@ public class Vector {
         }
         
         return Salida;
+    }
+    
+    public Vector Opuesta(){
+        Vector Opuesta = new Vector(Ancho());
+        
+        for (int x = 0, A = Opuesta.Ancho(); x < A; x++){
+            Opuesta.Establecer(x, -Obtener(x));
+        }
+        
+        return Opuesta;
     }
 }

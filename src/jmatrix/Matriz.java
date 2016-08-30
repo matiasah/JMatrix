@@ -42,7 +42,21 @@ public class Matriz {
         return Imprimible.substring(1);
     }
     
-    @Override public boolean equals(Object M){
+    @Override public boolean equals(Object O){
+        Matriz M = (Matriz) O;
+        
+        if (M != null){
+            if (M.Ancho() != Ancho() | M.Largo() != Largo()){
+                return false;
+            }
+            
+            for (int x = 0, A = Ancho(); x < A; x++){
+                if (Obtener(x).equals(M.Obtener(x))){
+                    return false;
+                }
+            }
+            return true;
+        }
         return false;
     }
     
@@ -338,7 +352,33 @@ public class Matriz {
         return Escalonada;
     }
     
-    public boolean EsIdempotente(){
+    public Matriz Opuesta(){
+        Matriz Opuesta = new Matriz(Ancho(), Largo());
         
+        for (int x = 0, A = Ancho(); x < A; x++){
+            Opuesta.Establecer(x, Obtener(x).Opuesta());
+        }
+        
+        return Opuesta;
+    }
+    
+    public boolean EsIdempotente(){
+        return this.equals(this.Multiplicar(this));
+    }
+    
+    public boolean EsInvolutiva(){
+        return this.equals(this.Inversa());
+    }
+    
+    public boolean EsSimetrica(){
+        return this.Transpuesta().equals(this);
+    }
+    
+    public boolean EsAntisimetrica(){
+        return this.Transpuesta().equals(this.Opuesta());
+    }
+    
+    public boolean EsOrtogonal(){
+        return this.Transpuesta().equals(this.Inversa());
     }
 }

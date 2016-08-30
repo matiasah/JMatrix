@@ -11,9 +11,7 @@ public class JMatrix {
             }
         );
         
-        Matriz Inv = A.Inversa().Inversa();
-        
-        System.out.println(Inv);
+        System.out.println(A.Escalonar());
     }
     
 }
