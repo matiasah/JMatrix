@@ -3,6 +3,7 @@ package jmatrix;
 public class JMatrix {
     
     public static void main(String[] args) {
+        
         Matriz A = new Matriz( new double [][]
             {
                 {2, 0, 1},
@@ -11,7 +12,7 @@ public class JMatrix {
             }
         );
         
-        System.out.println(A.Escalonar());
+        System.out.println(A.Determinante());
     }
     
 }
