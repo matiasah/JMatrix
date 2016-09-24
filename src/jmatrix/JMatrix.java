@@ -6,13 +6,15 @@ public class JMatrix {
         
         Matriz A = new Matriz( new double [][]
             {
-                {2, 0, 1},
-                {3, 0, 0},
-                {5, 1, 1}
+                {1, 1, 1, 1, 1},
+                {1, 3, 3, 3, 3},
+                {1, 3, 5, 5, 5},
+                {1, 3, 5, 7, 7},
+                {1, 3, 5, 7, 9},
             }
         );
         
-        System.out.println(A.Determinante());
+        System.out.println(A.determinante());
     }
     
 }

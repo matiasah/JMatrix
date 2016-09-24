@@ -3,34 +3,42 @@ package jmatrix;
 import java.util.ArrayList;
 
 public class Matriz {
-    private Vector [] Vector;
-    private ArrayList<String> Instrucciones;
     
-    public Matriz(int Ancho, int Largo){
-        this.Vector = new Vector[Ancho];
-        this.Instrucciones = new ArrayList<String>();
+    private Vector [] vector;
+    private ArrayList<String> instrucciones;
+    
+    public Matriz(int ancho, int largo){
         
-        for (int x = 0; x < Ancho; x++){
-            this.Vector[x] = new Vector(Largo);
+        this.vector = new Vector[ancho];
+        this.instrucciones = new ArrayList<String>();
+        
+        for (int x = 0; x < ancho; x++){
+            
+            this.vector[x] = new Vector(largo);
+            
         }
+        
     }
     
-    public Matriz(double [][] Matriz){
-        this.Vector = new Vector[Matriz.length];
-        this.Instrucciones = new ArrayList<String>();
+    public Matriz(double [][] matriz){
         
-        if (Matriz.length > 0){
-            int Largo = Matriz[0].length;
+        this.vector = new Vector[matriz.length];
+        this.instrucciones = new ArrayList<String>();
+        
+        if (matriz.length > 0){
+            
+            int Largo = matriz[0].length;
 
-            for (int x = 0; x < Vector.length; x++){
+            for (int x = 0; x < this.vector.length; x++){
                 
-                if (Matriz[x].length == Largo){
+                if (matriz[x].length == Largo){
                     
-                    this.Vector[x] = new Vector(Matriz[x]);
+                    this.vector[x] = new Vector(matriz[x]);
+                    
                 }else{
                     
                     // Entregar un error (por hacer)
-                    this.Vector = null;
+                    this.vector = null;
                     break;
                     
                 }
@@ -40,19 +48,33 @@ public class Matriz {
         }
     }
     
-    @Override public String toString(){
+    public Matriz(int tamaño){
         
-        String Str = "";
+        this.vector = new Vector[tamaño];
+        this.instrucciones = new ArrayList<String>();
         
-        for (int x = 0; x < Vector.length; x++){
+        for (int x = 0; x < tamaño; x++){
             
-            Str += "\n" + this.Vector[x];
+            this.vector[x] = new Vector(tamaño);
+            this.establecer(x, x, 1);
             
         }
         
-        if (Str.length() > 0){
+    }
+    
+    @Override public String toString(){
+        
+        String str = "";
+        
+        for (int x = 0; x < this.vector.length; x++){
             
-            return Str.substring(1);
+            str += "\n" + this.vector[x];
+            
+        }
+        
+        if (str.length() > 0){
+            
+            return str.substring(1);
             
         }
         
@@ -60,20 +82,20 @@ public class Matriz {
         
     }
     
-    @Override public boolean equals(Object Objeto){
-        Matriz M = (Matriz) Objeto;
+    @Override public boolean equals(Object objeto){
+        Matriz matriz = (Matriz) objeto;
         
-        if (M != null){
+        if (matriz != null){
             
-            if (M.Ancho() != this.Ancho() | M.Largo() != this.Largo()){
+            if (matriz.ancho() != this.ancho() | matriz.largo() != this.largo()){
                 
                 return false;
                 
             }
             
-            for (int x = 0, A = this.Ancho(); x < A; x++){
+            for (int x = 0, A = this.ancho(); x < A; x++){
                 
-                if (this.Obtener(x).equals(M.Obtener(x))){
+                if (this.obtener(x).equals(matriz.obtener(x))){
                     
                     return false;
                     
@@ -88,36 +110,23 @@ public class Matriz {
         return false;
     }
     
-    public static Matriz Identidad(int Tamaño){
+    public Matriz clonar(){
         
-        Matriz Ident = new Matriz(Tamaño, Tamaño);
+        Matriz copia = new Matriz(this.ancho(), this.largo());
         
-        for (int x = 0; x < Tamaño; x++){
+        for (int x = 0; x < this.ancho(); x++){
             
-            Ident.Establecer(x, x, 1);
-            
-        }
-        
-        return Ident;
-        
-    }
-    
-    public Matriz Clonar(){
-        
-        Matriz Salida = new Matriz(this.Ancho(), this.Largo());
-        
-        for (int x = 0; x < this.Ancho(); x++){
-            
-            Salida.Establecer(x, this.Vector[x].Clonar());
+            copia.establecer(x, this.vector[x].clonar());
             
         }
         
-        return Salida;
+        return copia;
+        
     }
     
     public boolean Validar(){
         
-        if (this.Vector != null & this.Vector.length > 0){
+        if (this.vector != null & this.vector.length > 0){
             
             return true;
             
@@ -126,70 +135,70 @@ public class Matriz {
         return false;
     }
     
-    public int Ancho(){
+    public int ancho(){
         
-        return this.Vector.length;
+        return this.vector.length;
         
     }
     
-    public int Largo(){
+    public int largo(){
         
         if (this.Validar()){
             
-            return this.Vector[0].Ancho();
+            return this.vector[0].ancho();
             
         }
         
         return 0;
     }
     
-    public void Establecer(int Indice, Vector Vec){
+    public void establecer(int indice, Vector vec){
         
-        if (Indice >= 0 & Indice < this.Vector.length){
+        if (indice >= 0 & indice < this.vector.length){
             
-            this.Vector[Indice] = Vec;
-            
-        }
-        
-    }
-    
-    public void Establecer(int x, int y, double Valor){
-        
-        if (x >= 0 & x < this.Vector.length){
-            
-            this.Vector[x].Establecer(y, Valor);
+            this.vector[indice] = vec;
             
         }
         
     }
     
-    public void Sumar(int Indice, Vector Vec){
+    public void establecer(int x, int y, double valor){
         
-        if (Indice >= 0 & Indice < this.Vector.length){
+        if (x >= 0 & x < this.vector.length){
             
-            this.Vector[Indice] = Vector[Indice].Sumar(Vec);
+            this.vector[x].establecer(y, valor);
             
         }
         
     }
     
-    public Vector Obtener(int Indice){
+    public void sumar(int indice, Vector vec){
         
-        if (Indice >= 0 & Indice < this.Vector.length){
+        if (indice >= 0 & indice < this.vector.length){
             
-            return this.Vector[Indice];
+            this.vector[indice] = this.vector[indice].sumar(vec);
             
         }
         
-        return new Vector(this.Vector.length);
+    }
+    
+    public Vector obtener(int indice){
+        
+        if (indice >= 0 & indice < this.vector.length){
+            
+            return this.vector[indice];
+            
+        }
+        
+        return new Vector(this.vector.length);
         
     }
     
-    public double Obtener(int x, int y){
+    public double obtener(int x, int y){
         
-        if (x >= 0 & x < this.Vector.length){
+        if (x >= 0 & x < this.vector.length){
             
-            return this.Vector[x].Obtener(y);
+            return this.vector[x].obtener(y);
             
         }
         
@@ -197,19 +206,19 @@ public class Matriz {
         
     }
     
-    public Matriz Sumar(Matriz Mat){
+    public Matriz sumar(Matriz matriz){
         
         Matriz Salida = new Matriz(
-            Math.max(Mat.Ancho(), this.Ancho()),
-            Math.max(Mat.Largo(), this.Largo())
+            Math.max(matriz.ancho(), this.ancho()),
+            Math.max(matriz.largo(), this.largo())
         );
         
-        for (int x = 0, A = Salida.Ancho(); x < A; x++){
+        for (int x = 0, A = Salida.ancho(); x < A; x++){
             
-            Salida.Establecer(x,
+            Salida.establecer(x,
                 // Lamentablemente no se pueden utilizar operadores matemáticos en objetos
                 // Así que es necesario usar Obtener(x).Sumar
-                this.Obtener(x).Sumar( Mat.Obtener(x) )
+                this.obtener(x).sumar( matriz.obtener(x) )
             );
             
         }
@@ -218,133 +227,134 @@ public class Matriz {
         
     }
     
-    public Matriz Restar(Matriz Mat){
+    public Matriz restar(Matriz matriz){
         
-        Matriz Salida = new Matriz(
-            Math.max(Mat.Ancho(), this.Ancho()),
-            Math.max(Mat.Largo(), this.Largo())
+        Matriz resta = new Matriz(
+            Math.max(matriz.ancho(), this.ancho()),
+            Math.max(matriz.largo(), this.largo())
         );
         
-        for (int x = 0, A = Salida.Ancho(); x < A; x++){
+        for (int x = 0, A = resta.ancho(); x < A; x++){
             
-            Salida.Establecer(x,
+            resta.establecer(x,
                 // Mismo caso, no se pueden utilizar operadores matemáticos en objetos
-                this.Obtener(x).Restar( Mat.Obtener(x) )
+                this.obtener(x).restar( matriz.obtener(x) )
             );
             
         }
         
-        return Salida;
+        return resta;
         
     }
     
-    public Matriz Multiplicar(Matriz Mat){
+    public Matriz multiplicar(Matriz matriz){
         
-        Matriz Salida = new Matriz(this.Ancho(), this.Largo());
+        Matriz multiplicacion = new Matriz(this.ancho(), this.largo());
         
-        for (int x = 0, A = Salida.Ancho(); x < A; x++){
+        for (int x = 0, A = multiplicacion.ancho(); x < A; x++){
             
-            Vector Vec = new Vector(Salida.Largo());
+            Vector vector = new Vector(multiplicacion.largo());
             
             for (int y = 0; y < A; y++){
                 
                 for (int i = 0; i < A; i++){
                     
-                    Vec.Sumar(y, this.Obtener(x).Obtener(i) * Mat.Obtener(i).Obtener(y));
+                    vector.sumar(y, this.obtener(x).obtener(i) * matriz.obtener(i).obtener(y));
                     
                 }
             }
             
-            Salida.Establecer(x, Vec);
+            multiplicacion.establecer(x, vector);
             
         }
         
-        return Salida;
+        return multiplicacion;
         
     }
     
-    public Matriz Multiplicar(double Numero){
+    public Matriz multiplicar(double numero){
         
-        Matriz Salida = new Matriz(this.Ancho(), this.Largo());
+        Matriz multiplicacion = new Matriz(this.ancho(), this.largo());
         
-        for (int x = 0, A = Salida.Ancho(); x < A; x++){
+        for (int x = 0, A = multiplicacion.ancho(); x < A; x++){
             
-            Salida.Establecer(x, this.Obtener(x).Multiplicar(Numero));
+            multiplicacion.establecer(x, this.obtener(x).multiplicar(numero));
             
         }
         
-        return Salida;
+        return multiplicacion;
         
     }
     
-    public Matriz Elevar(int Exponente){
+    public Matriz elevar(int exponente){
         
-        Matriz Salida = this;
+        Matriz operacion = this;
         
-        for (int x = 0; x < Exponente - 1; x++){
+        for (int x = 0; x < exponente - 1; x++){
             
-            Salida = Salida.Multiplicar(this);
+            operacion = operacion.multiplicar(this);
             
         }
         
-        return Salida;
+        return operacion;
+        
     }
     
-    public Matriz Transpuesta(){
+    public Matriz transpuesta(){
         
-        Matriz Transpuesta = new Matriz(this.Largo(), this.Ancho());
+        Matriz transpuesta = new Matriz(this.largo(), this.ancho());
         
-        for (int x = 0, A = this.Ancho(), L = this.Largo(); x < A; x++){
+        for (int x = 0, A = this.ancho(), L = this.largo(); x < A; x++){
             
             for (int y = 0; y < A; y++){
                 
-                Transpuesta.Establecer(y, x, this.Obtener(x, y));
+                transpuesta.establecer(y, x, this.obtener(x, y));
                 
             }
             
         }
         
-        return Transpuesta;
+        return transpuesta;
         
     }
     
-    private void AgregarInstruccion(String Instruccion){
+    private void agregarInstruccion(String Instruccion){
         
-        this.Instrucciones.add(Instruccion);
-        
-    }
-    
-    public Object [] ObtenerInstrucciones(){
-        
-        return this.Instrucciones.toArray();
+        this.instrucciones.add(Instruccion);
         
     }
     
-    public Matriz Inversa(){
+    public Object [] obtenerInstrucciones(){
         
-        Matriz Escalonada = this.Clonar();
-        Matriz Inversa = Matriz.Identidad(this.Ancho());
+        return this.instrucciones.toArray();
         
-        for (boolean Repetir = true; Repetir;){
+    }
+    
+    public Matriz inversa(){
+        
+        Matriz escalonada = this.clonar();
+        Matriz inversa = new Matriz(this.ancho());
+        
+        for (boolean repetir = true; repetir;){
             
-            for (int Ancho = Escalonada.Ancho(), IndiceNulo = Ancho; IndiceNulo > 0 ; IndiceNulo--){
+            for (int ancho = escalonada.ancho(), indiceNulo = ancho; indiceNulo > 0 ; indiceNulo--){
                 
-                if (Escalonada.Obtener(IndiceNulo, IndiceNulo) == 0){
+                if (escalonada.obtener(indiceNulo, indiceNulo) == 0){
                     
-                    for (int i = Ancho; i > 0; i--){
+                    for (int i = ancho; i > 0; i--){
                         
-                        if (Escalonada.Obtener(i, IndiceNulo) != 0){
+                        if (escalonada.obtener(i, indiceNulo) != 0){
                             
-                            Inversa.AgregarInstruccion("L" + (IndiceNulo + 1) + (i + 1));
-                            Escalonada.AgregarInstruccion("L" + (IndiceNulo + 1) + (i + 1));
+                            inversa.agregarInstruccion("L" + (indiceNulo + 1) + (i + 1));
+                            escalonada.agregarInstruccion("L" + (indiceNulo + 1) + (i + 1));
 
-                            Vector Vec = Escalonada.Obtener(i);
-                            Escalonada.Establecer(i, Escalonada.Obtener(IndiceNulo));
-                            Escalonada.Establecer(IndiceNulo, Vec);
+                            Vector vector = escalonada.obtener(i);
+                            escalonada.establecer(i, escalonada.obtener(indiceNulo));
+                            escalonada.establecer(indiceNulo, vector);
 
-                            Vector VecInverso = Inversa.Obtener(i);
-                            Inversa.Establecer(i, Inversa.Obtener(IndiceNulo));
-                            Inversa.Establecer(IndiceNulo, VecInverso);
+                            Vector vectorInverso = inversa.obtener(i);
+                            inversa.establecer(i, inversa.obtener(indiceNulo));
+                            inversa.establecer(indiceNulo, vectorInverso);
                             break;
                             
                         }
@@ -355,40 +365,122 @@ public class Matriz {
                 
             }
 
-            for (int Diagonal = 0, Ancho = Escalonada.Ancho(); Diagonal < Ancho; Diagonal++){
+            for (int Diagonal = 0, Ancho = escalonada.ancho(); Diagonal < Ancho; Diagonal++){
                 // Verificar que diagonalmente los valores son 1
                 // Si son 0, no se puede hacer nada
                 // Si son diferentes de 1 se debe dividir la fila por tal numero
 
-                double ValorDiagonal = Escalonada.Obtener(Diagonal, Diagonal);
+                double valorDiagonal = escalonada.obtener(Diagonal, Diagonal);
                 
-                if (ValorDiagonal != 0 & ValorDiagonal != 1){
+                if (valorDiagonal != 0 & valorDiagonal != 1){
                     
-                    Inversa.AgregarInstruccion("L" + (Diagonal + 1) + "(1/" + ValorDiagonal + ")");
-                    Escalonada.AgregarInstruccion("L" + (Diagonal + 1) + "(1/" + ValorDiagonal + ")");
+                    inversa.agregarInstruccion("L" + (Diagonal + 1) + "(1/" + valorDiagonal + ")");
+                    escalonada.agregarInstruccion("L" + (Diagonal + 1) + "(1/" + valorDiagonal + ")");
                     
-                    double ValorInverso = 1 / ValorDiagonal;
+                    double valorInverso = 1 / valorDiagonal;
                     
-                    Inversa.Establecer(Diagonal, Inversa.Obtener(Diagonal).Multiplicar(ValorInverso));
-                    Escalonada.Establecer(Diagonal, Escalonada.Obtener(Diagonal).Multiplicar(ValorInverso));
+                    inversa.establecer(Diagonal, inversa.obtener(Diagonal).multiplicar(valorInverso));
+                    escalonada.establecer(Diagonal, escalonada.obtener(Diagonal).multiplicar(valorInverso));
                     
                 }
                 
             }
 
-            for (int x = 0, Ancho = Escalonada.Ancho(); x < Ancho; x++){
+            for (int x = 0, ancho = escalonada.ancho(); x < ancho; x++){
                 
-                for (int y = 0; y < Ancho; y++){
+                for (int y = 0; y < ancho; y++){
                     
-                    if (Escalonada.Obtener(x, y) != 0 & Escalonada.Obtener(y, y) == 1 & x != y){
+                    if (escalonada.obtener(x, y) != 0 & escalonada.obtener(y, y) == 1 & x != y){
                         
-                        double Multiplo = Escalonada.Obtener(x, y);
+                        double Multiplo = escalonada.obtener(x, y);
 
-                        Inversa.AgregarInstruccion("L" + (x + 1) + (y + 1) + "(-" + Multiplo + ")");
-                        Escalonada.AgregarInstruccion("L" + (x + 1) + (y + 1) + "(-" + Multiplo + ")");
+                        inversa.agregarInstruccion("L" + (x + 1) + (y + 1) + "(-" + Multiplo + ")");
+                        escalonada.agregarInstruccion("L" + (x + 1) + (y + 1) + "(-" + Multiplo + ")");
 
-                        Inversa.Establecer(x, Inversa.Obtener(x).Restar(Inversa.Obtener(y).Multiplicar(Multiplo)));
-                        Escalonada.Establecer(x, Escalonada.Obtener(x).Restar(Escalonada.Obtener(y).Multiplicar(Multiplo)));
+                        inversa.establecer(x, inversa.obtener(x).restar(inversa.obtener(y).multiplicar(Multiplo)));
+                        escalonada.establecer(x, escalonada.obtener(x).restar(escalonada.obtener(y).multiplicar(Multiplo)));
+                        
+                    }
+                    
+                }
+                
+            }
+            
+            repetir = false;
+            
+            for (int Diagonal = 0, Ancho = escalonada.ancho(); Diagonal < Ancho; Diagonal++){
+                
+                double ValorDiagonal = escalonada.obtener(Diagonal, Diagonal);
+                
+                if (ValorDiagonal != 0 & ValorDiagonal != 1){
+                    
+                    repetir = true;
+                    break;
+                    
+                }
+                
+            }
+            
+        }
+        
+        return inversa;
+    }
+    
+    public Matriz escalonar(){
+        
+        Matriz escalonada = this.clonar();
+        
+        for (boolean Repetir = true; Repetir;){
+            
+            for (int Ancho = escalonada.ancho(), indiceNulo = Ancho; indiceNulo > 0 ; indiceNulo--){
+                
+                if (escalonada.obtener(indiceNulo, indiceNulo) == 0){
+                    
+                    for (int i = Ancho; i > 0; i--){
+                        
+                        if (escalonada.obtener(i, indiceNulo) != 0){
+                            
+                            escalonada.agregarInstruccion("L" + (indiceNulo + 1) + (i + 1));
+
+                            Vector vector = escalonada.obtener(i);
+                            escalonada.establecer(i, escalonada.obtener(indiceNulo));
+                            escalonada.establecer(indiceNulo, vector);
+                            break;
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+
+            for (int diagonal = 0, Ancho = escalonada.ancho(); diagonal < Ancho; diagonal++){
+                // Verificar que diagonalmente (en la matriz) los valores son 1
+                // Si son 0, no se puede hacer nada
+                // Si son diferentes de 1 se debe dividir la fila por tal numero
+
+                double valorDiagonal = escalonada.obtener(diagonal, diagonal);
+                
+                if (valorDiagonal != 0 & valorDiagonal != 1){
+                    
+                    escalonada.agregarInstruccion("L" + (diagonal + 1) + "(1/" + valorDiagonal + ")");
+                    escalonada.establecer(diagonal, escalonada.obtener(diagonal).multiplicar(1 / valorDiagonal));
+                    
+                }
+                
+            }
+
+            for (int x = 0, ancho = escalonada.ancho(); x < ancho; x++){
+                
+                for (int y = 0; y < ancho; y++){
+                    
+                    if (escalonada.obtener(x, y) != 0 & escalonada.obtener(y, y) == 1 & x != y){
+                        
+                        double Multiplo = escalonada.obtener(x, y);
+
+                        escalonada.agregarInstruccion("L" + (x + 1) + (y + 1) + "(-" + Multiplo + ")");
+                        escalonada.establecer(x, escalonada.obtener(x).restar(escalonada.obtener(y).multiplicar(Multiplo)));
                         
                     }
                     
@@ -398,9 +490,9 @@ public class Matriz {
             
             Repetir = false;
             
-            for (int Diagonal = 0, Ancho = Escalonada.Ancho(); Diagonal < Ancho; Diagonal++){
+            for (int Diagonal = 0, Ancho = escalonada.ancho(); Diagonal < Ancho; Diagonal++){
                 
-                double ValorDiagonal = Escalonada.Obtener(Diagonal, Diagonal);
+                double ValorDiagonal = escalonada.obtener(Diagonal, Diagonal);
                 
                 if (ValorDiagonal != 0 & ValorDiagonal != 1){
                     
@@ -413,124 +505,42 @@ public class Matriz {
             
         }
         
-        return Inversa;
+        return escalonada;
+        
     }
     
-    public Matriz Escalonar(){
+    public Matriz opuesta(){
         
-        Matriz Escalonada = Clonar();
+        Matriz opuesta = new Matriz(this.ancho(), this.largo());
         
-        for (boolean Repetir = true; Repetir;){
+        for (int x = 0, A = this.ancho(); x < A; x++){
             
-            for (int Ancho = Escalonada.Ancho(), IndiceNulo = Ancho; IndiceNulo > 0 ; IndiceNulo--){
-                
-                if (Escalonada.Obtener(IndiceNulo, IndiceNulo) == 0){
-                    
-                    for (int i = Ancho; i > 0; i--){
-                        
-                        if (Escalonada.Obtener(i, IndiceNulo) != 0){
-                            
-                            Escalonada.AgregarInstruccion("L" + (IndiceNulo + 1) + (i + 1));
-
-                            Vector Vec = Escalonada.Obtener(i);
-                            Escalonada.Establecer(i, Escalonada.Obtener(IndiceNulo));
-                            Escalonada.Establecer(IndiceNulo, Vec);
-                            break;
-                            
-                        }
-                        
-                    }
-                    
-                }
-                
-            }
-
-            for (int Diagonal = 0, Ancho = Escalonada.Ancho(); Diagonal < Ancho; Diagonal++){
-                // Verificar que diagonalmente los valores son 1
-                // Si son 0, no se puede hacer nada
-                // Si son diferentes de 1 se debe dividir la fila por tal numero
-
-                double ValorDiagonal = Escalonada.Obtener(Diagonal, Diagonal);
-                
-                if (ValorDiagonal != 0 & ValorDiagonal != 1){
-                    
-                    Escalonada.AgregarInstruccion("L" + (Diagonal + 1) + "(1/" + ValorDiagonal + ")");
-                    Escalonada.Establecer(Diagonal, Escalonada.Obtener(Diagonal).Multiplicar(1 / ValorDiagonal));
-                    
-                }
-                
-            }
-
-            for (int x = 0, Ancho = Escalonada.Ancho(); x < Ancho; x++){
-                
-                for (int y = 0; y < Ancho; y++){
-                    
-                    if (Escalonada.Obtener(x, y) != 0 & Escalonada.Obtener(y, y) == 1 & x != y){
-                        
-                        double Multiplo = Escalonada.Obtener(x, y);
-
-                        Escalonada.AgregarInstruccion("L" + (x + 1) + (y + 1) + "(-" + Multiplo + ")");
-                        Escalonada.Establecer(x, Escalonada.Obtener(x).Restar(Escalonada.Obtener(y).Multiplicar(Multiplo)));
-                        
-                    }
-                    
-                }
-                
-            }
-            
-            Repetir = false;
-            
-            for (int Diagonal = 0, Ancho = Escalonada.Ancho(); Diagonal < Ancho; Diagonal++){
-                
-                double ValorDiagonal = Escalonada.Obtener(Diagonal, Diagonal);
-                
-                if (ValorDiagonal != 0 & ValorDiagonal != 1){
-                    
-                    Repetir = true;
-                    break;
-                    
-                }
-                
-            }
+            opuesta.establecer(x, this.obtener(x).opuesta());
             
         }
         
-        return Escalonada;
+        return opuesta;
         
     }
     
-    public Matriz Opuesta(){
+    public double determinante(){
         
-        Matriz Opuesta = new Matriz(this.Ancho(), this.Largo());
-        
-        for (int x = 0, A = this.Ancho(); x < A; x++){
-            
-            Opuesta.Establecer(x, this.Obtener(x).Opuesta());
-            
-        }
-        
-        return Opuesta;
-        
-    }
-    
-    public double Determinante(){
-        
-        if (this.Ancho() != this.Largo()){
+        if (this.ancho() != this.largo()){
             
             return 0;
             
-        }else if (this.Ancho() == 2){
+        }else if (this.ancho() == 2){
             
-            return this.Obtener(0, 0) * this.Obtener(1, 1) - this.Obtener(0, 1) * this.Obtener(1, 0);
+            return this.obtener(0, 0) * this.obtener(1, 1) - this.obtener(0, 1) * this.obtener(1, 0);
             
         }
         
-        double Determinante = 0;
-        byte Signo = 1;
+        double determinante = 0;
+        byte signo = 1;
         
-        for (int i = 0, A = this.Ancho(), L = this.Largo(); i < A; i++){
+        for (int i = 0, A = this.ancho(), L = this.largo(); i < A; i++){
             
-            Matriz Matriz = new Matriz(A - 1, L - 1);
+            Matriz matriz = new Matriz(A - 1, L - 1);
             
             for (int y = 0, n = 0; y < L; y++){
                 
@@ -538,7 +548,7 @@ public class Matriz {
                     
                     for (int x = 1; x < A; x++) {
                         
-                        Matriz.Establecer(x - 1, n, this.Obtener(y, x));
+                        matriz.establecer(x - 1, n, this.obtener(y, x));
                         
                     }
                     
@@ -548,42 +558,43 @@ public class Matriz {
                 
             }
             
-            Determinante += Signo * this.Obtener(i, 0) * Matriz.Determinante();
-            Signo *= -1;
+            // La determinante de una matriz de dimension mayor que 2x2 es un número líder multiplicado por la determinante de una sub-matriz
+            determinante += signo * this.obtener(i, 0) * matriz.determinante();
+            signo *= -1;
             
         }
         
-        return Determinante;
+        return determinante;
         
     }
     
-    public boolean EsIdempotente(){
+    public boolean esIdempotente(){
         
-        return this.equals(this.Multiplicar(this));
-        
-    }
-    
-    public boolean EsInvolutiva(){
-        
-        return this.equals(this.Inversa());
+        return this.equals(this.multiplicar(this));
         
     }
     
-    public boolean EsSimetrica(){
+    public boolean esInvolutiva(){
         
-        return this.Transpuesta().equals(this);
-        
-    }
-    
-    public boolean EsAntisimetrica(){
-        
-        return this.Transpuesta().equals(this.Opuesta());
+        return this.equals(this.inversa());
         
     }
     
-    public boolean EsOrtogonal(){
+    public boolean esSimetrica(){
         
-        return this.Transpuesta().equals(this.Inversa());
+        return this.transpuesta().equals(this);
+        
+    }
+    
+    public boolean esAntisimetrica(){
+        
+        return this.transpuesta().equals(this.opuesta());
+        
+    }
+    
+    public boolean esOrtogonal(){
+        
+        return this.transpuesta().equals(this.inversa());
         
     }
 }
