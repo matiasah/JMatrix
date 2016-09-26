@@ -83,9 +83,10 @@ public class Matriz {
     }
     
     @Override public boolean equals(Object objeto){
-        Matriz matriz = (Matriz) objeto;
         
-        if (matriz != null){
+        if (objeto instanceof Matriz){
+            
+            Matriz matriz = (Matriz) objeto;
             
             if (matriz.ancho() != this.ancho() | matriz.largo() != this.largo()){
                 
@@ -108,6 +109,7 @@ public class Matriz {
         }
         
         return false;
+        
     }
     
     public Matriz clonar(){

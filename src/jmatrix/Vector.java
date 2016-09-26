@@ -5,12 +5,12 @@ public class Vector {
     
     private double [] elemento;
     
-    public Vector(int Ancho){
-        elemento = new double[Ancho];
+    public Vector(int ancho){
+        this.elemento = new double[ancho];
     }
     
-    public Vector(double [] Elementos){
-        elemento = Elementos;
+    public Vector(double [] elemento){
+        this.elemento = elemento;
     }
     
     public Vector clonar(){
@@ -46,29 +46,31 @@ public class Vector {
     }
     
     @Override public boolean equals(Object objeto){
-        Vector vector = (Vector) objeto;
         
-        if (vector != null){
+        if (objeto instanceof Vector){
+        
+            Vector vector = (Vector) objeto;
             
             int A = this.ancho();
             
             if (vector.ancho() != A){
-                
+
                 return false;
-                
+
             }
-            
+
             for (int x = 0; x < A; x++){
-                
+
                 if (this.obtener(x) != vector.obtener(x)){
-                    
+
                     return false;
-                    
+
                 }
                 
             }
             
             return true;
+            
         }
         
         return false;
