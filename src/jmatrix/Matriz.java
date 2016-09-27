@@ -517,7 +517,7 @@ public class Matriz {
         
         for (int x = 0, A = this.ancho(); x < A; x++){
             
-            opuesta.establecer(x, this.obtener(x).opuesta());
+            opuesta.establecer(x, this.obtener(x).opuesto());
             
         }
         

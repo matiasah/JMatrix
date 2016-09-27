@@ -77,31 +77,31 @@ public class Vector {
         
     }
     
-    public void establecer(int Indice, double Valor){
+    public void establecer(int indice, double valor){
         
-        if (Indice >= 0 & Indice < this.ancho()){
+        if (indice >= 0 & indice < this.ancho()){
             
-            this.elemento[Indice] = Valor;
-            
-        }
-        
-    }
-    
-    public void sumar(int Indice, double Valor){
-        
-        if (Indice >= 0 & Indice < this.ancho()){
-            
-            this.elemento[Indice] += Valor;
+            this.elemento[indice] = valor;
             
         }
         
     }
     
-    public double obtener(int Indice){
+    public void sumar(int indice, double valor){
         
-        if (Indice >= 0 & Indice < this.ancho()){
+        if (indice >= 0 & indice < this.ancho()){
             
-            return this.elemento[Indice];
+            this.elemento[indice] += valor;
+            
+        }
+        
+    }
+    
+    public double obtener(int indice){
+        
+        if (indice >= 0 & indice < this.ancho()){
+            
+            return this.elemento[indice];
             
         }
         
@@ -124,7 +124,7 @@ public class Vector {
             )
         );
         
-        for (int x = 0, A = suma.ancho(); x < A; x++){
+        for (int x = 0, ancho = suma.ancho(); x < ancho; x++){
             
             suma.sumar(x, this.obtener(x) + vec.obtener(x));
             
@@ -143,7 +143,7 @@ public class Vector {
             )
         );
         
-        for (int x = 0, A = resta.ancho(); x < A; x++){
+        for (int x = 0, ancho = resta.ancho(); x < ancho; x++){
             resta.sumar(x, this.obtener(x) - vector.obtener(x));
         }
         
@@ -151,14 +151,14 @@ public class Vector {
         
     }
     
-    public Vector multiplicar(double Numero){
+    public Vector multiplicar(double numero){
         
-        int A = this.ancho();
-        Vector multiplicacion = new Vector(A);
+        int ancho = this.ancho();
+        Vector multiplicacion = new Vector(ancho);
         
-        for (int x = 0; x < A; x++){
+        for (int x = 0; x < ancho; x++){
             
-            multiplicacion.establecer(x, this.obtener(x) * Numero);
+            multiplicacion.establecer(x, this.obtener(x) * numero);
             
         }
         
@@ -166,9 +166,9 @@ public class Vector {
         
     }
     
-    public Vector dividir(double Numero){
+    public Vector dividir(double numero){
         
-        if (Numero == 0){
+        if (numero == 0){
             
             // No se puede dividir por cero
             return null;
@@ -176,16 +176,16 @@ public class Vector {
         }
         
         // Dividir 1 por el número y luego multiplicar el inverso cuesta menos CPU
-        return this.multiplicar(1 / Numero);
+        return this.multiplicar(1 / numero);
         
     }
     
-    public Vector opuesta(){
+    public Vector opuesto(){
         
-        int A = this.ancho();
-        Vector opuesto = new Vector(A);
+        int ancho = this.ancho();
+        Vector opuesto = new Vector(ancho);
         
-        for (int x = 0; x < A; x++){
+        for (int x = 0; x < ancho; x++){
             
             opuesto.establecer(x, -this.obtener(x));
             
