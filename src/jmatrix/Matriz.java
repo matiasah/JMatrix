@@ -48,6 +48,37 @@ public class Matriz {
         }
     }
     
+    public Matriz(javax.swing.JTable tabla) {
+        
+        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tabla.getModel();
+        int l = modelo.getRowCount();
+        int a = modelo.getColumnCount();
+        
+        this.vector = new Vector[l];
+        
+        for (int x = 0; x < l; x++){
+            
+            Vector v = new Vector(a);
+            this.vector[x] = v;
+            
+            for (int y = 0; y < a; y++) {
+                
+                Double valor = (Double) modelo.getValueAt(x, y);
+                
+                if (valor == null) {
+                    
+                    valor = new Double(0);
+                    
+                }
+                
+                v.establecer(y, valor);
+                
+            }
+            
+        }
+        
+    }
+    
     public Matriz(int tamaño){
         
         this.vector = new Vector[tamaño];
@@ -126,7 +157,7 @@ public class Matriz {
         
     }
     
-    public boolean Validar(){
+    public boolean validar(){
         
         if (this.vector != null & this.vector.length > 0){
             
@@ -145,7 +176,7 @@ public class Matriz {
     
     public int largo(){
         
-        if (this.Validar()){
+        if (this.validar()){
             
             return this.vector[0].ancho();
             
@@ -169,6 +200,31 @@ public class Matriz {
         if (x >= 0 & x < this.vector.length){
             
             this.vector[x].establecer(y, valor);
+            
+        }
+        
+    }
+    
+    public void insertar(javax.swing.JTable tabla) {
+        
+        if (this.validar()) {
+        
+            javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tabla.getModel();
+
+            modelo.setColumnCount(this.vector[0].ancho());
+            modelo.setRowCount(this.vector.length);
+            
+            for (int x = 0; x < this.vector.length; x++) {
+                
+                Vector v = this.vector[x];
+                
+                for (int y = 0, a = v.ancho(); y < a; y++) {
+                    
+                    modelo.setValueAt(v.obtener(y), x, y);
+                    
+                }
+                
+            }
             
         }
         

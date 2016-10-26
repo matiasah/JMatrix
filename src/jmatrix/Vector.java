@@ -77,7 +77,7 @@ public class Vector {
         
     }
     
-    public void establecer(int indice, double valor){
+    public void establecer(int indice, double valor) {
         
         if (indice >= 0 & indice < this.ancho()){
             
@@ -106,6 +106,20 @@ public class Vector {
         }
         
         return 0;
+        
+    }
+    
+    public Double [] obtener() {
+        
+        Double elemento[] = new Double[this.elemento.length];
+        
+        for (int i = 0; i < this.elemento.length; i++) {
+            
+            elemento[i] = new Double(this.elemento[i]);
+            
+        }
+        
+        return elemento;
         
     }
     
