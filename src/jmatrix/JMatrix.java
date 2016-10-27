@@ -100,6 +100,17 @@ public class JMatrix extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         segundaSalida = new javax.swing.JTextArea();
         jLabel12 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        resultadoMatriz = new javax.swing.JTable();
+        jLabel15 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        resultadoLista = new javax.swing.JList<>();
+        jLabel13 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        escalonarResultadoMatriz = new javax.swing.JButton();
+        invertirResultadoMatriz = new javax.swing.JButton();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        resultadoSalida = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         archivo = new javax.swing.JMenu();
         abrir = new javax.swing.JMenuItem();
@@ -165,6 +176,11 @@ public class JMatrix extends javax.swing.JFrame {
         jLabel3.setText("x");
 
         okPrimeraMatriz.setText("Ok");
+        okPrimeraMatriz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okPrimeraMatrizActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Ancho");
 
@@ -202,6 +218,11 @@ public class JMatrix extends javax.swing.JFrame {
         jLabel7.setText("x");
 
         okSegundaMatriz.setText("Ok");
+        okSegundaMatriz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okSegundaMatrizActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Ancho");
 
@@ -257,6 +278,50 @@ public class JMatrix extends javax.swing.JFrame {
         jScrollPane6.setViewportView(segundaSalida);
 
         jLabel12.setText("=");
+
+        resultadoMatriz.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {},
+            new String [] {}
+        ) {
+
+            public Class getColumnClass(int columnIndex) {
+                return java.lang.Double.class;
+            }
+        });
+        jScrollPane7.setViewportView(resultadoMatriz);
+        if (resultadoMatriz.getColumnModel().getColumnCount() > 0) {
+            resultadoMatriz.getColumnModel().getColumn(0).setResizable(false);
+        }
+
+        jLabel15.setText("Resultado");
+
+        resultadoLista.setModel(new ListaModeloMatriz(matrices));
+        resultadoLista.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                resultadoListaValueChanged(evt);
+            }
+        });
+        jScrollPane8.setViewportView(resultadoLista);
+
+        jLabel13.setText("Salida del proceso");
+
+        escalonarResultadoMatriz.setText("Escalonar");
+        escalonarResultadoMatriz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                escalonarResultadoMatrizActionPerformed(evt);
+            }
+        });
+
+        invertirResultadoMatriz.setText("Invertir");
+        invertirResultadoMatriz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                invertirResultadoMatrizActionPerformed(evt);
+            }
+        });
+
+        resultadoSalida.setColumns(20);
+        resultadoSalida.setRows(5);
+        jScrollPane9.setViewportView(resultadoSalida);
 
         archivo.setText("Archivo");
 
@@ -365,7 +430,24 @@ public class JMatrix extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(283, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(escalonarResultadoMatriz, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(invertirResultadoMatriz, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,20 +494,28 @@ public class JMatrix extends javax.swing.JFrame {
                                 .addComponent(invertirPrimeraMatriz))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(79, 79, 79)
-                                        .addComponent(jLabel12)))
-                                .addGap(8, 8, 8)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel10)))
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(79, 79, 79)
+                                                .addComponent(jLabel12)))
+                                        .addGap(8, 8, 8)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jLabel10)))
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
@@ -434,16 +524,29 @@ public class JMatrix extends javax.swing.JFrame {
                             .addComponent(largoSegundaMatriz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(agregarSegundaMatriz))
                         .addGap(14, 14, 14)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(escalonarSegundaMatriz)
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(invertirSegundaMatriz))
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(escalonarSegundaMatriz)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(invertirSegundaMatriz))
+                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(escalonarResultadoMatriz)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(invertirResultadoMatriz))
+                                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -477,7 +580,17 @@ public class JMatrix extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_abrirActionPerformed
-
+    
+    public void actualizarListas() {
+        
+        ListaModeloMatriz modelo = new ListaModeloMatriz(matrices);
+        
+        primeraLista.setModel(modelo);
+        segundaLista.setModel(modelo);
+        resultadoLista.setModel(modelo);
+        
+    }
+    
     private void multiplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_multiplicarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_multiplicarActionPerformed
@@ -504,23 +617,23 @@ public class JMatrix extends javax.swing.JFrame {
 
     private void agregarPrimeraMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarPrimeraMatrizActionPerformed
         
-        matrices.add(new Matriz(5, 5));
+        int ancho = (Integer) anchoPrimeraMatriz.getValue();
+        int largo = (Integer) largoPrimeraMatriz.getValue();
         
-        ListaModeloMatriz modelo = new ListaModeloMatriz(matrices);
+        matrices.add(new Matriz(ancho, largo));
         
-        primeraLista.setModel(modelo);
-        segundaLista.setModel(modelo);
+        actualizarListas();
         
     }//GEN-LAST:event_agregarPrimeraMatrizActionPerformed
 
     private void agregarSegundaMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarSegundaMatrizActionPerformed
         
-        matrices.add(new Matriz(0, 0));
+        int ancho = (Integer) anchoSegundaMatriz.getValue();
+        int largo = (Integer) largoSegundaMatriz.getValue();
         
-        ListaModeloMatriz modelo = new ListaModeloMatriz(matrices);
+        matrices.add(new Matriz(ancho, largo));
         
-        primeraLista.setModel(modelo);
-        segundaLista.setModel(modelo);
+        actualizarListas();
         
     }//GEN-LAST:event_agregarSegundaMatrizActionPerformed
 
@@ -563,6 +676,84 @@ public class JMatrix extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_segundaListaValueChanged
+
+    private void resultadoListaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_resultadoListaValueChanged
+        
+        if (evt.getValueIsAdjusting()) {
+            
+            Matriz matriz = matrices.get(evt.getFirstIndex());
+            
+            if (matriz != null) {
+                
+                matriz.insertar(resultadoMatriz);
+                
+            }
+            
+        }
+        
+    }//GEN-LAST:event_resultadoListaValueChanged
+
+    private void escalonarResultadoMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escalonarResultadoMatrizActionPerformed
+        
+    }//GEN-LAST:event_escalonarResultadoMatrizActionPerformed
+
+    private void invertirResultadoMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invertirResultadoMatrizActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_invertirResultadoMatrizActionPerformed
+
+    private void okPrimeraMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okPrimeraMatrizActionPerformed
+        
+        int ancho = (Integer) anchoPrimeraMatriz.getValue();
+        int largo = (Integer) largoPrimeraMatriz.getValue();
+        
+        int indice = primeraLista.getSelectedIndex();
+        
+        Matriz matriz = new Matriz(ancho, largo);
+        matriz.insertar(primeraMatriz);
+        
+        if (segundaLista.getSelectedIndex() == indice){
+            
+            matriz.insertar(segundaMatriz);
+            
+        }
+        
+        if (resultadoLista.getSelectedIndex() == indice){
+            
+            matriz.insertar(resultadoMatriz);
+            
+        }
+        
+        matrices.set(indice, matriz);
+        actualizarListas();
+        
+    }//GEN-LAST:event_okPrimeraMatrizActionPerformed
+
+    private void okSegundaMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okSegundaMatrizActionPerformed
+        
+        int ancho = (Integer) anchoSegundaMatriz.getValue();
+        int largo = (Integer) largoSegundaMatriz.getValue();
+        
+        int indice = segundaLista.getSelectedIndex();
+        
+        Matriz matriz = new Matriz(ancho, largo);
+        matriz.insertar(segundaMatriz);
+        
+        if (primeraLista.getSelectedIndex() == indice){
+            
+            matriz.insertar(primeraMatriz);
+            
+        }
+        
+        if (resultadoLista.getSelectedIndex() == indice){
+            
+            matriz.insertar(resultadoMatriz);
+            
+        }
+        
+        matrices.set(indice, matriz);
+        actualizarListas();
+        
+    }//GEN-LAST:event_okSegundaMatrizActionPerformed
 
     /**
      * @param args the command line arguments
@@ -608,9 +799,11 @@ public class JMatrix extends javax.swing.JFrame {
     private javax.swing.JMenu archivo;
     private javax.swing.JButton dividir;
     private javax.swing.JButton escalonarPrimeraMatriz;
+    private javax.swing.JButton escalonarResultadoMatriz;
     private javax.swing.JButton escalonarSegundaMatriz;
     private javax.swing.JMenuItem guardar;
     private javax.swing.JButton invertirPrimeraMatriz;
+    private javax.swing.JButton invertirResultadoMatriz;
     private javax.swing.JButton invertirSegundaMatriz;
     private javax.swing.JButton jButton2;
     private javax.swing.JFileChooser jFileChooser1;
@@ -619,6 +812,8 @@ public class JMatrix extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -634,8 +829,12 @@ public class JMatrix extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSpinner jSpinner2;
     private javax.swing.JSpinner largoPrimeraMatriz;
     private javax.swing.JSpinner largoSegundaMatriz;
@@ -646,6 +845,9 @@ public class JMatrix extends javax.swing.JFrame {
     private javax.swing.JTable primeraMatriz;
     private javax.swing.JTextArea primeraSalida;
     private javax.swing.JButton restar;
+    private javax.swing.JList<String> resultadoLista;
+    private javax.swing.JTable resultadoMatriz;
+    private javax.swing.JTextArea resultadoSalida;
     private javax.swing.JList<String> segundaLista;
     private javax.swing.JTable segundaMatriz;
     private javax.swing.JTextArea segundaSalida;
