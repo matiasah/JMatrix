@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import javax.swing.UIManager;
 import javax.swing.SwingUtilities;
 
+import javax.swing.UnsupportedLookAndFeelException;
+
 /**
  *
  * @author matia
@@ -29,15 +31,21 @@ public class JMatrix extends javax.swing.JFrame {
         
         try {
             
+            java.io.RandomAccessFile archivo = new java.io.RandomAccessFile("test.txt", "rw");
+            
+            Matriz mat = new Matriz(archivo);
+            
+            System.out.println(mat);
+            
+        } catch (java.io.FileNotFoundException e) {
+            
+        }
+        
+        try {
+            
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             
-        } catch (ClassNotFoundException e) {
-            
-        } catch (InstantiationException e) {
-            
-        } catch (IllegalAccessException e) {
-            
-        } catch (javax.swing.UnsupportedLookAndFeelException e) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
             
         }
 

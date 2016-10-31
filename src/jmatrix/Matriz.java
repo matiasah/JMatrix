@@ -1,6 +1,16 @@
 package jmatrix;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import java.io.RandomAccessFile;
+import java.io.IOException;
+
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 public class Matriz {
     
@@ -48,9 +58,9 @@ public class Matriz {
         }
     }
     
-    public Matriz(javax.swing.JTable tabla) {
+    public Matriz(JTable tabla) {
         
-        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tabla.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         int l = modelo.getRowCount();
         int a = modelo.getColumnCount();
         
@@ -88,6 +98,48 @@ public class Matriz {
             
             this.vector[x] = new Vector(tamaño);
             this.establecer(x, x, 1);
+            
+        }
+        
+    }
+    
+    public Matriz(RandomAccessFile archivo) {
+        
+        try {
+            
+            byte [] contenido = new byte[ (int) archivo.length()];
+            
+            archivo.read(contenido);
+            archivo.close();
+            
+            JSONArray matriz = new JSONArray( new String(contenido) );
+            
+            int a = matriz.length();
+            
+            this.vector = new Vector[a];
+            
+            for (int x = 0; x < a; x++) {
+                
+                JSONArray arreglo = matriz.optJSONArray(x);
+                
+                if (arreglo != null) {
+                
+                    int l = arreglo.length();
+                    Vector vec = new Vector(l);
+
+                    this.vector[x] = vec;
+
+                    for (int y = 0; y < l; y++) {
+
+                        vec.establecer(y, arreglo.optDouble(y));
+
+                    }
+                    
+                }
+                
+            }
+        
+        } catch (IOException | JSONException e) {
             
         }
         
@@ -200,31 +252,6 @@ public class Matriz {
         if (x >= 0 & x < this.vector.length){
             
             this.vector[x].establecer(y, valor);
-            
-        }
-        
-    }
-    
-    public void insertar(javax.swing.JTable tabla) {
-        
-        if (this.validar()) {
-        
-            javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tabla.getModel();
-
-            modelo.setColumnCount(this.vector[0].ancho());
-            modelo.setRowCount(this.vector.length);
-            
-            for (int x = 0; x < this.vector.length; x++) {
-                
-                Vector v = this.vector[x];
-                
-                for (int y = 0, a = v.ancho(); y < a; y++) {
-                    
-                    modelo.setValueAt(v.obtener(y), x, y);
-                    
-                }
-                
-            }
             
         }
         
@@ -655,4 +682,91 @@ public class Matriz {
         return this.transpuesta().equals(this.inversa());
         
     }
+    
+    public void insertar(JTable tabla) {
+        
+        if (this.validar()) {
+        
+            javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tabla.getModel();
+
+            modelo.setColumnCount(this.vector[0].ancho());
+            modelo.setRowCount(this.vector.length);
+            
+            for (int x = 0; x < this.vector.length; x++) {
+                
+                Vector v = this.vector[x];
+                
+                for (int y = 0, a = v.ancho(); y < a; y++) {
+                    
+                    modelo.setValueAt(v.obtener(y), x, y);
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    public void guardar(RandomAccessFile archivo) {
+        
+        ArrayList<ArrayList<Double>> lista = this.obtenerLista();
+        
+        JSONArray arreglo = new JSONArray(lista);
+        
+        try {
+            
+            archivo.writeBytes( arreglo.toString() );
+            archivo.close();
+        
+        } catch (IOException e) {
+            
+            
+        }
+        
+    }
+    
+    public ArrayList<ArrayList<Double>> obtenerLista() {
+        
+        ArrayList<ArrayList<Double>> lista = new ArrayList<ArrayList<Double>>();
+        
+        for (int x = 0, a = this.ancho(); x < a; x++) {
+            
+            ArrayList<Double> subLista = new ArrayList<Double>();
+            Double [] vector = this.vector[x].obtener();
+            
+            for (int y = 0; y < vector.length; y++) {
+                
+                subLista.add(vector[y]);
+                
+            }
+            
+            lista.add(subLista);
+            
+        }
+        
+        return lista;
+        
+    }
+    
+    public double [][] obtener() {
+        
+        int a = this.ancho();
+        int l = this.largo();
+        double [][] matriz = new double[a][l];
+        
+        for (int x = 0; x < a; x++) {
+            
+            for (int y = 0; y < l; y++) {
+                
+                matriz[x][y] = vector[x].obtener(y);
+                
+            }
+            
+        }
+        
+        return matriz;
+        
+    }
+    
 }
