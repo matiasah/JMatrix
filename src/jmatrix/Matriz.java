@@ -749,24 +749,4 @@ public class Matriz {
         
     }
     
-    public double [][] obtener() {
-        
-        int a = this.ancho();
-        int l = this.largo();
-        double [][] matriz = new double[a][l];
-        
-        for (int x = 0; x < a; x++) {
-            
-            for (int y = 0; y < l; y++) {
-                
-                matriz[x][y] = vector[x].obtener(y);
-                
-            }
-            
-        }
-        
-        return matriz;
-        
-    }
-    
 }
