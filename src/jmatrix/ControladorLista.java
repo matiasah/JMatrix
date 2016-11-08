@@ -104,7 +104,7 @@ public class ControladorLista {
         
         if (evt.getValueIsAdjusting()) {
             
-            Matriz matriz = this.matrices.get(evt.getFirstIndex());
+            Matriz matriz = this.matrices.get(this.lista.getSelectedIndex());
             
             if (matriz != null) {
                 

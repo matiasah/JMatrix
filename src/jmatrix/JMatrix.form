@@ -2,22 +2,6 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Component class="javax.swing.JFileChooser" name="jFileChooser1">
-    </Component>
-    <Component class="javax.swing.JFileChooser" name="jFileChooser2">
-    </Component>
-    <Component class="javax.swing.JSpinner" name="jSpinner2">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel6">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Ancho"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Agregar"/>
-      </Properties>
-    </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="archivo">
@@ -82,7 +66,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="nombrePrimeraMatriz" min="-2" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" alignment="0" min="-2" pref="76" max="-2" attributes="0"/>
                           <Component id="agregarPrimeraMatriz" alignment="0" min="-2" pref="76" max="-2" attributes="0"/>
                       </Group>
@@ -93,13 +77,13 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="anchoPrimeraMatriz" min="-2" pref="42" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="nombrePorPrimeraMatriz" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="nombreAnchoPrimeraMatriz" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                  <Component id="nombreLargoPrimeraMatriz" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="largoPrimeraMatriz" min="-2" pref="42" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -121,7 +105,7 @@
                       </Group>
                   </Group>
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="separadorPrimeraMatriz" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -133,7 +117,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <Component id="nombreSalidaPrimeraMatriz" min="-2" max="-2" attributes="0"/>
                               <Component id="jScrollPane3" min="-2" pref="174" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -143,7 +127,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="nombreSegundaMatriz" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jScrollPane5" alignment="0" min="-2" pref="76" max="-2" attributes="0"/>
                           <Component id="agregarSegundaMatriz" alignment="0" min="-2" pref="76" max="-2" attributes="0"/>
                       </Group>
@@ -154,13 +138,13 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="anchoSegundaMatriz" min="-2" pref="42" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                      <Component id="nombrePorSegundaMatriz" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="nombreAnchoSegundaMatriz" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="nombreLargoSegundaMatriz" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="largoSegundaMatriz" min="-2" pref="42" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -172,12 +156,12 @@
                               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                               <Component id="jScrollPane4" min="-2" pref="180" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                              <Component id="nombreIgualMatriz" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="separadorSegundaMatriz" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -189,7 +173,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="nombreSalidaSegundaMatriz" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jScrollPane6" alignment="0" min="-2" pref="174" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -197,7 +181,7 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jSeparator3" max="32767" attributes="0"/>
+                  <Component id="separadorTerceraMatriz" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jScrollPane8" min="-2" pref="76" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
@@ -216,11 +200,11 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="nombreSalidaResultadoMatriz" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jScrollPane9" alignment="0" min="-2" pref="174" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="nombreResultadoMatriz" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -235,37 +219,37 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
-                      <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                      <Component id="nombreIgualMatriz" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="nombrePrimeraMatriz" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jScrollPane2" min="-2" pref="162" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="nombreAnchoPrimeraMatriz" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="nombreLargoPrimeraMatriz" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Component id="jScrollPane1" min="-2" pref="184" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="nombrePorPrimeraMatriz" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="okPrimeraMatriz" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="anchoPrimeraMatriz" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="largoPrimeraMatriz" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="agregarPrimeraMatriz" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                              <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+                              <Component id="separadorPrimeraMatriz" min="-2" pref="10" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <Component id="nombreSalidaPrimeraMatriz" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
@@ -281,15 +265,15 @@
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                              <Component id="nombreSegundaMatriz" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jScrollPane4" min="-2" pref="162" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="nombreAnchoSegundaMatriz" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="nombreLargoSegundaMatriz" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Component id="jScrollPane5" alignment="0" min="-2" pref="184" max="-2" attributes="0"/>
@@ -306,16 +290,16 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="nombrePorSegundaMatriz" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="okSegundaMatriz" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="anchoSegundaMatriz" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="largoSegundaMatriz" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="agregarSegundaMatriz" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                              <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
+                              <Component id="separadorSegundaMatriz" min="-2" pref="10" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                              <Component id="nombreSalidaSegundaMatriz" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
@@ -331,16 +315,16 @@
                               </Group>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                              <Component id="nombreResultadoMatriz" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jScrollPane8" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jScrollPane7" alignment="0" min="-2" pref="184" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="43" pref="43" max="-2" attributes="0"/>
-                              <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
+                              <Component id="separadorTerceraMatriz" min="-2" pref="10" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                              <Component id="nombreSalidaResultadoMatriz" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
@@ -389,7 +373,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="nombrePrimeraMatriz">
       <Properties>
         <Property name="text" type="java.lang.String" value="Primera matriz"/>
       </Properties>
@@ -448,7 +432,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dividirActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
+    <Component class="javax.swing.JLabel" name="nombrePorPrimeraMatriz">
       <Properties>
         <Property name="text" type="java.lang.String" value="x"/>
       </Properties>
@@ -465,12 +449,12 @@
     </Component>
     <Component class="javax.swing.JSpinner" name="largoPrimeraMatriz">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
+    <Component class="javax.swing.JLabel" name="nombreAnchoPrimeraMatriz">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ancho"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel8">
+    <Component class="javax.swing.JLabel" name="nombreLargoPrimeraMatriz">
       <Properties>
         <Property name="text" type="java.lang.String" value="Largo"/>
       </Properties>
@@ -514,21 +498,21 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="nombreSalidaPrimeraMatriz">
       <Properties>
         <Property name="text" type="java.lang.String" value="Salida del proceso"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JSeparator" name="jSeparator1">
+    <Component class="javax.swing.JSeparator" name="separadorPrimeraMatriz">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
+    <Component class="javax.swing.JLabel" name="nombreSalidaSegundaMatriz">
       <Properties>
         <Property name="text" type="java.lang.String" value="Salida del proceso"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JSeparator" name="jSeparator2">
+    <Component class="javax.swing.JSeparator" name="separadorSegundaMatriz">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel7">
+    <Component class="javax.swing.JLabel" name="nombrePorSegundaMatriz">
       <Properties>
         <Property name="text" type="java.lang.String" value="x"/>
       </Properties>
@@ -545,12 +529,12 @@
     </Component>
     <Component class="javax.swing.JSpinner" name="largoSegundaMatriz">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel9">
+    <Component class="javax.swing.JLabel" name="nombreAnchoSegundaMatriz">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ancho"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel10">
+    <Component class="javax.swing.JLabel" name="nombreLargoSegundaMatriz">
       <Properties>
         <Property name="text" type="java.lang.String" value="Largo"/>
       </Properties>
@@ -610,7 +594,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel11">
+    <Component class="javax.swing.JLabel" name="nombreSegundaMatriz">
       <Properties>
         <Property name="text" type="java.lang.String" value="Segunda matriz"/>
       </Properties>
@@ -652,7 +636,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel12">
+    <Component class="javax.swing.JLabel" name="nombreIgualMatriz">
       <Properties>
         <Property name="text" type="java.lang.String" value="="/>
       </Properties>
@@ -685,7 +669,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel15">
+    <Component class="javax.swing.JLabel" name="nombreResultadoMatriz">
       <Properties>
         <Property name="text" type="java.lang.String" value="Resultado"/>
       </Properties>
@@ -712,12 +696,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel13">
+    <Component class="javax.swing.JLabel" name="nombreSalidaResultadoMatriz">
       <Properties>
         <Property name="text" type="java.lang.String" value="Salida del proceso"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JSeparator" name="jSeparator3">
+    <Component class="javax.swing.JSeparator" name="separadorTerceraMatriz">
     </Component>
     <Component class="javax.swing.JButton" name="escalonarResultadoMatriz">
       <Properties>
