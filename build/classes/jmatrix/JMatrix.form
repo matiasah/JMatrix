@@ -383,6 +383,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="primeraMatrizPropertyChange"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -601,6 +604,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="segundaMatrizPropertyChange"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

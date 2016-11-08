@@ -20,7 +20,13 @@ import java.io.RandomAccessFile;
  */
 public class JMatrix extends javax.swing.JFrame {
     
+    private ControladorLista primerControl;
+    private ControladorLista segundoControl;
+    private ControladorLista resultadoControl;
+    
     private ArrayList<Matriz> matrices;
+    private ArrayList<javax.swing.JList<String>> listas;
+    private ArrayList<javax.swing.JTable> tablas;
 
     /**
      * Creates new form JMatrix
@@ -40,6 +46,46 @@ public class JMatrix extends javax.swing.JFrame {
         }
 
         SwingUtilities.updateComponentTreeUI(this);
+        
+        this.listas = new ArrayList<javax.swing.JList<String>>();
+        listas.add(this.primeraLista);
+        listas.add(this.segundaLista);
+        listas.add(this.resultadoLista);
+        
+        this.tablas = new ArrayList<javax.swing.JTable>();
+        tablas.add(this.primeraMatriz);
+        tablas.add(this.segundaMatriz);
+        tablas.add(this.resultadoMatriz);
+        
+        primerControl = new ControladorLista(
+                this.anchoPrimeraMatriz,
+                this.largoPrimeraMatriz,
+                this.primeraLista,
+                this.primeraMatriz,
+                this.listas,
+                this.tablas,
+                this.matrices
+        );
+        
+        segundoControl = new ControladorLista(
+                this.anchoSegundaMatriz,
+                this.largoSegundaMatriz,
+                this.segundaLista,
+                this.segundaMatriz,
+                this.listas,
+                this.tablas,
+                this.matrices
+        );
+        
+        resultadoControl = new ControladorLista(
+                null,
+                null,
+                this.resultadoLista,
+                this.resultadoMatriz,
+                this.listas,
+                this.tablas,
+                this.matrices
+        );
         
     }
 
@@ -135,6 +181,11 @@ public class JMatrix extends javax.swing.JFrame {
 
             public Class getColumnClass(int columnIndex) {
                 return java.lang.Double.class;
+            }
+        });
+        primeraMatriz.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                primeraMatrizPropertyChange(evt);
             }
         });
         jScrollPane2.setViewportView(primeraMatriz);
@@ -260,6 +311,11 @@ public class JMatrix extends javax.swing.JFrame {
 
             public Class getColumnClass(int columnIndex) {
                 return java.lang.Double.class;
+            }
+        });
+        segundaMatriz.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                segundaMatrizPropertyChange(evt);
             }
         });
         jScrollPane4.setViewportView(segundaMatriz);
@@ -632,17 +688,7 @@ public class JMatrix extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_abrirActionPerformed
-    
-    public void actualizarListas() {
-        
-        ListaModeloMatriz modelo = new ListaModeloMatriz(matrices);
-        
-        primeraLista.setModel(modelo);
-        segundaLista.setModel(modelo);
-        resultadoLista.setModel(modelo);
-        
-    }
-    
+
     private void multiplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_multiplicarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_multiplicarActionPerformed
@@ -669,23 +715,13 @@ public class JMatrix extends javax.swing.JFrame {
 
     private void agregarPrimeraMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarPrimeraMatrizActionPerformed
         
-        int ancho = (Integer) anchoPrimeraMatriz.getValue();
-        int largo = (Integer) largoPrimeraMatriz.getValue();
-        
-        matrices.add(new Matriz(ancho, largo));
-        
-        actualizarListas();
+        this.primerControl.agregar();
         
     }//GEN-LAST:event_agregarPrimeraMatrizActionPerformed
 
     private void agregarSegundaMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarSegundaMatrizActionPerformed
         
-        int ancho = (Integer) anchoSegundaMatriz.getValue();
-        int largo = (Integer) largoSegundaMatriz.getValue();
-        
-        matrices.add(new Matriz(ancho, largo));
-        
-        actualizarListas();
+        this.segundoControl.agregar();
         
     }//GEN-LAST:event_agregarSegundaMatrizActionPerformed
 
@@ -699,49 +735,19 @@ public class JMatrix extends javax.swing.JFrame {
 
     private void primeraListaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_primeraListaValueChanged
         
-        if (evt.getValueIsAdjusting()) {
-            
-            Matriz matriz = matrices.get(evt.getFirstIndex());
-            
-            if (matriz != null) {
-                
-                matriz.insertar(primeraMatriz);
-                
-            }
-            
-        }
+        this.primerControl.seleccionar(evt);
         
     }//GEN-LAST:event_primeraListaValueChanged
 
     private void segundaListaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_segundaListaValueChanged
         
-        if (evt.getValueIsAdjusting()) {
-            
-            Matriz matriz = matrices.get(evt.getFirstIndex());
-            
-            if (matriz != null) {
-                
-                matriz.insertar(segundaMatriz);
-                
-            }
-            
-        }
+        this.segundoControl.seleccionar(evt);
         
     }//GEN-LAST:event_segundaListaValueChanged
 
     private void resultadoListaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_resultadoListaValueChanged
         
-        if (evt.getValueIsAdjusting()) {
-            
-            Matriz matriz = matrices.get(evt.getFirstIndex());
-            
-            if (matriz != null) {
-                
-                matriz.insertar(resultadoMatriz);
-                
-            }
-            
-        }
+        this.resultadoControl.seleccionar(evt);
         
     }//GEN-LAST:event_resultadoListaValueChanged
 
@@ -755,55 +761,13 @@ public class JMatrix extends javax.swing.JFrame {
 
     private void okPrimeraMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okPrimeraMatrizActionPerformed
         
-        int ancho = (Integer) anchoPrimeraMatriz.getValue();
-        int largo = (Integer) largoPrimeraMatriz.getValue();
-        
-        int indice = primeraLista.getSelectedIndex();
-        
-        Matriz matriz = new Matriz(ancho, largo);
-        matriz.insertar(primeraMatriz);
-        
-        if (segundaLista.getSelectedIndex() == indice){
-            
-            matriz.insertar(segundaMatriz);
-            
-        }
-        
-        if (resultadoLista.getSelectedIndex() == indice){
-            
-            matriz.insertar(resultadoMatriz);
-            
-        }
-        
-        matrices.set(indice, matriz);
-        actualizarListas();
+        this.primerControl.ok(evt);
         
     }//GEN-LAST:event_okPrimeraMatrizActionPerformed
 
     private void okSegundaMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okSegundaMatrizActionPerformed
         
-        int ancho = (Integer) anchoSegundaMatriz.getValue();
-        int largo = (Integer) largoSegundaMatriz.getValue();
-        
-        int indice = segundaLista.getSelectedIndex();
-        
-        Matriz matriz = new Matriz(ancho, largo);
-        matriz.insertar(segundaMatriz);
-        
-        if (primeraLista.getSelectedIndex() == indice){
-            
-            matriz.insertar(primeraMatriz);
-            
-        }
-        
-        if (resultadoLista.getSelectedIndex() == indice){
-            
-            matriz.insertar(resultadoMatriz);
-            
-        }
-        
-        matrices.set(indice, matriz);
-        actualizarListas();
+        this.segundoControl.ok(evt);
         
     }//GEN-LAST:event_okSegundaMatrizActionPerformed
 
@@ -818,6 +782,26 @@ public class JMatrix extends javax.swing.JFrame {
     private void transponerResultadoMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transponerResultadoMatrizActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_transponerResultadoMatrizActionPerformed
+
+    private void primeraMatrizPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_primeraMatrizPropertyChange
+        
+        if (this.primerControl != null) {
+            
+            this.primerControl.propiedad(evt);
+            
+        }
+        
+    }//GEN-LAST:event_primeraMatrizPropertyChange
+
+    private void segundaMatrizPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_segundaMatrizPropertyChange
+        
+        if (this.segundoControl != null) {
+            
+            this.segundoControl.propiedad(evt);
+            
+        }
+        
+    }//GEN-LAST:event_segundaMatrizPropertyChange
 
     /**
      * @param args the command line arguments
