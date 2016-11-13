@@ -1,30 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package jmatrix;
+package jmatrix.controlador;
 
 import java.util.ArrayList;
 import javax.swing.JSpinner;
 import javax.swing.JList;
 import javax.swing.JTable;
+import jmatrix.ListaModeloMatriz;
+import jmatrix.Matriz;
 
-/**
- *
- * @author matia
- */
-public class ControladorLista {
+public class ControladorGUI extends Controlador {
     
+    // Dimensiones con los controles en la lista/tabla actual
     private JSpinner anchoMatriz;
     private JSpinner largoMatriz;
+    
+    // Lista y tablas actuales
     private JList<String> lista;
     private JTable tabla;
-    private ArrayList<JList<String>> listas;
-    private ArrayList<JTable> tablas;
-    private ArrayList<Matriz> matrices;
     
-    public ControladorLista(
+    public ControladorGUI(
             JSpinner anchoMatriz,
             JSpinner largoMatriz,
             JList<String> lista,
@@ -44,7 +37,7 @@ public class ControladorLista {
         
     }
     
-    private void actualizar() {
+    private void actualizarListas() {
         
         ListaModeloMatriz modelo = new ListaModeloMatriz(matrices);
         
@@ -61,40 +54,56 @@ public class ControladorLista {
     
     public void propiedad(java.beans.PropertyChangeEvent evt) {
         
-        System.out.println(evt.getPropertyName()+":"+evt.getNewValue());
+        if (!this.tabla.isEditing()) {
+            
+            // Una vez se termina de editar, se reemplazan los valores en el objeto Matriz
+            
+            int indice = this.lista.getSelectedIndex();
+            
+            if (indice >= 0) {
+                
+                // Verificar que hay elementos seleccionados
+                
+                Matriz matriz = this.matrices.get(indice);
+                
+                if (matriz != null) {
+                    
+                    // Verificar que la matríz en el índice indicado no es nula
+                    
+                    int x = this.tabla.getEditingColumn();
+                    int y = this.tabla.getEditingRow();
+                    Double valor = (Double) this.tabla.getValueAt(y, x);
+                    
+                    // Asignar el valor especificado a la matriz actual
+                    
+                    matriz.establecer(y, x, valor);
+                    
+                    // Si el resto de las listas seleccionaron la misma matriz
+                    // Actualizar sus tablas
+                    
+                    this.actualizarTablas(indice);
+                    
+                }
+                
+            }
+            
+        }
         
     }
     
     public void ok(java.awt.event.ActionEvent evt) {
         
-        int ancho = (Integer) anchoMatriz.getValue();
-        int largo = (Integer) largoMatriz.getValue();
+        int ancho = (Integer) this.anchoMatriz.getValue();
+        int largo = (Integer) this.largoMatriz.getValue();
         
-        int indice = lista.getSelectedIndex();
+        int indice = this.lista.getSelectedIndex();
         
         if (indice >= 0){
         
             Matriz matriz = new Matriz(ancho, largo);
-            matriz.insertar(this.tabla);
-
-            for (int i = 0; i < listas.size(); i++) {
-
-                JList<String> estaLista = listas.get(i);
-
-                if (estaLista != lista) {
-
-                    if (estaLista.getSelectedIndex() == indice) {
-
-                        matriz.insertar(tablas.get(i));
-
-                    }
-
-                }
-
-            }
-
             this.matrices.set(indice, matriz);
-            this.actualizar();
+            this.actualizarTablas(indice);
+            this.actualizarListas();
             
         }
         
@@ -118,11 +127,11 @@ public class ControladorLista {
     
     public void agregar() {
         
-        int ancho = (Integer) anchoMatriz.getValue();
-        int largo = (Integer) largoMatriz.getValue();
+        int ancho = (Integer) this.anchoMatriz.getValue();
+        int largo = (Integer) this.largoMatriz.getValue();
         
         this.matrices.add(new Matriz(ancho, largo));
-        this.actualizar();
+        this.actualizarListas();
         
     }
     

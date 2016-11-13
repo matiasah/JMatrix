@@ -39,6 +39,9 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="JMatrix"/>
+    <Property name="iconImage" type="java.awt.Image" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+      <Connection component="Form" name="iconImage" type="property"/>
+    </Property>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -96,10 +99,10 @@
                               <Component id="jScrollPane2" min="-2" pref="182" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="sumar" max="32767" attributes="0"/>
-                                  <Component id="multiplicar" max="32767" attributes="0"/>
-                                  <Component id="restar" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="dividir" alignment="0" min="-2" pref="41" max="-2" attributes="0"/>
+                                  <Component id="sumar" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Component id="restar" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Component id="dividir" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Component id="multiplicar" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -156,7 +159,7 @@
                               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                               <Component id="jScrollPane4" min="-2" pref="180" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="nombreIgualMatriz" min="-2" max="-2" attributes="0"/>
+                              <Component id="nombreIgualMatriz" min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -180,36 +183,31 @@
                   </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="separadorTerceraMatriz" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jScrollPane8" min="-2" pref="76" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                       <Component id="jScrollPane7" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="transponerResultadoMatriz" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="invertirResultadoMatriz" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="escalonarResultadoMatriz" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="propiedadesResultadoMatriz" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="nombreSalidaResultadoMatriz" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane9" alignment="0" min="-2" pref="174" max="-2" attributes="0"/>
-                              </Group>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="transponerResultadoMatriz" alignment="0" max="32767" attributes="0"/>
+                              <Component id="invertirResultadoMatriz" alignment="0" max="32767" attributes="0"/>
+                              <Component id="escalonarResultadoMatriz" alignment="0" min="-2" pref="87" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="nombreResultadoMatriz" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="propiedadesResultadoMatriz" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="nombreSalidaResultadoMatriz" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPane9" alignment="0" min="-2" pref="174" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
+                  <Component id="nombreResultadoMatriz" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="separadorTerceraMatriz" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -219,7 +217,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
-                      <Component id="nombreIgualMatriz" min="-2" max="-2" attributes="0"/>
+                      <Component id="nombreIgualMatriz" min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
@@ -278,14 +276,14 @@
                                   </Group>
                                   <Component id="jScrollPane5" alignment="0" min="-2" pref="184" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                      <Component id="multiplicar" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Component id="multiplicar" min="-2" pref="28" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="dividir" min="-2" max="-2" attributes="0"/>
+                                      <Component id="dividir" min="-2" pref="28" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="sumar" min="-2" max="-2" attributes="0"/>
+                                      <Component id="sumar" min="-2" pref="28" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="restar" min="-2" max="-2" attributes="0"/>
+                                      <Component id="restar" min="-2" pref="28" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -342,7 +340,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="22" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -402,7 +400,9 @@
     </Container>
     <Component class="javax.swing.JButton" name="multiplicar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="*"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/jmatrix/imagenes/Multiply 2-32.png"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="multiplicarActionPerformed"/>
@@ -410,7 +410,10 @@
     </Component>
     <Component class="javax.swing.JButton" name="sumar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="+"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/jmatrix/imagenes/Plus 2 Math-32.png"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sumarActionPerformed"/>
@@ -418,7 +421,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="restar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="-"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/jmatrix/imagenes/Minus 2 Math-32.png"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="restarActionPerformed"/>
@@ -426,7 +431,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="dividir">
       <Properties>
-        <Property name="text" type="java.lang.String" value="/"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/jmatrix/imagenes/Divide 2-32.png"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dividirActionPerformed"/>
@@ -638,7 +645,10 @@
     </Container>
     <Component class="javax.swing.JLabel" name="nombreIgualMatriz">
       <Properties>
-        <Property name="text" type="java.lang.String" value="="/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/jmatrix/imagenes/Equal Sign 2-32.png"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane7">

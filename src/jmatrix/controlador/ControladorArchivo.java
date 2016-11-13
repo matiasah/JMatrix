@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jmatrix;
+package jmatrix.controlador;
 
 import java.io.File;
+import java.io.RandomAccessFile;
 
 /**
  *
@@ -72,6 +73,14 @@ public class ControladorArchivo extends javax.swing.JFrame {
             case javax.swing.JFileChooser.APPROVE_OPTION:
                 
                 File archivo = this.jFileChooser1.getSelectedFile();
+                
+                try {
+                
+                    RandomAccessFile lectorArchivo = new RandomAccessFile(archivo, "r");
+                    
+                } catch (java.io.FileNotFoundException e) {
+                    
+                }
             
                 break;
             

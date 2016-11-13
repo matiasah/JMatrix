@@ -161,7 +161,7 @@ public class Vector {
             resta.sumar(x, this.obtener(x) - vector.obtener(x));
         }
         
-        return vector;
+        return resta;
         
     }
     

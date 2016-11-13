@@ -29,3 +29,9 @@ USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 https://icons8.com/web-app/21392/Save-as
 https://icons8.com/web-app/21094/open-folder
+https://icons8.com/web-app/13597/Multiply-2
+https://icons8.com/web-app/12780/Calculator
+https://icons8.com/web-app/13601/divide-2
+https://icons8.com/web-app/13158/Plus-2-Math
+https://icons8.com/web-app/13180/Minus-2-Math
+https://icons8.com/web-app/13604/equal-sign-2

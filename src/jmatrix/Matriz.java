@@ -247,11 +247,11 @@ public class Matriz {
         
     }
     
-    public void establecer(int x, int y, double valor){
+    public void establecer(int y, int x, double valor){
         
-        if (x >= 0 & x < this.vector.length){
+        if (y >= 0 & y < this.vector.length){
             
-            this.vector[x].establecer(y, valor);
+            this.vector[y].establecer(x, valor);
             
         }
         
@@ -279,11 +279,11 @@ public class Matriz {
         
     }
     
-    public double obtener(int x, int y){
+    public double obtener(int y, int x){
         
-        if (x >= 0 & x < this.vector.length){
+        if (y >= 0 & y < this.vector.length){
             
-            return this.vector[x].obtener(y);
+            return this.vector[y].obtener(x);
             
         }
         
