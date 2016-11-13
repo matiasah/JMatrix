@@ -145,6 +145,20 @@ public class Matriz {
         
     }
     
+    public static Matriz identidad(Matriz matriz) {
+        
+        Matriz identidad = new Matriz(matriz.ancho(), matriz.largo());
+        
+        for (int x = 0; x < Math.min(identidad.ancho(), identidad.largo()); x++) {
+            
+            identidad.establecer(x, x, 1);
+            
+        }
+        
+        return identidad;
+        
+    }
+    
     @Override public String toString(){
         
         String str = "";
@@ -179,7 +193,7 @@ public class Matriz {
             
             for (int x = 0, A = this.ancho(); x < A; x++){
                 
-                if (this.obtener(x).equals(matriz.obtener(x))){
+                if ( !this.obtener(x).equals(matriz.obtener(x)) ){
                     
                     return false;
                     
@@ -415,6 +429,86 @@ public class Matriz {
         
     }
     
+    private boolean invertirParte(Matriz escalonada, Matriz inversa) {
+        
+        for (int ancho = escalonada.ancho(), indiceNulo = ancho - 1; indiceNulo >= 0 ; indiceNulo--){
+            
+            if (escalonada.obtener(indiceNulo, indiceNulo) == 0){
+                
+                for (int i = ancho; i > 0; i--){
+                    
+                    if (escalonada.obtener(i, indiceNulo) != 0){
+                        
+                        inversa.agregarInstruccion("L" + (indiceNulo + 1) + (i + 1));
+                        escalonada.agregarInstruccion("L" + (indiceNulo + 1) + (i + 1));
+
+                        Vector vector = escalonada.obtener(i);
+                        escalonada.establecer(i, escalonada.obtener(indiceNulo));
+                        escalonada.establecer(indiceNulo, vector);
+
+                        Vector vectorInverso = inversa.obtener(i);
+                        inversa.establecer(i, inversa.obtener(indiceNulo));
+                        inversa.establecer(indiceNulo, vectorInverso);
+                        
+                        return true;
+                            
+                    }
+                        
+                }
+                    
+            }
+                
+        }
+
+        for (int diagonal = 0, ancho = escalonada.ancho(); diagonal < ancho; diagonal++){
+            // Verificar que diagonalmente los valores son 1
+            // Si son 0, no se puede hacer nada
+            // Si son diferentes de 1 se debe dividir la fila por tal numero
+
+            double valorDiagonal = escalonada.obtener(diagonal, diagonal);
+            
+            if (valorDiagonal != 0 & valorDiagonal != 1){
+                
+                inversa.agregarInstruccion("L" + (diagonal + 1) + "(1/" + valorDiagonal + ")");
+                escalonada.agregarInstruccion("L" + (diagonal + 1) + "(1/" + valorDiagonal + ")");
+                
+                double valorInverso = 1 / valorDiagonal;
+                
+                inversa.establecer(diagonal, inversa.obtener(diagonal).multiplicar(valorInverso));
+                escalonada.establecer(diagonal, escalonada.obtener(diagonal).multiplicar(valorInverso));
+                
+                return true;
+                    
+            }
+                
+        }
+
+        for (int x = 0, ancho = escalonada.ancho(); x < ancho; x++){
+            
+            for (int y = 0; y < ancho; y++){
+                
+                if (escalonada.obtener(x, y) != 0 & escalonada.obtener(y, y) == 1 & x != y){
+                    
+                    double Multiplo = escalonada.obtener(x, y);
+
+                    inversa.agregarInstruccion("L" + (x + 1) + (y + 1) + "(-" + Multiplo + ")");
+                    escalonada.agregarInstruccion("L" + (x + 1) + (y + 1) + "(-" + Multiplo + ")");
+
+                    inversa.establecer(x, inversa.obtener(x).restar(inversa.obtener(y).multiplicar(Multiplo)));
+                    escalonada.establecer(x, escalonada.obtener(x).restar(escalonada.obtener(y).multiplicar(Multiplo)));
+                    
+                    return true;
+                    
+                }
+                    
+            }
+                
+        }
+        
+        return false;
+        
+    }
+    
     public Matriz inversa(){
         
         Matriz escalonada = this.clonar();
@@ -422,93 +516,84 @@ public class Matriz {
         
         for (boolean repetir = true; repetir;){
             
-            for (int ancho = escalonada.ancho(), indiceNulo = ancho; indiceNulo > 0 ; indiceNulo--){
-                
-                if (escalonada.obtener(indiceNulo, indiceNulo) == 0){
-                    
-                    for (int i = ancho; i > 0; i--){
-                        
-                        if (escalonada.obtener(i, indiceNulo) != 0){
-                            
-                            inversa.agregarInstruccion("L" + (indiceNulo + 1) + (i + 1));
-                            escalonada.agregarInstruccion("L" + (indiceNulo + 1) + (i + 1));
-
-                            Vector vector = escalonada.obtener(i);
-                            escalonada.establecer(i, escalonada.obtener(indiceNulo));
-                            escalonada.establecer(indiceNulo, vector);
-
-                            Vector vectorInverso = inversa.obtener(i);
-                            inversa.establecer(i, inversa.obtener(indiceNulo));
-                            inversa.establecer(indiceNulo, vectorInverso);
-                            break;
-                            
-                        }
-                        
-                    }
-                    
-                }
-                
-            }
-
-            for (int Diagonal = 0, Ancho = escalonada.ancho(); Diagonal < Ancho; Diagonal++){
-                // Verificar que diagonalmente los valores son 1
-                // Si son 0, no se puede hacer nada
-                // Si son diferentes de 1 se debe dividir la fila por tal numero
-
-                double valorDiagonal = escalonada.obtener(Diagonal, Diagonal);
-                
-                if (valorDiagonal != 0 & valorDiagonal != 1){
-                    
-                    inversa.agregarInstruccion("L" + (Diagonal + 1) + "(1/" + valorDiagonal + ")");
-                    escalonada.agregarInstruccion("L" + (Diagonal + 1) + "(1/" + valorDiagonal + ")");
-                    
-                    double valorInverso = 1 / valorDiagonal;
-                    
-                    inversa.establecer(Diagonal, inversa.obtener(Diagonal).multiplicar(valorInverso));
-                    escalonada.establecer(Diagonal, escalonada.obtener(Diagonal).multiplicar(valorInverso));
-                    
-                }
-                
-            }
-
-            for (int x = 0, ancho = escalonada.ancho(); x < ancho; x++){
-                
-                for (int y = 0; y < ancho; y++){
-                    
-                    if (escalonada.obtener(x, y) != 0 & escalonada.obtener(y, y) == 1 & x != y){
-                        
-                        double Multiplo = escalonada.obtener(x, y);
-
-                        inversa.agregarInstruccion("L" + (x + 1) + (y + 1) + "(-" + Multiplo + ")");
-                        escalonada.agregarInstruccion("L" + (x + 1) + (y + 1) + "(-" + Multiplo + ")");
-
-                        inversa.establecer(x, inversa.obtener(x).restar(inversa.obtener(y).multiplicar(Multiplo)));
-                        escalonada.establecer(x, escalonada.obtener(x).restar(escalonada.obtener(y).multiplicar(Multiplo)));
-                        
-                    }
-                    
-                }
-                
-            }
-            
-            repetir = false;
-            
-            for (int Diagonal = 0, Ancho = escalonada.ancho(); Diagonal < Ancho; Diagonal++){
-                
-                double ValorDiagonal = escalonada.obtener(Diagonal, Diagonal);
-                
-                if (ValorDiagonal != 0 & ValorDiagonal != 1){
-                    
-                    repetir = true;
-                    break;
-                    
-                }
-                
-            }
+            repetir = this.invertirParte(escalonada, inversa);
             
         }
         
         return inversa;
+    }
+    
+    private boolean escalonarParte(Matriz escalonada) {
+        
+        for (int ancho = escalonada.ancho(), indiceNulo = ancho - 1; indiceNulo >= 0 ; indiceNulo--){
+            
+            // Cambiar filas por filas mas convenientes
+            
+            if ( escalonada.obtener(indiceNulo, indiceNulo) == 0 ) {
+                
+                // Verificar que el valor diagonal es cero
+                
+                for (int i = ancho; i > 0; i--){
+                    
+                    if ( escalonada.obtener(i, indiceNulo) != 0 ) {
+                        
+                        // Si verticalmente otra fila tiene un valor diferente de cero, cambiar las filas
+                        
+                        escalonada.agregarInstruccion("L" + (indiceNulo + 1) + " " + (i + 1));
+
+                        Vector vector = escalonada.obtener(i);
+                        escalonada.establecer(i, escalonada.obtener(indiceNulo));
+                        escalonada.establecer(indiceNulo, vector);
+                        
+                        return true;
+                        
+                    }
+                        
+                }
+                
+            }
+                
+        }
+        
+        for (int diagonal = 0, ancho = escalonada.ancho(); diagonal < ancho; diagonal++){
+            // Verificar que diagonalmente (en la matriz) los valores son 1
+            // Si son 0, no se puede hacer nada
+            // Si son diferentes de 1 se debe dividir la fila por tal numero
+
+            double valorDiagonal = escalonada.obtener(diagonal, diagonal);
+            
+            if ( valorDiagonal != 0 & valorDiagonal != 1 ) {
+                
+                escalonada.agregarInstruccion("L" + (diagonal + 1) + "(1/" + valorDiagonal + ")");
+                escalonada.establecer(diagonal, escalonada.obtener(diagonal).multiplicar(1 / valorDiagonal));
+                
+                return true;
+                
+            }
+                
+        }
+        
+        for (int x = 0, ancho = escalonada.ancho(); x < ancho; x++){
+            
+            for (int y = 0; y < ancho; y++) {
+                
+                if (escalonada.obtener(x, y) != 0 & escalonada.obtener(y, y) == 1 & x != y) {
+                    
+                    double Multiplo = escalonada.obtener(x, y);
+
+                    escalonada.agregarInstruccion("L" + (x + 1) + (y + 1) + "(-" + Multiplo + ")");
+                    escalonada.establecer(x, escalonada.obtener(x).restar(escalonada.obtener(y).multiplicar(Multiplo)));
+                    
+                    return true;
+                    
+                }
+                    
+            }
+                
+        }
+        
+        return false;
+        
     }
     
     public Matriz escalonar(){
@@ -517,76 +602,7 @@ public class Matriz {
         
         for (boolean Repetir = true; Repetir;){
             
-            for (int Ancho = escalonada.ancho(), indiceNulo = Ancho; indiceNulo > 0 ; indiceNulo--){
-                
-                if (escalonada.obtener(indiceNulo, indiceNulo) == 0){
-                    
-                    for (int i = Ancho; i > 0; i--){
-                        
-                        if (escalonada.obtener(i, indiceNulo) != 0){
-                            
-                            escalonada.agregarInstruccion("L" + (indiceNulo + 1) + (i + 1));
-
-                            Vector vector = escalonada.obtener(i);
-                            escalonada.establecer(i, escalonada.obtener(indiceNulo));
-                            escalonada.establecer(indiceNulo, vector);
-                            break;
-                            
-                        }
-                        
-                    }
-                    
-                }
-                
-            }
-
-            for (int diagonal = 0, Ancho = escalonada.ancho(); diagonal < Ancho; diagonal++){
-                // Verificar que diagonalmente (en la matriz) los valores son 1
-                // Si son 0, no se puede hacer nada
-                // Si son diferentes de 1 se debe dividir la fila por tal numero
-
-                double valorDiagonal = escalonada.obtener(diagonal, diagonal);
-                
-                if (valorDiagonal != 0 & valorDiagonal != 1){
-                    
-                    escalonada.agregarInstruccion("L" + (diagonal + 1) + "(1/" + valorDiagonal + ")");
-                    escalonada.establecer(diagonal, escalonada.obtener(diagonal).multiplicar(1 / valorDiagonal));
-                    
-                }
-                
-            }
-
-            for (int x = 0, ancho = escalonada.ancho(); x < ancho; x++){
-                
-                for (int y = 0; y < ancho; y++){
-                    
-                    if (escalonada.obtener(x, y) != 0 & escalonada.obtener(y, y) == 1 & x != y){
-                        
-                        double Multiplo = escalonada.obtener(x, y);
-
-                        escalonada.agregarInstruccion("L" + (x + 1) + (y + 1) + "(-" + Multiplo + ")");
-                        escalonada.establecer(x, escalonada.obtener(x).restar(escalonada.obtener(y).multiplicar(Multiplo)));
-                        
-                    }
-                    
-                }
-                
-            }
-            
-            Repetir = false;
-            
-            for (int Diagonal = 0, Ancho = escalonada.ancho(); Diagonal < Ancho; Diagonal++){
-                
-                double ValorDiagonal = escalonada.obtener(Diagonal, Diagonal);
-                
-                if (ValorDiagonal != 0 & ValorDiagonal != 1){
-                    
-                    Repetir = true;
-                    break;
-                    
-                }
-                
-            }
+            Repetir = this.escalonarParte(escalonada);
             
         }
         

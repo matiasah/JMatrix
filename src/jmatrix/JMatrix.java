@@ -74,6 +74,7 @@ public class JMatrix extends javax.swing.JFrame {
                 this.largoPrimeraMatriz,
                 this.primeraLista,
                 this.primeraMatriz,
+                this.primeraSalida,
                 this.listas,
                 this.tablas,
                 this.matrices
@@ -84,6 +85,7 @@ public class JMatrix extends javax.swing.JFrame {
                 this.largoSegundaMatriz,
                 this.segundaLista,
                 this.segundaMatriz,
+                this.segundaSalida,
                 this.listas,
                 this.tablas,
                 this.matrices
@@ -94,6 +96,7 @@ public class JMatrix extends javax.swing.JFrame {
                 null,
                 this.resultadoLista,
                 this.resultadoMatriz,
+                this.resultadoSalida,
                 this.listas,
                 this.tablas,
                 this.matrices
@@ -717,11 +720,15 @@ public class JMatrix extends javax.swing.JFrame {
     }//GEN-LAST:event_dividirActionPerformed
 
     private void escalonarPrimeraMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escalonarPrimeraMatrizActionPerformed
-        // TODO add your handling code here:
+        
+        this.primerControl.escalonar();
+        
     }//GEN-LAST:event_escalonarPrimeraMatrizActionPerformed
 
     private void invertirPrimeraMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invertirPrimeraMatrizActionPerformed
-        // TODO add your handling code here:
+        
+        this.primerControl.invertir();
+        
     }//GEN-LAST:event_invertirPrimeraMatrizActionPerformed
 
     private void agregarPrimeraMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarPrimeraMatrizActionPerformed
@@ -737,11 +744,15 @@ public class JMatrix extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarSegundaMatrizActionPerformed
 
     private void escalonarSegundaMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escalonarSegundaMatrizActionPerformed
-        // TODO add your handling code here:
+        
+        this.segundoControl.escalonar();
+        
     }//GEN-LAST:event_escalonarSegundaMatrizActionPerformed
 
     private void invertirSegundaMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invertirSegundaMatrizActionPerformed
-        // TODO add your handling code here:
+        
+        this.segundoControl.invertir();
+        
     }//GEN-LAST:event_invertirSegundaMatrizActionPerformed
 
     private void primeraListaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_primeraListaValueChanged
@@ -764,10 +775,14 @@ public class JMatrix extends javax.swing.JFrame {
 
     private void escalonarResultadoMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escalonarResultadoMatrizActionPerformed
         
+        this.resultadoControl.escalonar();
+        
     }//GEN-LAST:event_escalonarResultadoMatrizActionPerformed
 
     private void invertirResultadoMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invertirResultadoMatrizActionPerformed
-        // TODO add your handling code here:
+        
+        this.resultadoControl.invertir();
+        
     }//GEN-LAST:event_invertirResultadoMatrizActionPerformed
 
     private void okPrimeraMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okPrimeraMatrizActionPerformed
