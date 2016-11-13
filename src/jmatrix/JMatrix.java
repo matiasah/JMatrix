@@ -44,8 +44,7 @@ public class JMatrix extends javax.swing.JFrame {
     public JMatrix() {
         
         this.matrices = new ArrayList<Matriz>();
-        
-        initComponents();
+        this.initComponents();
         
         try {
             
@@ -58,9 +57,12 @@ public class JMatrix extends javax.swing.JFrame {
         SwingUtilities.updateComponentTreeUI(this);
         
         this.listas = new ArrayList<javax.swing.JList<String>>();
+        this.sistemaArchivos = new ControladorArchivo(this.matrices, this.listas);
+        
         this.listas.add(this.primeraLista);
         this.listas.add(this.segundaLista);
         this.listas.add(this.resultadoLista);
+        this.listas.add(this.sistemaArchivos.obtenerLista());
         
         this.tablas = new ArrayList<javax.swing.JTable>();
         this.tablas.add(this.primeraMatriz);
@@ -107,17 +109,12 @@ public class JMatrix extends javax.swing.JFrame {
                 
         );
         
-        this.sistemaArchivos = new ControladorArchivo();
-        
     }
     
-    @Override
-    public Image getIconImage() {
-        Image retValue = Toolkit.getDefaultToolkit().
-                getImage(ClassLoader.getSystemResource("jmatrix/imagenes/Calculator-16.png"));
+    @Override public Image getIconImage() {
 
-
-        return retValue;
+        return Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("jmatrix/imagenes/Calculator-16.png"));
+        
     }
 
     /**
@@ -215,7 +212,7 @@ public class JMatrix extends javax.swing.JFrame {
 
         nombrePrimeraMatriz.setText("Primera matriz");
 
-        primeraLista.setModel(new ListaModeloMatriz(matrices));
+        primeraLista.setModel(new ListaModeloMatriz(this.matrices));
         primeraLista.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 primeraListaValueChanged(evt);
@@ -349,7 +346,7 @@ public class JMatrix extends javax.swing.JFrame {
 
         nombreSegundaMatriz.setText("Segunda matriz");
 
-        segundaLista.setModel(new ListaModeloMatriz(matrices));
+        segundaLista.setModel(new ListaModeloMatriz(this.matrices));
         segundaLista.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 segundaListaValueChanged(evt);
@@ -380,7 +377,7 @@ public class JMatrix extends javax.swing.JFrame {
 
         nombreResultadoMatriz.setText("Resultado");
 
-        resultadoLista.setModel(new ListaModeloMatriz(matrices));
+        resultadoLista.setModel(new ListaModeloMatriz(this.matrices));
         resultadoLista.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 resultadoListaValueChanged(evt);

@@ -22,7 +22,13 @@ public class Controlador {
             
             if (lista.getSelectedIndex() == indice) {
                 
-                matriz.insertar(this.tablas.get(i));
+                JTable tabla = this.tablas.get(i);
+                
+                if (tabla != null){
+                    
+                    matriz.insertar(tabla);
+                    
+                }
                 
             }
 
