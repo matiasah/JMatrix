@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.RandomAccessFile;
 import javax.swing.JOptionPane;
 import javax.swing.JList;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import jmatrix.Matriz;
 import jmatrix.ListaModeloMatriz;
@@ -35,6 +36,10 @@ public class ControladorArchivo extends javax.swing.JFrame {
         this.listas = listas;
         this.initComponents();
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        
+        FileNameExtensionFilter filtroTxt = new FileNameExtensionFilter("Archivo de texto (.txt)", "txt", "text");
+        
+        selectorArchivos.setFileFilter(filtroTxt);
         
     }
     
@@ -118,13 +123,13 @@ public class ControladorArchivo extends javax.swing.JFrame {
     
     private void botonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActionPerformed
         
-        switch (this.selectorArchivos.showSaveDialog(null)) {
-            
-            case javax.swing.JFileChooser.APPROVE_OPTION:
-                
-                int indice = this.lista.getSelectedIndex();
-                
-                if (indice >= 0) {
+        int indice = this.lista.getSelectedIndex();
+        
+        if (indice >= 0) {
+        
+            switch (this.selectorArchivos.showSaveDialog(null)) {
+
+                case javax.swing.JFileChooser.APPROVE_OPTION:
 
                     Matriz matriz = this.matrices.get(indice);
                     
@@ -148,15 +153,15 @@ public class ControladorArchivo extends javax.swing.JFrame {
                         }
                         
                     }
-                    
-                }else{
-                    
-                    JOptionPane.showMessageDialog(null, "Seleccione la matriz que desea guardar");
-                    
-                }
                 
                 break;
+                
+            }
             
+        }else{
+            
+            JOptionPane.showMessageDialog(null, "Seleccione la matriz que desea guardar");
+                    
         }
         
     }//GEN-LAST:event_botonActionPerformed
