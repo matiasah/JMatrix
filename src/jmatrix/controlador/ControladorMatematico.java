@@ -33,6 +33,10 @@ public class ControladorMatematico extends Controlador {
         
     }
     
+    /**
+     * Método privado, simplifica la obtención de matrices
+     * @return la primera matriz de la operación
+     */
     private Matriz obtenerPrimeraMatriz() {
         
         int indice = this.primeraLista.getSelectedIndex();
@@ -47,6 +51,10 @@ public class ControladorMatematico extends Controlador {
         
     }
     
+    /**
+     * Método privado, simplifica la obtención de matrices
+     * @return la segunda matriz de la operación
+     */
     private Matriz obtenerSegundaMatriz() {
         
         int indice = this.segundaLista.getSelectedIndex();
@@ -61,6 +69,9 @@ public class ControladorMatematico extends Controlador {
         
     }
     
+    /**
+     * Evento ejecutado al apretar el boton de multiplicación
+     */
     public void multiplicar() {
         
         Matriz primeraMatriz = this.obtenerPrimeraMatriz();
@@ -103,6 +114,9 @@ public class ControladorMatematico extends Controlador {
         
     }
     
+    /**
+     * Evento ejecutado al apretar el boton de división
+     */
     public void dividir() {
         
         Matriz primeraMatriz = this.obtenerPrimeraMatriz();
@@ -155,6 +169,9 @@ public class ControladorMatematico extends Controlador {
         
     }
     
+    /**
+     * Evento ejecutado al apretar el boton de suma
+     */
     public void sumar() {
         
         Matriz primeraMatriz = this.obtenerPrimeraMatriz();
@@ -197,6 +214,9 @@ public class ControladorMatematico extends Controlador {
         
     }
     
+    /**
+     * Evento ejecutado al apretar el boton de resta
+     */
     public void restar() {
         
         Matriz primeraMatriz = this.obtenerPrimeraMatriz();

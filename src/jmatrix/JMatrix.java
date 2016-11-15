@@ -7,7 +7,6 @@ package jmatrix;
 
 import jmatrix.controlador.ControladorGUI;
 import jmatrix.controlador.ControladorMatematico;
-import jmatrix.controlador.ControladorArchivo;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -32,7 +31,7 @@ public class JMatrix extends javax.swing.JFrame {
     
     private ControladorMatematico operacion;
     
-    private ControladorArchivo sistemaArchivos;
+    private VentanaArchivos ventanaArchivos;
     
     private ArrayList<Matriz> matrices;
     private ArrayList<javax.swing.JList<String>> listas;
@@ -57,12 +56,12 @@ public class JMatrix extends javax.swing.JFrame {
         SwingUtilities.updateComponentTreeUI(this);
         
         this.listas = new ArrayList<javax.swing.JList<String>>();
-        this.sistemaArchivos = new ControladorArchivo(this.matrices, this.listas);
+        this.ventanaArchivos = new VentanaArchivos(this.matrices, this.listas);
         
         this.listas.add(this.primeraLista);
         this.listas.add(this.segundaLista);
         this.listas.add(this.resultadoLista);
-        this.listas.add(this.sistemaArchivos.obtenerLista());
+        this.listas.add(this.ventanaArchivos.obtenerLista());
         
         this.tablas = new ArrayList<javax.swing.JTable>();
         this.tablas.add(this.primeraMatriz);
@@ -693,13 +692,13 @@ public class JMatrix extends javax.swing.JFrame {
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         
-        this.sistemaArchivos.guardar(evt);
+        this.ventanaArchivos.guardar(evt);
         
     }//GEN-LAST:event_guardarActionPerformed
 
     private void abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirActionPerformed
         
-        this.sistemaArchivos.cargar(evt);
+        this.ventanaArchivos.cargar(evt);
         
     }//GEN-LAST:event_abrirActionPerformed
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jmatrix.controlador;
+package jmatrix;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -22,18 +22,21 @@ import jmatrix.ListaModeloMatriz;
  *
  * @author matia
  */
-public class ControladorArchivo extends javax.swing.JFrame {
+public class VentanaArchivos extends javax.swing.JFrame {
     
     private ArrayList<Matriz> matrices;
     private ArrayList<JList<String>> listas;
+    
+    private SistemaArchivos sistema;
 
     /**
      * Creates new form ControladorArchivo
      */
-    public ControladorArchivo(ArrayList<Matriz> matrices, ArrayList<JList<String>> listas) {
+    public VentanaArchivos(ArrayList<Matriz> matrices, ArrayList<JList<String>> listas) {
         
         this.matrices = matrices;
         this.listas = listas;
+        
         this.initComponents();
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
         
@@ -41,23 +44,12 @@ public class ControladorArchivo extends javax.swing.JFrame {
         
         selectorArchivos.setFileFilter(filtroTxt);
         
-    }
-    
-    /**
-     * Actualizar los elementos de las listas
-     */
-    private void actualizarListas() {
-        
-        ListaModeloMatriz modelo = new ListaModeloMatriz(matrices);
-        
-        for (JList<String> lista : this.listas) {
-            
-            int indice = lista.getSelectedIndex();
-            
-            lista.setModel(modelo);
-            lista.setSelectedIndex(indice);
-            
-        }
+        this.sistema = new SistemaArchivos(
+                this.matrices,
+                this.listas,
+                this.selectorArchivos,
+                this.lista
+        );
         
     }
 
@@ -123,46 +115,7 @@ public class ControladorArchivo extends javax.swing.JFrame {
     
     private void botonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActionPerformed
         
-        int indice = this.lista.getSelectedIndex();
-        
-        if (indice >= 0) {
-        
-            switch (this.selectorArchivos.showSaveDialog(null)) {
-
-                case javax.swing.JFileChooser.APPROVE_OPTION:
-
-                    Matriz matriz = this.matrices.get(indice);
-                    
-                    if (matriz == null) {
-                        
-                        JOptionPane.showMessageDialog(null, "Matriz no encontrada en la memoria");
-                        
-                    }else{
-                    
-                        File archivo = this.selectorArchivos.getSelectedFile();
-
-                        try {
-
-                            RandomAccessFile escritorArchivo = new RandomAccessFile(archivo, "rw");
-                            matriz.guardar(escritorArchivo);
-
-                        } catch (java.io.FileNotFoundException e) {
-
-                            JOptionPane.showMessageDialog(null, "Dirección inválida");
-
-                        }
-                        
-                    }
-                
-                break;
-                
-            }
-            
-        }else{
-            
-            JOptionPane.showMessageDialog(null, "Seleccione la matriz que desea guardar");
-                    
-        }
+        this.sistema.guardar();
         
     }//GEN-LAST:event_botonActionPerformed
     
@@ -188,38 +141,7 @@ public class ControladorArchivo extends javax.swing.JFrame {
      */
     public void cargar(java.awt.event.ActionEvent evt) {
         
-        switch (this.selectorArchivos.showOpenDialog(null)) {
-
-            case javax.swing.JFileChooser.APPROVE_OPTION:
-
-            File archivo = this.selectorArchivos.getSelectedFile();
-
-            try {
-
-                RandomAccessFile lectorArchivo = new RandomAccessFile(archivo, "r");
-                
-                Matriz matriz = new Matriz(lectorArchivo);
-                
-                if (matriz.validar()) {
-                    
-                    this.matrices.add(matriz);
-                    this.actualizarListas();
-                    
-                }else{
-                    
-                    JOptionPane.showMessageDialog(null, "Imposible cargar matriz, el archivo está archivo dañado");
-                    
-                }
-
-            } catch (java.io.FileNotFoundException e) {
-                
-                JOptionPane.showMessageDialog(null, "Archivo no encontrado");
-
-            }
-
-            break;
-
-        }
+        this.sistema.cargar();
         
     }
     
