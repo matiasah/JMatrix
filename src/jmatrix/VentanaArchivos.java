@@ -25,7 +25,6 @@ import jmatrix.ListaModeloMatriz;
 public class VentanaArchivos extends javax.swing.JFrame {
     
     private ArrayList<Matriz> matrices;
-    private ArrayList<JList<String>> listas;
     
     private SistemaArchivos sistema;
 
@@ -35,7 +34,6 @@ public class VentanaArchivos extends javax.swing.JFrame {
     public VentanaArchivos(ArrayList<Matriz> matrices, ArrayList<JList<String>> listas) {
         
         this.matrices = matrices;
-        this.listas = listas;
         
         this.initComponents();
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -46,7 +44,7 @@ public class VentanaArchivos extends javax.swing.JFrame {
         
         this.sistema = new SistemaArchivos(
                 this.matrices,
-                this.listas,
+                listas,
                 this.selectorArchivos,
                 this.lista
         );
