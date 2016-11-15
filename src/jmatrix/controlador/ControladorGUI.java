@@ -165,6 +165,8 @@ public class ControladorGUI extends Controlador {
             
             this.matrices.add(new Matriz(ancho, largo));
             this.actualizarListas();
+            this.lista.setSelectedIndex(this.matrices.size() - 1);
+            this.actualizarTablas(this.matrices.size() - 1);
             
         }
         

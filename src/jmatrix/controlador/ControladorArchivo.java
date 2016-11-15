@@ -38,6 +38,9 @@ public class ControladorArchivo extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Actualizar los elementos de las listas
+     */
     private void actualizarListas() {
         
         ListaModeloMatriz modelo = new ListaModeloMatriz(matrices);
