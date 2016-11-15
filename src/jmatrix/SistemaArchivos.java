@@ -17,6 +17,13 @@ public class SistemaArchivos {
     private ArrayList<JList<String>> listas;
     private JFileChooser selector;
     
+    /**
+     * Constructor de la clase
+     * @param matrices lista de matrices
+     * @param listas   listas del interfaz gráfica
+     * @param selector objeto selector de archivos
+     * @param lista    la lista propia de la ventana de archivos
+     */
     public SistemaArchivos(ArrayList<Matriz> matrices, ArrayList<JList<String>> listas, JFileChooser selector, JList<String> lista) {
         
         this.matrices = matrices;
@@ -44,6 +51,9 @@ public class SistemaArchivos {
         
     }
     
+    /**
+     * Cargar un archivo
+     */
     public void cargar() {
         
         switch (this.selector.showOpenDialog(null)) {
@@ -81,6 +91,9 @@ public class SistemaArchivos {
         
     }
     
+    /**
+     * Guardar un archivo
+     */
     public void guardar() {
         
         int indice = this.lista.getSelectedIndex();

@@ -14,6 +14,15 @@ public class ControladorMatematico extends Controlador {
     private JList<String> segundaLista;
     private JList<String> resultadoLista;
     
+    /**
+     * Constructor de la clase
+     * @param primeraLista   primera lista donde se selecciona la primera matriz
+     * @param segundaLista   segunda lista donde se selecciona la segunda matriz
+     * @param resultadoLista lista de resultado, donde se asignará la matriz resultado de la operación
+     * @param listas         todas las listas utilizadas
+     * @param tablas         todas las tablas utilizadas
+     * @param matrices       todas las matrices utilizadas
+     */
     public ControladorMatematico(
             JList<String> primeraLista,
             JList<String> segundaLista,

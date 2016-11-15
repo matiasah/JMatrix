@@ -44,6 +44,9 @@ public class ControladorGUI extends Controlador {
         
     }
     
+    /**
+     * Actualiza los elementos de las listas
+     */
     private void actualizarListas() {
         
         ListaModeloMatriz modelo = new ListaModeloMatriz(matrices);
@@ -59,6 +62,10 @@ public class ControladorGUI extends Controlador {
         
     }
     
+    /**
+     * Evento al editar la celda de una tabla
+     * @param evt 
+     */
     public void propiedad(java.beans.PropertyChangeEvent evt) {
         
         if (!this.tabla.isEditing()) {
@@ -98,6 +105,10 @@ public class ControladorGUI extends Controlador {
         
     }
     
+    /**
+     * Evento al apretar el boton 'OK'
+     * @param evt 
+     */
     public void ok(java.awt.event.ActionEvent evt) {
         
         int ancho = (Integer) this.anchoMatriz.getValue();
@@ -132,6 +143,10 @@ public class ControladorGUI extends Controlador {
         
     }
     
+    /**
+     * Evento al seleccionar un elemento de la lista asociada
+     * @param evt 
+     */
     public void seleccionar(javax.swing.event.ListSelectionEvent evt) {
         
         if (evt.getValueIsAdjusting()) {
@@ -148,6 +163,9 @@ public class ControladorGUI extends Controlador {
         
     }
     
+    /**
+     * Evento al apretar el boton 'agregar'
+     */
     public void agregar() {
         
         int ancho = (Integer) this.anchoMatriz.getValue();
@@ -172,6 +190,9 @@ public class ControladorGUI extends Controlador {
         
     }
     
+    /**
+     * Evento al apretar el boton 'escalonar'
+     */
     public void escalonar() {
         
         int indice = this.lista.getSelectedIndex();
@@ -197,7 +218,7 @@ public class ControladorGUI extends Controlador {
                     
                     if (instruccion instanceof String) {
                         
-                        this.salida.setText(instruccion + "\n" + this.salida.getText());
+                        this.salida.setText(this.salida.getText() + "\n" + instruccion);
                         
                     }
                     
@@ -213,6 +234,9 @@ public class ControladorGUI extends Controlador {
         
     }
     
+    /**
+     * Evento al apretar el boton 'invertir'
+     */
     public void invertir() {
         
         int indice = this.lista.getSelectedIndex();
@@ -240,7 +264,7 @@ public class ControladorGUI extends Controlador {
 
                         if (instruccion instanceof String) {
 
-                            this.salida.setText(instruccion + "\n" + this.salida.getText());
+                            this.salida.setText(this.salida.getText() + "\n" + instruccion);
 
                         }
 
@@ -262,6 +286,9 @@ public class ControladorGUI extends Controlador {
         
     }
     
+    /**
+     * Evento al apretar el boton 'transponer'
+     */
     public void transponer() {
         
         int indice = this.lista.getSelectedIndex();
