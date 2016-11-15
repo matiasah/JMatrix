@@ -172,12 +172,20 @@ public class ControladorArchivo extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Se muestra la ventana de guardado
+     * @param evt 
+     */
     public void guardar(java.awt.event.ActionEvent evt) {
         
         this.setVisible(true);
         
     }
     
+    /**
+     * Carga una matriz directamente a la lista de matrices
+     * @param evt 
+     */
     public void cargar(java.awt.event.ActionEvent evt) {
         
         switch (this.selectorArchivos.showOpenDialog(null)) {
@@ -215,6 +223,10 @@ public class ControladorArchivo extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Retorna la lista perteneciente a esta clase
+     * @return 
+     */
     public JList<String> obtenerLista() {
         
         return this.lista;
