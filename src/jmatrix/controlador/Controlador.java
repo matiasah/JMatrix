@@ -28,15 +28,9 @@ public class Controlador {
             
             JList<String> lista = this.listas.get(i);
             
-            if (lista.getSelectedIndex() == indice) {
+            if (lista.getSelectedIndex() == indice & i < this.tablas.size()) {
                 
-                JTable tabla = this.tablas.get(i);
-                
-                if (tabla != null){
-                    
-                    matriz.insertar(tabla);
-                    
-                }
+                matriz.insertar( this.tablas.get(i) );
                 
             }
 

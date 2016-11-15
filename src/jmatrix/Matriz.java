@@ -452,26 +452,32 @@ public class Matriz {
      */
     public Matriz multiplicar(Matriz matriz){
         
-        Matriz multiplicacion = new Matriz(this.ancho(), this.largo());
-        
-        for (int x = 0, A = multiplicacion.ancho(); x < A; x++){
+        if (this.ancho() == matriz.largo()) {
             
-            Vector vector = new Vector(multiplicacion.largo());
-            
-            for (int y = 0; y < A; y++){
-                
-                for (int i = 0; i < A; i++){
-                    
-                    vector.sumar(y, this.obtener(x).obtener(i) * matriz.obtener(i).obtener(y));
-                    
+            Matriz multiplicacion = new Matriz(this.ancho(), this.largo());
+
+            for (int x = 0, A = multiplicacion.ancho(); x < A; x++){
+
+                Vector vector = new Vector(multiplicacion.largo());
+
+                for (int y = 0; y < A; y++){
+
+                    for (int i = 0; i < A; i++){
+
+                        vector.sumar(y, this.obtener(x).obtener(i) * matriz.obtener(i).obtener(y));
+
+                    }
                 }
+
+                multiplicacion.establecer(x, vector);
+
             }
-            
-            multiplicacion.establecer(x, vector);
+
+            return multiplicacion;
             
         }
         
-        return multiplicacion;
+        return null;
         
     }
     
