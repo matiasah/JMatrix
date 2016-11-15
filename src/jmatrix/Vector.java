@@ -3,16 +3,31 @@ package jmatrix;
 
 public class Vector {
     
+    /**
+     * Valores numéricos que se comparten con una matríz
+     */
     private double [] elemento;
     
+    /**
+     * Constructor de la clase
+     * @param ancho el número de ceros que debe contener el arreglo del vector
+     */
     public Vector(int ancho){
         this.elemento = new double[ancho];
     }
     
+    /**
+     * Constructor de la clase
+     * @param elemento el arreglo que se le asignará al vector
+     */
     public Vector(double [] elemento){
         this.elemento = elemento;
     }
     
+    /**
+     * Copia todos los elementos del vector
+     * @return el nuevo vector con los elementos copiados
+     */
     public Vector clonar(){
         
         int A = this.ancho();
@@ -28,6 +43,10 @@ public class Vector {
         
     }
     
+    /**
+     * Los elementos de un vector separados por tabulación
+     * @return el string que muestra los elementos del vector
+     */
     @Override public String toString(){
         
         String str = "";
@@ -45,6 +64,11 @@ public class Vector {
         return "[]";
     }
     
+    /**
+     * Compara dos vectores
+     * @param objeto el vector con el que se desea comparar un objeto
+     * @return true si ambos objetos contienen los mismos elementos, caso contrario retorna false
+     */
     @Override public boolean equals(Object objeto){
         
         if (objeto instanceof Vector){
@@ -77,6 +101,10 @@ public class Vector {
         
     }
     
+    /**
+     * Cambia un valor del vector
+     * @param valor el valor que se desea insertar
+     */
     public void establecer(int indice, double valor) {
         
         if (indice >= 0 & indice < this.ancho()){
@@ -87,6 +115,11 @@ public class Vector {
         
     }
     
+    /**
+     * Aumenta un valor del vector
+     * @param indice la posición donde se desea aumentar el valor
+     * @param valor la cantidad que se va a aumentar
+     */
     public void sumar(int indice, double valor){
         
         if (indice >= 0 & indice < this.ancho()){
@@ -97,6 +130,11 @@ public class Vector {
         
     }
     
+    /**
+     * Obtiene un valor del vector
+     * @param indice la posición donde se desea obtener el valor
+     * @return el valor que se desea obtener
+     */
     public double obtener(int indice){
         
         if (indice >= 0 & indice < this.ancho()){
@@ -109,6 +147,10 @@ public class Vector {
         
     }
     
+    /**
+     * Obtiene una copia del arreglo del vector pero en clase 'Double'
+     * @return la copia del arreglo
+     */
     public Double [] obtener() {
         
         Double elemento[] = new Double[this.elemento.length];
@@ -123,12 +165,21 @@ public class Vector {
         
     }
     
+    /**
+     * La cantidad de elementos del vector
+     * @return 
+     */
     public int ancho(){
         
         return this.elemento.length;
         
     }
     
+    /**
+     * Genera un vector cuyos valores numéricos es la suma de dos vectores
+     * @param vec el vector que se desea sumar
+     * @return la suma de ambos vectores
+     */
     public Vector sumar(Vector vec){
         
         Vector suma = new Vector(
@@ -148,6 +199,11 @@ public class Vector {
         
     }
     
+    /**
+     * Genera un vector cuyos valores numéricos es la suma de dos vectores
+     * @param vector el vector que se desea sumar
+     * @return la suma de ambos vectores
+     */
     public Vector restar(Vector vector){
         
         Vector resta = new Vector(
@@ -165,6 +221,11 @@ public class Vector {
         
     }
     
+    /**
+     * Genera un vector cuyos valores numéricos es la multiplicación de un vector con un número
+     * @param numero el número que multiplicará el vector
+     * @return la multiplicación entre el vector y el número
+     */
     public Vector multiplicar(double numero){
         
         int ancho = this.ancho();
@@ -180,6 +241,11 @@ public class Vector {
         
     }
     
+    /**
+     * Genera un vector cuyos valores numéricos es la multiplicación de un vector con un número
+     * @param numero el número que dividirá el vector
+     * @return la división entre el vector y el número
+     */
     public Vector dividir(double numero){
         
         if (numero == 0){
@@ -194,6 +260,10 @@ public class Vector {
         
     }
     
+    /**
+     * Copia el vector y cambia el signo de sus valores numéricos
+     * @return el vector opuesto
+     */
     public Vector opuesto(){
         
         int ancho = this.ancho();

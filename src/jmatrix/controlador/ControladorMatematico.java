@@ -122,16 +122,26 @@ public class ControladorMatematico extends Controlador {
             
             if (indiceResultado >= 0) {
                 
-                Matriz resultado = primeraMatriz.multiplicar(segundaMatriz.inversa());
+                Matriz matrizInversa = segundaMatriz.inversa();
                 
-                if (resultado == null) {
+                if ( segundaMatriz.multiplicar(matrizInversa).equals( Matriz.identidad(segundaMatriz) ) ) {
                     
-                    JOptionPane.showMessageDialog(null, "División imposible");
+                    Matriz resultado = primeraMatriz.multiplicar(matrizInversa);
+
+                    if (resultado == null) {
+
+                        JOptionPane.showMessageDialog(null, "División imposible");
+
+                    }else{
+
+                        this.matrices.set(indiceResultado, resultado);
+                        this.actualizarTablas(indiceResultado);
+
+                    }
                     
                 }else{
                     
-                    this.matrices.set(indiceResultado, resultado);
-                    this.actualizarTablas(indiceResultado);
+                    JOptionPane.showMessageDialog(null, "División imposible, la segunda matriz no se puede invertir");
                     
                 }
                 

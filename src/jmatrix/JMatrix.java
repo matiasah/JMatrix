@@ -112,6 +112,10 @@ public class JMatrix extends javax.swing.JFrame {
                 
         );
         
+        this.primeraSalida.setEditable(false);
+        this.segundaSalida.setEditable(false);
+        this.resultadoSalida.setEditable(false);
+        
     }
     
     @Override public Image getIconImage() {
@@ -191,6 +195,7 @@ public class JMatrix extends javax.swing.JFrame {
         archivo = new javax.swing.JMenu();
         abrir = new javax.swing.JMenuItem();
         guardar = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JMatrix");
@@ -456,6 +461,9 @@ public class JMatrix extends javax.swing.JFrame {
         archivo.add(guardar);
 
         jMenuBar1.add(archivo);
+
+        jMenu1.setText("Ayuda");
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -798,15 +806,21 @@ public class JMatrix extends javax.swing.JFrame {
     }//GEN-LAST:event_okSegundaMatrizActionPerformed
 
     private void transponerPrimeraMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transponerPrimeraMatrizActionPerformed
-        // TODO add your handling code here:
+        
+        this.primerControl.transponer();
+        
     }//GEN-LAST:event_transponerPrimeraMatrizActionPerformed
 
     private void transponerSegundaMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transponerSegundaMatrizActionPerformed
-        // TODO add your handling code here:
+        
+        this.segundoControl.transponer();
+        
     }//GEN-LAST:event_transponerSegundaMatrizActionPerformed
 
     private void transponerResultadoMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transponerResultadoMatrizActionPerformed
-        // TODO add your handling code here:
+        
+        this.resultadoControl.transponer();
+        
     }//GEN-LAST:event_transponerResultadoMatrizActionPerformed
 
     private void primeraMatrizPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_primeraMatrizPropertyChange
@@ -879,6 +893,7 @@ public class JMatrix extends javax.swing.JFrame {
     private javax.swing.JButton invertirPrimeraMatriz;
     private javax.swing.JButton invertirResultadoMatriz;
     private javax.swing.JButton invertirSegundaMatriz;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

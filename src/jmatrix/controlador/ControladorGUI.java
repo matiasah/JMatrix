@@ -227,7 +227,7 @@ public class ControladorGUI extends Controlador {
                 
                 Matriz matrizInversa = matriz.inversa();
                 
-                if ( matriz.multiplicar(matrizInversa).equals(Matriz.identidad(matriz)) ) {
+                if ( matriz.multiplicar(matrizInversa).equals( Matriz.identidad(matriz) ) ) {
                 
                     this.matrices.set(indice, matrizInversa);
                     this.actualizarTablas(indice);
@@ -255,6 +255,35 @@ public class ControladorGUI extends Controlador {
         }else{
             
             JOptionPane.showMessageDialog(null, "Seleccione la matriz que desea invertir");
+            
+        }
+        
+    }
+    
+    public void transponer() {
+        
+        int indice = this.lista.getSelectedIndex();
+        
+        if (indice >= 0) {
+            
+            Matriz matriz = this.matrices.get(indice);
+            
+            if (matriz == null) {
+                
+                JOptionPane.showMessageDialog(null, "Matriz no encontrada en la memoria");
+                
+            }else{
+                
+                matriz = matriz.transpuesta();
+                
+                this.matrices.set(indice, matriz);
+                this.actualizarTablas(indice);
+                
+            }
+            
+        }else{
+            
+            JOptionPane.showMessageDialog(null, "Seleccione la matriz que desea transponer");
             
         }
         

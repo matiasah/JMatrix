@@ -12,11 +12,20 @@ import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+/**
+ * 
+ * @author matias
+ */
 public class Matriz {
     
     private Vector [] vector;
     private ArrayList<String> instrucciones;
     
+    /**
+     * Constructor principal de la clase, genera una matriz nula de dimensiones ancho x largo
+     * @param ancho ancho de la matriz que se desea crear
+     * @param largo largo de la matriz que se desea crear
+     */
     public Matriz(int ancho, int largo){
         
         this.vector = new Vector[ancho];
@@ -30,6 +39,10 @@ public class Matriz {
         
     }
     
+    /**
+     * Constructor de la clase, copia los datos de una matriz de clase double dentro de la matriz creada
+     * @param matriz la matriz que se desea copiar
+     */
     public Matriz(double [][] matriz){
         
         this.vector = new Vector[matriz.length];
@@ -58,6 +71,10 @@ public class Matriz {
         }
     }
     
+    /**
+     * Constructor de la clase, copia los datos de un objeto clase JTable
+     * @param tabla la tabla que se desea copiar
+     */
     public Matriz(JTable tabla) {
         
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
@@ -65,6 +82,7 @@ public class Matriz {
         int a = modelo.getColumnCount();
         
         this.vector = new Vector[l];
+        this.instrucciones = new ArrayList<String>();
         
         for (int x = 0; x < l; x++){
             
@@ -89,6 +107,10 @@ public class Matriz {
         
     }
     
+    /**
+     * Constructor de la clase, genera una matriz diagonal cuadrada
+     * @param tamaño la dimension de la matriz cuadrada: tamaño x tamaño
+     */
     public Matriz(int tamaño){
         
         this.vector = new Vector[tamaño];
@@ -103,6 +125,10 @@ public class Matriz {
         
     }
     
+    /**
+     * Constructor de la clase, lee un archivo y genera los datos de la matriz a partir del contenido
+     * @param archivo archivo que se desea leer
+     */
     public Matriz(RandomAccessFile archivo) {
         
         try {
@@ -112,21 +138,26 @@ public class Matriz {
             archivo.read(contenido);
             archivo.close();
             
+            // Transformar matriz JSON a Matriz
             JSONArray matriz = new JSONArray( new String(contenido) );
             
+            // Ancho del arreglo JSON
             int a = matriz.length();
             
             this.vector = new Vector[a];
             
             for (int x = 0; x < a; x++) {
                 
+                // Sub-arreglo JSON
                 JSONArray arreglo = matriz.optJSONArray(x);
                 
                 if (arreglo != null) {
                 
+                    // Ancho del subarreglo JSON
                     int l = arreglo.length();
                     Vector vec = new Vector(l);
 
+                    // Transformar arreglo JSON a Vector
                     this.vector[x] = vec;
 
                     for (int y = 0; y < l; y++) {
@@ -138,13 +169,22 @@ public class Matriz {
                 }
                 
             }
+            
+            this.instrucciones = new ArrayList<String>();
         
         } catch (IOException | JSONException e) {
+            
+            // Si hay error, la matriz es inválida
             
         }
         
     }
     
+    /**
+     * Función estática, genera matrices copiando las dimensiones de una matriz especificada
+     * @param matriz la matriz de la cual se copian sus dimensiones
+     * @return matriz identidad
+     */
     public static Matriz identidad(Matriz matriz) {
         
         Matriz identidad = new Matriz(matriz.ancho(), matriz.largo());
@@ -159,6 +199,9 @@ public class Matriz {
         
     }
     
+    /**
+     * @return los valores numéricos que contiene la matriz
+     */
     @Override public String toString(){
         
         String str = "";
@@ -179,6 +222,11 @@ public class Matriz {
         
     }
     
+    /**
+     * Compara los números que contienen dos matricess
+     * @param objeto objeto de clase matriz que se desea comparar
+     * @return true si contienen los mismos números, caso contrario false
+     */
     @Override public boolean equals(Object objeto){
         
         if (objeto instanceof Matriz){
@@ -209,6 +257,10 @@ public class Matriz {
         
     }
     
+    /**
+     * Copia los datos numericos de la matriz
+     * @return matriz copiada
+     */
     public Matriz clonar(){
         
         Matriz copia = new Matriz(this.ancho(), this.largo());
@@ -223,6 +275,10 @@ public class Matriz {
         
     }
     
+    /**
+     * Verifica que la matriz contiene datos
+     * @return true si contiene datos, caso contrario false
+     */
     public boolean validar(){
         
         if (this.vector != null & this.vector.length > 0){
@@ -234,12 +290,18 @@ public class Matriz {
         return false;
     }
     
+    /**
+     * @return la cantidad de vectores que se están utilizando
+     */
     public int ancho(){
         
         return this.vector.length;
         
     }
     
+    /**
+     * @return la longitud de los vectores que se están utilizando
+     */
     public int largo(){
         
         if (this.validar()){
@@ -251,6 +313,11 @@ public class Matriz {
         return 0;
     }
     
+    /**
+     * Reemplaza un vector por otro en el índice especificado
+     * @param indice donde reemplazar el vector
+     * @param vec el vector que se desea insertar
+     */
     public void establecer(int indice, Vector vec){
         
         if (indice >= 0 & indice < this.vector.length){
@@ -261,6 +328,12 @@ public class Matriz {
         
     }
     
+    /**
+     * Reemplaza un valor numérico en la matriz
+     * @param y     coordenada 'y' donde se desea reemplazar el valor
+     * @param x     coordenada 'x' donde se desea reemplazar el valor
+     * @param valor valor que se desea insertar
+     */
     public void establecer(int y, int x, double valor){
         
         if (y >= 0 & y < this.vector.length){
@@ -271,6 +344,11 @@ public class Matriz {
         
     }
     
+    /**
+     * Suma un vector con otro vector perteneciente a la matriz, el resultado es insertado en el mísmo indice
+     * @param indice    posicion del vector donde se desea sumar
+     * @param vec       vector que se desea sumar en la matriz
+     */
     public void sumar(int indice, Vector vec){
         
         if (indice >= 0 & indice < this.vector.length){
@@ -281,6 +359,11 @@ public class Matriz {
         
     }
     
+    /**
+     * Retorna un vector perteneciente a la matriz
+     * @param indice posicion del vector que se desea obtener
+     * @return el vector que se desea obtener
+     */
     public Vector obtener(int indice){
         
         if (indice >= 0 & indice < this.vector.length){
@@ -293,6 +376,12 @@ public class Matriz {
         
     }
     
+    /**
+     * Retorna un valor numérico contenido en la matriz
+     * @param y coordenada 'y' donde se contiene el valor numérico en la matriz
+     * @param x coordenada 'x' donde se contiene el valor númerico en la matriz
+     * @return  el valor numérico que se desea obtener
+     */
     public double obtener(int y, int x){
         
         if (y >= 0 & y < this.vector.length){
@@ -305,6 +394,11 @@ public class Matriz {
         
     }
     
+    /**
+     * Suma los valores numéricos de dos matrices
+     * @param matriz matriz con la cual se desea sumar la matriz actual
+     * @return la matriz que contiene la suma de ambas matrices
+     */
     public Matriz sumar(Matriz matriz){
         
         Matriz Salida = new Matriz(
@@ -326,6 +420,11 @@ public class Matriz {
         
     }
     
+    /**
+     * Resta los valores numéricos de dos matrices
+     * @param matriz matriz con la cual se desea restar la matriz actual
+     * @return la matriz que contiene la resta de ambas matrices
+     */
     public Matriz restar(Matriz matriz){
         
         Matriz resta = new Matriz(
@@ -346,6 +445,11 @@ public class Matriz {
         
     }
     
+    /**
+     * Multiplica los valores numéricos de ambas matrices
+     * @param matriz matriz con la cual se desea multiplicar la matriz actual
+     * @return la matriz que contiene la multiplicacion de ambas matrices
+     */
     public Matriz multiplicar(Matriz matriz){
         
         Matriz multiplicacion = new Matriz(this.ancho(), this.largo());
@@ -371,6 +475,11 @@ public class Matriz {
         
     }
     
+    /**
+     * Multiplica los valores numéricos de la matriz por un número
+     * @param numero el número con el cual se desea multiplicar la matriz actual
+     * @return la matriz que contiene la multiplicacion de la matriz con el número
+     */
     public Matriz multiplicar(double numero){
         
         Matriz multiplicacion = new Matriz(this.ancho(), this.largo());
@@ -385,6 +494,11 @@ public class Matriz {
         
     }
     
+    /**
+     * Multiplica los valores numéricos de la matriz por si mismos la cantidad de veces especificada
+     * @param exponente el número de veces que la matriz se multiplica por si misma
+     * @return el resultado de la multiplicación
+     */
     public Matriz elevar(int exponente){
         
         Matriz operacion = this;
@@ -399,6 +513,10 @@ public class Matriz {
         
     }
     
+    /**
+     * Transpone los valores numéricos diagonalmente de la matriz
+     * @return la matriz transpuesta
+     */
     public Matriz transpuesta(){
         
         Matriz transpuesta = new Matriz(this.largo(), this.ancho());
@@ -417,18 +535,32 @@ public class Matriz {
         
     }
     
+    /**
+     * Método interno, agrega instrucciones cada vez que se escalona o invierte una matriz
+     * @param Instruccion 
+     */
     private void agregarInstruccion(String Instruccion){
         
         this.instrucciones.add(Instruccion);
         
     }
     
+    /**
+     * Genera un arreglo de instrucciones
+     * @return el arreglo que contiene las instrucciones
+     */
     public Object [] obtenerInstrucciones(){
         
         return this.instrucciones.toArray();
         
     }
     
+    /**
+     * Genera solo una instrucción de invertida
+     * @param escalonada la matriz escalonada base que se está utilizando para invertir
+     * @param inversa la matriz invertida que se está procesando
+     * @return true si se pudo generar una instrucción, caso contrario retorna false
+     */
     private boolean invertirParte(Matriz escalonada, Matriz inversa) {
         
         for (int ancho = escalonada.ancho(), indiceNulo = ancho - 1; indiceNulo >= 0 ; indiceNulo--){
@@ -509,6 +641,10 @@ public class Matriz {
         
     }
     
+    /**
+     * Genera una matriz inversa a la matriz actual
+     * @return la matriz inversa
+     */
     public Matriz inversa(){
         
         Matriz escalonada = this.clonar();
@@ -523,6 +659,11 @@ public class Matriz {
         return inversa;
     }
     
+    /**
+     * Genera solo una instrucción de escalonado
+     * @param escalonada la matriz que se está procesando
+     * @return true si se pudo generar una instrucción de escalonado, caso contrario false
+     */
     private boolean escalonarParte(Matriz escalonada) {
         
         for (int ancho = escalonada.ancho(), indiceNulo = ancho - 1; indiceNulo >= 0 ; indiceNulo--){
@@ -596,6 +737,10 @@ public class Matriz {
         
     }
     
+    /**
+     * Genera una matriz escalonada
+     * @return la matriz escalonada
+     */
     public Matriz escalonar(){
         
         Matriz escalonada = this.clonar();
@@ -610,6 +755,10 @@ public class Matriz {
         
     }
     
+    /**
+     * Genera una matriz idéntica a la matriz actual, con la diferencia de que sus valores numéricos tienen signos opuestos
+     * @return la matriz opuesta
+     */
     public Matriz opuesta(){
         
         Matriz opuesta = new Matriz(this.ancho(), this.largo());
@@ -624,6 +773,10 @@ public class Matriz {
         
     }
     
+    /**
+     * Calcula la determinante de la matriz
+     * @return la determinante
+     */
     public double determinante(){
         
         if (this.ancho() != this.largo()){
@@ -669,36 +822,60 @@ public class Matriz {
         
     }
     
+    /**
+     * Verifica si la matriz es idempotente
+     * @return true si la matriz es idempotente, caso contrario false
+     */
     public boolean esIdempotente(){
         
         return this.equals(this.multiplicar(this));
         
     }
     
+    /**
+     * Verifica si la matriz es involutiva
+     * @return true si la matriz es involutiva, caso contrario false
+     */
     public boolean esInvolutiva(){
         
         return this.equals(this.inversa());
         
     }
     
+    /**
+     * Verifica si la matriz es simétrica
+     * @return true si la matriz es simétrica, caso contrario false
+     */
     public boolean esSimetrica(){
         
         return this.transpuesta().equals(this);
         
     }
     
+    /**
+     * Verifica si la matriz es antisimétrica
+     * @return true si la matriz es antisimétrica, caso contrario false
+     */
     public boolean esAntisimetrica(){
         
         return this.transpuesta().equals(this.opuesta());
         
     }
     
+    /**
+     * Verifica si la matriz es ortogonal
+     * @return true si la matriz es ortogonal, caso contrario false
+     */
     public boolean esOrtogonal(){
         
         return this.transpuesta().equals(this.inversa());
         
     }
     
+    /**
+     * Inserta los valores numéricos de la matriz en una tabla
+     * @param tabla la tabla donde se desea insertar los datos
+     */
     public void insertar(JTable tabla) {
         
         if (this.validar()) {
@@ -724,6 +901,10 @@ public class Matriz {
         
     }
     
+    /**
+     * Guarda los valores numéricos de una matriz en un archivo
+     * @param archivo el archivo donde se desea guardar los valores numéricos
+     */
     public void guardar(RandomAccessFile archivo) {
         
         ArrayList<ArrayList<Double>> lista = this.obtenerLista();
@@ -742,6 +923,10 @@ public class Matriz {
         
     }
     
+    /**
+     * Transforma la matriz a una lista (de listas) de clase Double
+     * @return la lista transformada
+     */
     public ArrayList<ArrayList<Double>> obtenerLista() {
         
         ArrayList<ArrayList<Double>> lista = new ArrayList<ArrayList<Double>>();
