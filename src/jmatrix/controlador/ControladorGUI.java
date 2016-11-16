@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import jmatrix.ListaModeloMatriz;
 import jmatrix.Matriz;
+import jmatrix.VentanaInformacion;
 
 public class ControladorGUI extends Controlador {
     
@@ -21,6 +22,8 @@ public class ControladorGUI extends Controlador {
     private JList<String> lista;
     private JTable tabla;
     private JTextArea salida;
+    
+    private VentanaInformacion ventanaInfo;
     
     public ControladorGUI(
             JSpinner anchoMatriz,
@@ -41,6 +44,8 @@ public class ControladorGUI extends Controlador {
         this.listas = listas;
         this.tablas = tablas;
         this.matrices = matrices;
+        
+        this.ventanaInfo = new VentanaInformacion();
         
     }
     
@@ -96,6 +101,7 @@ public class ControladorGUI extends Controlador {
                     // Actualizar sus tablas
                     
                     this.actualizarTablas(indice);
+                    this.ventanaInfo.informar(matriz);
                     
                 }
                 
@@ -129,9 +135,11 @@ public class ControladorGUI extends Controlador {
             if (indice >= 0){
 
                 Matriz matriz = new Matriz(ancho, largo);
+                
                 this.matrices.set(indice, matriz);
                 this.actualizarTablas(indice);
                 this.actualizarListas();
+                this.ventanaInfo.informar(matriz);
 
             }else{
                 
@@ -157,6 +165,8 @@ public class ControladorGUI extends Controlador {
                 
                 matriz.insertar(this.tabla);
                 
+                this.ventanaInfo.informar(matriz);
+                
             }
             
         }
@@ -181,10 +191,14 @@ public class ControladorGUI extends Controlador {
             
         }else{
             
-            this.matrices.add(new Matriz(ancho, largo));
+            Matriz matrizNueva = new Matriz(ancho, largo);
+            
+            this.matrices.add(matrizNueva);
             this.actualizarListas();
             this.lista.setSelectedIndex(this.matrices.size() - 1);
+            
             this.actualizarTablas(this.matrices.size() - 1);
+            this.ventanaInfo.informar(matrizNueva);
             
         }
         
@@ -210,7 +224,9 @@ public class ControladorGUI extends Controlador {
                 matriz = matriz.escalonar();
                 
                 this.matrices.set(indice, matriz);
+                
                 this.actualizarTablas(indice);
+                this.ventanaInfo.informar(matriz);
                 
                 this.salida.setText("");
                 
@@ -256,7 +272,9 @@ public class ControladorGUI extends Controlador {
                 if ( matriz.multiplicar(matrizInversa).equals( Matriz.identidad(matriz) ) ) {
                 
                     this.matrices.set(indice, matrizInversa);
+                    
                     this.actualizarTablas(indice);
+                    this.ventanaInfo.informar(matrizInversa);
 
                     this.salida.setText("");
 
@@ -306,7 +324,9 @@ public class ControladorGUI extends Controlador {
                 matriz = matriz.transpuesta();
                 
                 this.matrices.set(indice, matriz);
+                
                 this.actualizarTablas(indice);
+                this.ventanaInfo.informar(matriz);
                 
             }
             
@@ -315,6 +335,15 @@ public class ControladorGUI extends Controlador {
             JOptionPane.showMessageDialog(null, "Seleccione la matriz que desea transponer");
             
         }
+        
+    }
+    
+    /**
+     * Evento al apretar el boton '?'
+     */
+    public void informacion() {
+        
+        this.ventanaInfo.setVisible(true);
         
     }
     

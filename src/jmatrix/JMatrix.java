@@ -32,6 +32,7 @@ public class JMatrix extends javax.swing.JFrame {
     private ControladorMatematico operacion;
     
     private VentanaArchivos ventanaArchivos;
+    private VentanaAyuda ventanaAyuda;
     
     private ArrayList<Matriz> matrices;
     private ArrayList<javax.swing.JList<String>> listas;
@@ -57,6 +58,7 @@ public class JMatrix extends javax.swing.JFrame {
         
         this.listas = new ArrayList<javax.swing.JList<String>>();
         this.ventanaArchivos = new VentanaArchivos(this.matrices, this.listas);
+        this.ventanaAyuda = new VentanaAyuda();
         
         this.listas.add(this.primeraLista);
         this.listas.add(this.segundaLista);
@@ -195,6 +197,7 @@ public class JMatrix extends javax.swing.JFrame {
         abrir = new javax.swing.JMenuItem();
         guardar = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("JMatrix");
@@ -434,10 +437,25 @@ public class JMatrix extends javax.swing.JFrame {
         });
 
         propiedadesResultadoMatriz.setText("?");
+        propiedadesResultadoMatriz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                propiedadesResultadoMatrizActionPerformed(evt);
+            }
+        });
 
         propiedadesSegundaMatriz.setText("?");
+        propiedadesSegundaMatriz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                propiedadesSegundaMatrizActionPerformed(evt);
+            }
+        });
 
         propiedadesPrimeraMatriz.setText("?");
+        propiedadesPrimeraMatriz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                propiedadesPrimeraMatrizActionPerformed(evt);
+            }
+        });
 
         archivo.setText("Archivo");
 
@@ -462,6 +480,15 @@ public class JMatrix extends javax.swing.JFrame {
         jMenuBar1.add(archivo);
 
         jMenu1.setText("Ayuda");
+
+        jMenuItem1.setText("Documentación");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
@@ -842,6 +869,30 @@ public class JMatrix extends javax.swing.JFrame {
         
     }//GEN-LAST:event_segundaMatrizPropertyChange
 
+    private void propiedadesPrimeraMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_propiedadesPrimeraMatrizActionPerformed
+        
+        this.primerControl.informacion();
+        
+    }//GEN-LAST:event_propiedadesPrimeraMatrizActionPerformed
+
+    private void propiedadesSegundaMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_propiedadesSegundaMatrizActionPerformed
+        
+        this.segundoControl.informacion();
+        
+    }//GEN-LAST:event_propiedadesSegundaMatrizActionPerformed
+
+    private void propiedadesResultadoMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_propiedadesResultadoMatrizActionPerformed
+        
+        this.resultadoControl.informacion();
+        
+    }//GEN-LAST:event_propiedadesResultadoMatrizActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        
+        this.ventanaAyuda.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -894,6 +945,7 @@ public class JMatrix extends javax.swing.JFrame {
     private javax.swing.JButton invertirSegundaMatriz;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

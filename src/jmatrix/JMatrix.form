@@ -37,6 +37,16 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Ayuda"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Documentaci&#xf3;n"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>
@@ -777,16 +787,25 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="?"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="propiedadesResultadoMatrizActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="propiedadesSegundaMatriz">
       <Properties>
         <Property name="text" type="java.lang.String" value="?"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="propiedadesSegundaMatrizActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="propiedadesPrimeraMatriz">
       <Properties>
         <Property name="text" type="java.lang.String" value="?"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="propiedadesPrimeraMatrizActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
