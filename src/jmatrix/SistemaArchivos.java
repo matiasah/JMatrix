@@ -68,7 +68,7 @@ public class SistemaArchivos {
 
                     Matriz matriz = new Matriz(lectorArchivo);
 
-                    if (matriz.validar()) {
+                    if ( matriz.validar() ) {
 
                         this.matrices.add(matriz);
                         this.actualizarListas();

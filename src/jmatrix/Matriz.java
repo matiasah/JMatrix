@@ -1,7 +1,8 @@
 package jmatrix;
 
+import jmatrix.excepciones.*;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import java.io.RandomAccessFile;
 import java.io.IOException;
@@ -26,7 +27,13 @@ public class Matriz {
      * @param ancho ancho de la matriz que se desea crear
      * @param largo largo de la matriz que se desea crear
      */
-    public Matriz(int ancho, int largo){
+    public Matriz(int ancho, int largo) throws ExcDimensionImposible {
+        
+        if (ancho <= 0 | largo <= 0) {
+            
+            throw new ExcDimensionImposible(ancho, largo);
+            
+        }
         
         this.vector = new Vector[ancho];
         this.instrucciones = new ArrayList<String>();
@@ -111,7 +118,13 @@ public class Matriz {
      * Constructor de la clase, genera una matriz diagonal cuadrada
      * @param tamaño la dimension de la matriz cuadrada: tamaño x tamaño
      */
-    public Matriz(int tamaño){
+    public Matriz(int tamaño) throws ExcDimensionImposible {
+        
+        if ( tamaño <= 0 ) {
+            
+            throw new ExcDimensionImposible( tamaño, tamaño );
+            
+        }
         
         this.vector = new Vector[tamaño];
         this.instrucciones = new ArrayList<String>();
@@ -185,7 +198,7 @@ public class Matriz {
      * @param matriz la matriz de la cual se copian sus dimensiones
      * @return matriz identidad
      */
-    public static Matriz identidad(Matriz matriz) {
+    public static Matriz identidad(Matriz matriz) throws ExcDimensionImposible {
         
         Matriz identidad = new Matriz(matriz.ancho(), matriz.largo());
         
@@ -261,7 +274,7 @@ public class Matriz {
      * Copia los datos numericos de la matriz
      * @return matriz copiada
      */
-    public Matriz clonar(){
+    public Matriz clonar() throws ExcDimensionImposible {
         
         Matriz copia = new Matriz(this.ancho(), this.largo());
         
@@ -281,9 +294,21 @@ public class Matriz {
      */
     public boolean validar(){
         
-        if (this.vector != null & this.vector.length > 0){
+        try {
+        
+            // Si el vector está vacio, la matriz es inválida
             
-            return true;
+            if (this.vector.length > 0){
+
+                return true;
+
+            }
+            
+        } catch (java.lang.NullPointerException e) {
+            
+            // Si el vector no existe, Java entregará un error y por lo tanto la matriz será inválida
+            
+            return false;
             
         }
         
@@ -334,7 +359,7 @@ public class Matriz {
      * @param x     coordenada 'x' donde se desea reemplazar el valor
      * @param valor valor que se desea insertar
      */
-    public void establecer(int y, int x, double valor){
+    public void establecer(int y, int x, double valor) {
         
         if (y >= 0 & y < this.vector.length){
             
@@ -399,7 +424,7 @@ public class Matriz {
      * @param matriz matriz con la cual se desea sumar la matriz actual
      * @return la matriz que contiene la suma de ambas matrices
      */
-    public Matriz sumar(Matriz matriz){
+    public Matriz sumar(Matriz matriz) throws ExcDimensionImposible {
         
         Matriz Salida = new Matriz(
             Math.max(matriz.ancho(), this.ancho()),
@@ -425,7 +450,7 @@ public class Matriz {
      * @param matriz matriz con la cual se desea restar la matriz actual
      * @return la matriz que contiene la resta de ambas matrices
      */
-    public Matriz restar(Matriz matriz){
+    public Matriz restar(Matriz matriz) throws ExcDimensionImposible {
         
         Matriz resta = new Matriz(
             Math.max(matriz.ancho(), this.ancho()),
@@ -450,35 +475,36 @@ public class Matriz {
      * @param matriz matriz con la cual se desea multiplicar la matriz actual
      * @return la matriz que contiene la multiplicacion de ambas matrices
      */
-    public Matriz multiplicar(Matriz matriz){
+    public Matriz multiplicar(Matriz matriz) throws ExcDimensionImposible, ExcMultiplicacionImposible {
         
-        if (this.ancho() == matriz.largo()) {
+        if ( this.ancho() != matriz.largo() ) {
             
-            Matriz multiplicacion = new Matriz(this.ancho(), this.largo());
-
-            for (int x = 0, A = multiplicacion.ancho(); x < A; x++){
-
-                Vector vector = new Vector(multiplicacion.largo());
-
-                for (int y = 0; y < A; y++){
-
-                    for (int i = 0; i < A; i++){
-
-                        vector.sumar(y, this.obtener(x).obtener(i) * matriz.obtener(i).obtener(y));
-
-                    }
-                }
-
-                multiplicacion.establecer(x, vector);
-
-            }
-
-            return multiplicacion;
+            throw new ExcMultiplicacionImposible( this.ancho(), matriz.largo() );
             
         }
         
-        return null;
-        
+        Matriz multiplicacion = new Matriz(this.ancho(), matriz.largo());
+
+        for (int x = 0, A = multiplicacion.ancho(); x < A; x++){
+
+            Vector vector = new Vector(multiplicacion.largo());
+
+            for (int y = 0; y < A; y++){
+
+                for (int i = 0; i < A; i++){
+
+                    vector.sumar(y, this.obtener(x).obtener(i) * matriz.obtener(i).obtener(y));
+
+                }
+            
+            }
+
+            multiplicacion.establecer(x, vector);
+
+        }
+
+        return multiplicacion;
+
     }
     
     /**
@@ -486,7 +512,7 @@ public class Matriz {
      * @param numero el número con el cual se desea multiplicar la matriz actual
      * @return la matriz que contiene la multiplicacion de la matriz con el número
      */
-    public Matriz multiplicar(double numero){
+    public Matriz multiplicar(double numero) throws ExcDimensionImposible {
         
         Matriz multiplicacion = new Matriz(this.ancho(), this.largo());
         
@@ -505,7 +531,7 @@ public class Matriz {
      * @param exponente el número de veces que la matriz se multiplica por si misma
      * @return el resultado de la multiplicación
      */
-    public Matriz elevar(int exponente){
+    public Matriz elevar(int exponente) throws ExcDimensionImposible, ExcMultiplicacionImposible {
         
         Matriz operacion = this;
         
@@ -523,7 +549,7 @@ public class Matriz {
      * Transpone los valores numéricos diagonalmente de la matriz
      * @return la matriz transpuesta
      */
-    public Matriz transpuesta(){
+    public Matriz transpuesta() throws ExcDimensionImposible {
         
         Matriz transpuesta = new Matriz(this.largo(), this.ancho());
         
@@ -651,7 +677,7 @@ public class Matriz {
      * Genera una matriz inversa a la matriz actual
      * @return la matriz inversa
      */
-    public Matriz inversa(){
+    public Matriz inversa() throws ExcDimensionImposible {
         
         Matriz escalonada = this.clonar();
         Matriz inversa = new Matriz(this.ancho());
@@ -747,7 +773,7 @@ public class Matriz {
      * Genera una matriz escalonada
      * @return la matriz escalonada
      */
-    public Matriz escalonar(){
+    public Matriz escalonar() throws ExcDimensionImposible {
         
         Matriz escalonada = this.clonar();
         
@@ -765,7 +791,7 @@ public class Matriz {
      * Genera una matriz idéntica a la matriz actual, con la diferencia de que sus valores numéricos tienen signos opuestos
      * @return la matriz opuesta
      */
-    public Matriz opuesta(){
+    public Matriz opuesta() throws ExcDimensionImposible {
         
         Matriz opuesta = new Matriz(this.ancho(), this.largo());
         
@@ -783,7 +809,7 @@ public class Matriz {
      * Calcula la determinante de la matriz
      * @return la determinante
      */
-    public double determinante(){
+    public double determinante() {
         
         if (this.ancho() != this.largo()){
             
@@ -798,29 +824,37 @@ public class Matriz {
         double determinante = 0;
         byte signo = 1;
         
-        for (int i = 0, A = this.ancho(), L = this.largo(); i < A; i++){
+        try {
             
-            Matriz matriz = new Matriz(A - 1, L - 1);
-            
-            for (int y = 0, n = 0; y < L; y++){
-                
-                if (y != i){
-                    
-                    for (int x = 1; x < A; x++) {
-                        
-                        matriz.establecer(x - 1, n, this.obtener(y, x));
-                        
+            for (int i = 0, A = this.ancho(), L = this.largo(); i < A; i++){
+
+                Matriz matriz = new Matriz(A - 1, L - 1);
+
+                for (int y = 0, n = 0; y < L; y++){
+
+                    if (y != i){
+
+                        for (int x = 1; x < A; x++) {
+
+                            matriz.establecer(x - 1, n, this.obtener(y, x));
+
+                        }
+
+                        n++;
+
                     }
-                    
-                    n++;
-                    
+
                 }
-                
+
+                // La determinante de una matriz de dimension mayor que 2x2 es un número líder multiplicado por la determinante de una sub-matriz
+                determinante += signo * this.obtener(i, 0) * matriz.determinante();
+                signo *= -1;
+
             }
             
-            // La determinante de una matriz de dimension mayor que 2x2 es un número líder multiplicado por la determinante de una sub-matriz
-            determinante += signo * this.obtener(i, 0) * matriz.determinante();
-            signo *= -1;
+        } catch (ExcDimensionImposible e) {
+            
+            return 0;
             
         }
         
@@ -832,9 +866,17 @@ public class Matriz {
      * Verifica si la matriz es idempotente
      * @return true si la matriz es idempotente, caso contrario false
      */
-    public boolean esIdempotente(){
+    public boolean esIdempotente() {
         
-        return this.equals(this.multiplicar(this));
+        try {
+            
+            return this.equals(this.multiplicar(this));
+        
+        } catch (ExcDimensionImposible | ExcMultiplicacionImposible e) {
+            
+            return false;
+            
+        }
         
     }
     
@@ -844,7 +886,15 @@ public class Matriz {
      */
     public boolean esInvolutiva(){
         
-        return this.equals(this.inversa());
+        try {
+            
+            return this.equals(this.inversa());
+        
+        } catch (ExcDimensionImposible e) {
+            
+            return false;
+            
+        }
         
     }
     
@@ -854,7 +904,15 @@ public class Matriz {
      */
     public boolean esSimetrica(){
         
-        return this.transpuesta().equals(this);
+        try {
+            
+            return this.transpuesta().equals(this);
+        
+        } catch (ExcDimensionImposible e) {
+            
+            return false;
+            
+        }
         
     }
     
@@ -864,7 +922,15 @@ public class Matriz {
      */
     public boolean esAntisimetrica(){
         
-        return this.transpuesta().equals(this.opuesta());
+        try {
+            
+            return this.transpuesta().equals(this.opuesta());
+        
+        } catch (ExcDimensionImposible e) {
+            
+            return false;
+            
+        }
         
     }
     
@@ -874,7 +940,15 @@ public class Matriz {
      */
     public boolean esOrtogonal(){
         
-        return this.transpuesta().equals(this.inversa());
+        try {
+            
+            return this.transpuesta().equals(this.inversa());
+        
+        } catch (ExcDimensionImposible e) {
+            
+            return false;
+            
+        }
         
     }
     

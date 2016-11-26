@@ -1,6 +1,7 @@
 package jmatrix.controlador;
 
 import jmatrix.Matriz;
+import jmatrix.excepciones.*;
 
 import java.util.ArrayList;
 
@@ -100,16 +101,18 @@ public class ControladorMatematico extends Controlador {
             
             if (indiceResultado >= 0) {
                 
-                Matriz resultado = primeraMatriz.multiplicar(segundaMatriz);
+                try {
                 
-                if (resultado == null) {
-                    
-                    JOptionPane.showMessageDialog(null, "Multiplicación imposible");
-                    
-                }else{
-                    
+                    Matriz resultado = primeraMatriz.multiplicar(segundaMatriz);
+
                     this.matrices.set(indiceResultado, resultado);
                     this.actualizarTablas(indiceResultado);
+                    
+                } catch (ExcDimensionImposible e) {
+                    
+                } catch (ExcMultiplicacionImposible e) {
+                    
+                    JOptionPane.showMessageDialog(null, "Multiplicación imposible");
                     
                 }
                 
@@ -145,26 +148,30 @@ public class ControladorMatematico extends Controlador {
             
             if (indiceResultado >= 0) {
                 
-                Matriz matrizInversa = segundaMatriz.inversa();
-                
-                if ( segundaMatriz.multiplicar(matrizInversa).equals( Matriz.identidad(segundaMatriz) ) ) {
+                try {
                     
-                    Matriz resultado = primeraMatriz.multiplicar(matrizInversa);
+                    Matriz matrizInversa = segundaMatriz.inversa();
 
-                    if (resultado == null) {
+                    if ( segundaMatriz.multiplicar(matrizInversa).equals( Matriz.identidad(segundaMatriz) ) ) {
 
-                        JOptionPane.showMessageDialog(null, "División imposible");
-
-                    }else{
+                        Matriz resultado = primeraMatriz.multiplicar(matrizInversa);
 
                         this.matrices.set(indiceResultado, resultado);
                         this.actualizarTablas(indiceResultado);
 
+                    }else{
+
+                        JOptionPane.showMessageDialog(null, "División imposible, la segunda matriz no se puede invertir");
+
                     }
                     
-                }else{
+                } catch (ExcDimensionImposible e) {
                     
-                    JOptionPane.showMessageDialog(null, "División imposible, la segunda matriz no se puede invertir");
+                    JOptionPane.showMessageDialog(null, "División imposible");
+                    
+                } catch (ExcMultiplicacionImposible e) {
+                    
+                    JOptionPane.showMessageDialog(null, "División imposible, no se puede multiplicar por la inversa");
                     
                 }
                 
@@ -200,16 +207,16 @@ public class ControladorMatematico extends Controlador {
             
             if (indiceResultado >= 0) {
                 
-                Matriz resultado = primeraMatriz.sumar(segundaMatriz);
-                
-                if (resultado == null) {
+                try {
                     
-                    JOptionPane.showMessageDialog(null, "Suma imposible");
-                    
-                }else{
-                    
+                    Matriz resultado = primeraMatriz.sumar(segundaMatriz);
+
                     this.matrices.set(indiceResultado, resultado);
                     this.actualizarTablas(indiceResultado);
+                    
+                } catch (ExcDimensionImposible e) {
+                    
+                    JOptionPane.showMessageDialog(null, "Suma imposible");
                     
                 }
                 
@@ -245,16 +252,15 @@ public class ControladorMatematico extends Controlador {
             
             if (indiceResultado >= 0) {
                 
-                Matriz resultado = primeraMatriz.restar(segundaMatriz);
-                
-                if (resultado == null) {
-                    
-                    JOptionPane.showMessageDialog(null, "Resta imposible");
-                    
-                }else{
-                    
+                try {
+                    Matriz resultado = primeraMatriz.restar(segundaMatriz);
+
                     this.matrices.set(indiceResultado, resultado);
                     this.actualizarTablas(indiceResultado);
+                    
+                } catch (ExcDimensionImposible e) {
+                    
+                    JOptionPane.showMessageDialog(null, "Resta imposible");
                     
                 }
                 

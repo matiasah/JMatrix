@@ -1,5 +1,6 @@
 package jmatrix;
 
+import jmatrix.excepciones.*;
 
 public class Vector {
     
@@ -12,8 +13,16 @@ public class Vector {
      * Constructor de la clase
      * @param ancho el número de ceros que debe contener el arreglo del vector
      */
-    public Vector(int ancho){
+    public Vector(int ancho) throws ExcDimensionVImposible {
+        
+        if ( ancho <= 0 ) {
+            
+            throw new ExcDimensionVImposible( ancho );
+            
+        }
+        
         this.elemento = new double[ancho];
+        
     }
     
     /**
@@ -21,14 +30,16 @@ public class Vector {
      * @param elemento el arreglo que se le asignará al vector
      */
     public Vector(double [] elemento){
+        
         this.elemento = elemento;
+        
     }
     
     /**
      * Copia todos los elementos del vector
      * @return el nuevo vector con los elementos copiados
      */
-    public Vector clonar(){
+    public Vector clonar() throws ExcDimensionVImposible {
         
         int A = this.ancho();
         Vector vector = new Vector(A);
@@ -180,13 +191,17 @@ public class Vector {
      * @param vec el vector que se desea sumar
      * @return la suma de ambos vectores
      */
-    public Vector sumar(Vector vec){
+    public Vector sumar(Vector vec) throws ExcDimensionVImposible {
         
         Vector suma = new Vector(
+            
             Math.max(
+                
                 this.ancho(),
                 vec.ancho()
+                
             )
+            
         );
         
         for (int x = 0, ancho = suma.ancho(); x < ancho; x++){
@@ -204,17 +219,23 @@ public class Vector {
      * @param vector el vector que se desea sumar
      * @return la suma de ambos vectores
      */
-    public Vector restar(Vector vector){
+    public Vector restar(Vector vector) throws ExcDimensionVImposible {
         
         Vector resta = new Vector(
+            
             Math.max(
+                
                 this.ancho(),
                 vector.ancho()
+                
             )
+            
         );
         
         for (int x = 0, ancho = resta.ancho(); x < ancho; x++){
+            
             resta.sumar(x, this.obtener(x) - vector.obtener(x));
+            
         }
         
         return resta;
@@ -226,7 +247,7 @@ public class Vector {
      * @param numero el número que multiplicará el vector
      * @return la multiplicación entre el vector y el número
      */
-    public Vector multiplicar(double numero){
+    public Vector multiplicar(double numero) throws ExcDimensionVImposible {
         
         int ancho = this.ancho();
         Vector multiplicacion = new Vector(ancho);
@@ -246,7 +267,7 @@ public class Vector {
      * @param numero el número que dividirá el vector
      * @return la división entre el vector y el número
      */
-    public Vector dividir(double numero){
+    public Vector dividir(double numero) throws ExcDimensionVImposible {
         
         if (numero == 0){
             
@@ -264,7 +285,7 @@ public class Vector {
      * Copia el vector y cambia el signo de sus valores numéricos
      * @return el vector opuesto
      */
-    public Vector opuesto(){
+    public Vector opuesto() throws ExcDimensionVImposible{
         
         int ancho = this.ancho();
         Vector opuesto = new Vector(ancho);

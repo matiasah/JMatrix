@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import jmatrix.ListaModeloMatriz;
 import jmatrix.Matriz;
 import jmatrix.VentanaInformacion;
+import jmatrix.excepciones.*;
 
 public class ControladorGUI extends Controlador {
     
@@ -67,6 +68,34 @@ public class ControladorGUI extends Controlador {
         
     }
     
+    private int obtenerSeleccion() throws ExcListaSeleccion {
+        
+        int seleccion = this.lista.getSelectedIndex();
+        
+        if (seleccion < 0) {
+            
+            throw new ExcListaSeleccion();
+            
+        }
+        
+        return seleccion;
+        
+    }
+    
+    private Matriz obtenerMatriz(int indice) throws ExcMatrizInexistente {
+        
+        Matriz matriz = this.matrices.get(indice);
+        
+        if (matriz == null) {
+            
+            throw new ExcMatrizInexistente();
+            
+        }
+        
+        return matriz;
+        
+    }
+    
     /**
      * Evento al editar la celda de una tabla
      * @param evt 
@@ -77,33 +106,37 @@ public class ControladorGUI extends Controlador {
             
             // Una vez se termina de editar, se reemplazan los valores en el objeto Matriz
             
-            int indice = this.lista.getSelectedIndex();
-            
-            if (indice >= 0) {
+            try {
+                
+                int indice = this.obtenerSeleccion();
                 
                 // Verificar que hay elementos seleccionados
                 
-                Matriz matriz = this.matrices.get(indice);
+                Matriz matriz = this.obtenerMatriz(indice);
                 
-                if (matriz != null) {
-                    
-                    // Verificar que la matríz en el índice indicado no es nula
-                    
-                    int x = this.tabla.getEditingColumn();
-                    int y = this.tabla.getEditingRow();
-                    Double valor = (Double) this.tabla.getValueAt(y, x);
-                    
-                    // Asignar el valor especificado a la matriz actual
-                    
-                    matriz.establecer(y, x, valor);
-                    
-                    // Si el resto de las listas seleccionaron la misma matriz
-                    // Actualizar sus tablas
-                    
-                    this.actualizarTablas(indice);
-                    this.ventanaInfo.informar(matriz);
-                    
-                }
+                // Verificar que la matríz en el índice indicado no es nula
+                
+                int x = this.tabla.getEditingColumn();
+                int y = this.tabla.getEditingRow();
+                Double valor = (Double) this.tabla.getValueAt(y, x);
+                
+                // Asignar el valor especificado a la matriz actual
+                
+                matriz.establecer(y, x, valor);
+                
+                // Si el resto de las listas seleccionaron la misma matriz
+                // Actualizar sus tablas
+                
+                this.actualizarTablas(indice);
+                this.ventanaInfo.informar(matriz);
+                
+            } catch (ExcListaSeleccion e) {
+                
+                // No es necesario generar un error para esta ventana
+                
+            } catch (ExcMatrizInexistente e) {
+                
+                // No es necesario generar un error para esta ventana
                 
             }
             
@@ -120,33 +153,33 @@ public class ControladorGUI extends Controlador {
         int ancho = (Integer) this.anchoMatriz.getValue();
         int largo = (Integer) this.largoMatriz.getValue();
         
-        if (ancho <= 0) {
+        try {
             
-            JOptionPane.showMessageDialog(null, "El ancho de la matriz debe ser mayor que cero");
+            int indice = this.obtenerSeleccion();
             
-        }else if (largo <= 0) {
+            Matriz matriz = new Matriz(ancho, largo);
             
-            JOptionPane.showMessageDialog(null, "El largo de la matriz debe ser mayor que cero");
-            
-        }else{
+            this.matrices.set(indice, matriz);
+            this.actualizarTablas(indice);
+            this.actualizarListas();
+            this.ventanaInfo.informar(matriz);
         
-            int indice = this.lista.getSelectedIndex();
-
-            if (indice >= 0){
-
-                Matriz matriz = new Matriz(ancho, largo);
+        } catch (ExcListaSeleccion e) {
+            
+            JOptionPane.showMessageDialog(null, "Seleccione la matriz");
+            
+        } catch (ExcDimensionImposible e) {
+            
+            if (e.getAncho() <= 0) {
                 
-                this.matrices.set(indice, matriz);
-                this.actualizarTablas(indice);
-                this.actualizarListas();
-                this.ventanaInfo.informar(matriz);
-
-            }else{
+                JOptionPane.showMessageDialog(null, "El ancho de la matriz debe ser mayor que cero");
                 
-                JOptionPane.showMessageDialog(null, "Seleccione la matriz");
+            } else if (e.getLargo() <= 0) {
+                
+                JOptionPane.showMessageDialog(null, "El largo de la matriz debe ser mayor que cero");
                 
             }
-            
+                
         }
         
     }
@@ -159,13 +192,18 @@ public class ControladorGUI extends Controlador {
         
         if (evt.getValueIsAdjusting()) {
             
-            Matriz matriz = this.matrices.get(this.lista.getSelectedIndex());
-            
-            if (matriz != null) {
+            try {
                 
+                int indice = this.obtenerSeleccion();
+                Matriz matriz = this.obtenerMatriz(indice);
+
                 matriz.insertar(this.tabla);
-                
+
                 this.ventanaInfo.informar(matriz);
+                
+            } catch (ExcListaSeleccion e) {
+                
+            } catch (ExcMatrizInexistente e) {
                 
             }
             
@@ -181,25 +219,30 @@ public class ControladorGUI extends Controlador {
         int ancho = (Integer) this.anchoMatriz.getValue();
         int largo = (Integer) this.largoMatriz.getValue();
         
-        if (ancho <= 0){
-            
-            JOptionPane.showMessageDialog(null, "El ancho de la matriz debe ser mayor que cero");
-            
-        }else if (largo <= 0) {
-            
-            JOptionPane.showMessageDialog(null, "El largo de la matriz debe ser mayor que cero");
-            
-        }else{
-            
+        
+        try {
+        
             Matriz matrizNueva = new Matriz(ancho, largo);
-            
+
             this.matrices.add(matrizNueva);
             this.actualizarListas();
             this.lista.setSelectedIndex(this.matrices.size() - 1);
-            
+
             this.actualizarTablas(this.matrices.size() - 1);
             this.ventanaInfo.informar(matrizNueva);
             
+        } catch (ExcDimensionImposible e) {
+            
+            if ( e.getAncho() <= 0) {
+                
+                JOptionPane.showMessageDialog(null, "El ancho de la matriz debe ser mayor que cero");
+                    
+            } else if ( e.getLargo() <= 0) {
+                
+                JOptionPane.showMessageDialog(null, "El largo de la matriz debe ser mayor que cero");
+                
+            }
+                
         }
         
     }
@@ -209,42 +252,39 @@ public class ControladorGUI extends Controlador {
      */
     public void escalonar() {
         
-        int indice = this.lista.getSelectedIndex();
-        
-        if (indice >= 0) {
+        try {
             
-            Matriz matriz = this.matrices.get(indice);
+            int indice = this.obtenerSeleccion();
             
-            if (matriz == null) {
+            Matriz matriz = this.obtenerMatriz(indice);
+            Matriz matrizEscalonada = matriz.escalonar();
                 
-                JOptionPane.showMessageDialog(null, "Matriz no encontrada en la memoria");
-                
-            }else{
-                
-                matriz = matriz.escalonar();
-                
-                this.matrices.set(indice, matriz);
-                
-                this.actualizarTablas(indice);
-                this.ventanaInfo.informar(matriz);
-                
-                this.salida.setText("");
-                
-                for (Object instruccion : matriz.obtenerInstrucciones()) {
-                    
-                    if (instruccion instanceof String) {
-                        
-                        this.salida.setText(this.salida.getText() + "\n" + instruccion);
-                        
-                    }
-                    
+            this.matrices.set(indice, matrizEscalonada);
+
+            this.actualizarTablas(indice);
+            this.ventanaInfo.informar(matrizEscalonada);
+
+            this.salida.setText("");
+
+            for (Object instruccion : matrizEscalonada.obtenerInstrucciones()) {
+
+                if (instruccion instanceof String) {
+
+                    this.salida.setText(this.salida.getText() + "\n" + instruccion);
+
                 }
-                
+                        
             }
             
-        }else{
+        } catch (ExcDimensionImposible e) {
+            
+        } catch (ExcListaSeleccion e) {
             
             JOptionPane.showMessageDialog(null, "Seleccione la matriz que desea escalonar");
+            
+        } catch (ExcMatrizInexistente e) {
+            
+            JOptionPane.showMessageDialog(null, "Matriz no encontrada en la memoria");
             
         }
         
@@ -255,50 +295,51 @@ public class ControladorGUI extends Controlador {
      */
     public void invertir() {
         
-        int indice = this.lista.getSelectedIndex();
-        
-        if (indice >= 0) {
+        try {
             
-            Matriz matriz = this.matrices.get(indice);
+            int indice = this.obtenerSeleccion();
             
-            if (matriz == null) {
-                
-                JOptionPane.showMessageDialog(null, "Matriz no encontrada en la memoria");
-                
-            }else{
-                
-                Matriz matrizInversa = matriz.inversa();
-                
-                if ( matriz.multiplicar(matrizInversa).equals( Matriz.identidad(matriz) ) ) {
-                
-                    this.matrices.set(indice, matrizInversa);
-                    
-                    this.actualizarTablas(indice);
-                    this.ventanaInfo.informar(matrizInversa);
+            Matriz matriz = this.obtenerMatriz(indice);
+            Matriz matrizInversa = matriz.inversa();
 
-                    this.salida.setText("");
+            if ( matriz.multiplicar(matrizInversa).equals( Matriz.identidad(matriz) ) ) {
 
-                    for (Object instruccion : matriz.obtenerInstrucciones()) {
+                this.matrices.set(indice, matrizInversa);
 
-                        if (instruccion instanceof String) {
+                this.actualizarTablas(indice);
+                this.ventanaInfo.informar(matrizInversa);
 
-                            this.salida.setText(this.salida.getText() + "\n" + instruccion);
+                this.salida.setText("");
 
-                        }
+                for (Object instruccion : matriz.obtenerInstrucciones()) {
+
+                    if (instruccion instanceof String) {
+
+                        this.salida.setText(this.salida.getText() + "\n" + instruccion);
 
                     }
-                    
-                }else{
-                    
-                    JOptionPane.showMessageDialog(null, "La matriz no se puede invertir, es singular");
-                    
+
                 }
-                
+
+            }else{
+
+                JOptionPane.showMessageDialog(null, "La matriz no se puede invertir, es singular");
+
             }
+                    
+        } catch (ExcDimensionImposible e) {
+        
+        } catch (ExcMultiplicacionImposible e) {
             
-        }else{
+            JOptionPane.showMessageDialog(null, "La matriz no se puede invertir, no se puede multiplicar por su inversa");
+            
+        } catch (ExcListaSeleccion e) {
             
             JOptionPane.showMessageDialog(null, "Seleccione la matriz que desea invertir");
+            
+        } catch (ExcMatrizInexistente e) {
+            
+            JOptionPane.showMessageDialog(null, "Matriz no encontrada en la memoria");
             
         }
         
@@ -309,28 +350,27 @@ public class ControladorGUI extends Controlador {
      */
     public void transponer() {
         
-        int indice = this.lista.getSelectedIndex();
+        try {
+            
+            int indice = this.obtenerSeleccion();
+            
+            Matriz matriz = this.obtenerMatriz(indice);
+            Matriz matrizTranspuesta = matriz.transpuesta();
+
+            this.matrices.set(indice, matrizTranspuesta);
+
+            this.actualizarTablas(indice);
+            this.ventanaInfo.informar(matrizTranspuesta);
         
-        if (indice >= 0) {
+        } catch (ExcDimensionImposible e) {
+                    
+            JOptionPane.showMessageDialog(null, "La matriz no se puede transponer");
             
-            Matriz matriz = this.matrices.get(indice);
+        } catch (ExcMatrizInexistente e) {
             
-            if (matriz == null) {
-                
-                JOptionPane.showMessageDialog(null, "Matriz no encontrada en la memoria");
-                
-            }else{
-                
-                matriz = matriz.transpuesta();
-                
-                this.matrices.set(indice, matriz);
-                
-                this.actualizarTablas(indice);
-                this.ventanaInfo.informar(matriz);
-                
-            }
+            JOptionPane.showMessageDialog(null, "Matriz no encontrada en la memoria");
             
-        }else{
+        } catch (ExcListaSeleccion e) {
             
             JOptionPane.showMessageDialog(null, "Seleccione la matriz que desea transponer");
             
