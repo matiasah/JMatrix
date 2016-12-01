@@ -138,6 +138,10 @@ public class ControladorGUI extends Controlador {
                 
                 // No es necesario generar un error para esta ventana
                 
+            } catch (java.lang.ArrayIndexOutOfBoundsException e) {
+                
+                // Error al seleccionar un elemento en el interfaz, ignorar error
+                
             }
             
         }
@@ -302,7 +306,7 @@ public class ControladorGUI extends Controlador {
             Matriz matriz = this.obtenerMatriz(indice);
             Matriz matrizInversa = matriz.inversa();
 
-            if ( matriz.multiplicar(matrizInversa).equals( Matriz.identidad(matriz) ) ) {
+            if ( matriz.equals( matrizInversa.inversa() ) ) {
 
                 this.matrices.set(indice, matrizInversa);
 
@@ -322,6 +326,11 @@ public class ControladorGUI extends Controlador {
                 }
 
             }else{
+                
+                System.out.println("1");
+                System.out.println(matrizInversa.inversa());
+                System.out.println("2");
+                System.out.println(matriz);
 
                 JOptionPane.showMessageDialog(null, "La matriz no se puede invertir, es singular");
 
@@ -329,9 +338,9 @@ public class ControladorGUI extends Controlador {
                     
         } catch (ExcDimensionImposible e) {
         
-        } catch (ExcMultiplicacionImposible e) {
+        //} catch (ExcMultiplicacionImposible e) {
             
-            JOptionPane.showMessageDialog(null, "La matriz no se puede invertir, no se puede multiplicar por su inversa");
+            //JOptionPane.showMessageDialog(null, "La matriz no se puede invertir, no se puede multiplicar por su inversa");
             
         } catch (ExcListaSeleccion e) {
             

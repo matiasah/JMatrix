@@ -38,77 +38,61 @@ public class Matriz {
         this.vector = new Vector[ancho];
         this.instrucciones = new ArrayList<String>();
         
-        for (int x = 0; x < ancho; x++){
+        try {
             
-            this.vector[x] = new Vector(largo);
+            for (int x = 0; x < ancho; x++){
             
-        }
-        
-    }
-    
-    /**
-     * Constructor de la clase, copia los datos de una matriz de clase double dentro de la matriz creada
-     * @param matriz la matriz que se desea copiar
-     */
-    public Matriz(double [][] matriz){
-        
-        this.vector = new Vector[matriz.length];
-        this.instrucciones = new ArrayList<String>();
-        
-        if (matriz.length > 0){
-            
-            int Largo = matriz[0].length;
+                this.vector[x] = new Vector(largo);
 
-            for (int x = 0; x < this.vector.length; x++){
-                
-                if (matriz[x].length == Largo){
-                    
-                    this.vector[x] = new Vector(matriz[x]);
-                    
-                }else{
-                    
-                    // Entregar un error (por hacer)
-                    this.vector = null;
-                    break;
-                    
-                }
-                
             }
             
+        }catch (ExcDimensionVImposible e) {
+            
+            throw new ExcDimensionImposible( e.getAncho(), largo);
+            
         }
+        
     }
     
     /**
      * Constructor de la clase, copia los datos de un objeto clase JTable
      * @param tabla la tabla que se desea copiar
      */
-    public Matriz(JTable tabla) {
+    public Matriz(JTable tabla) throws ExcDimensionImposible {
         
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         int l = modelo.getRowCount();
         int a = modelo.getColumnCount();
         
-        this.vector = new Vector[l];
-        this.instrucciones = new ArrayList<String>();
-        
-        for (int x = 0; x < l; x++){
-            
-            Vector v = new Vector(a);
-            this.vector[x] = v;
-            
-            for (int y = 0; y < a; y++) {
-                
-                Double valor = (Double) modelo.getValueAt(x, y);
-                
-                if (valor == null) {
-                    
-                    valor = new Double(0);
-                    
+        try {
+
+            this.vector = new Vector[l];
+            this.instrucciones = new ArrayList<String>();
+
+            for (int x = 0; x < l; x++){
+
+                Vector v = new Vector(a);
+                this.vector[x] = v;
+
+                for (int y = 0; y < a; y++) {
+
+                    Double valor = (Double) modelo.getValueAt(x, y);
+
+                    if (valor == null) {
+
+                        valor = new Double(0);
+
+                    }
+
+                    v.establecer(y, valor);
+
                 }
-                
-                v.establecer(y, valor);
-                
+
             }
+            
+        } catch (ExcDimensionVImposible e) {
+            
+            throw new ExcDimensionImposible(a, l);
             
         }
         
@@ -126,13 +110,22 @@ public class Matriz {
             
         }
         
-        this.vector = new Vector[tamaño];
-        this.instrucciones = new ArrayList<String>();
-        
-        for (int x = 0; x < tamaño; x++){
+        try {
             
-            this.vector[x] = new Vector(tamaño);
-            this.establecer(x, x, 1);
+        
+            this.vector = new Vector[tamaño];
+            this.instrucciones = new ArrayList<String>();
+
+            for (int x = 0; x < tamaño; x++){
+
+                this.vector[x] = new Vector(tamaño);
+                this.establecer(x, x, 1);
+
+            }
+            
+        } catch (ExcDimensionVImposible e) {
+            
+            throw new ExcDimensionImposible( tamaño, tamaño );
             
         }
         
@@ -142,7 +135,7 @@ public class Matriz {
      * Constructor de la clase, lee un archivo y genera los datos de la matriz a partir del contenido
      * @param archivo archivo que se desea leer
      */
-    public Matriz(RandomAccessFile archivo) {
+    public Matriz(RandomAccessFile archivo) throws ExcDimensionImposible {
         
         try {
             
@@ -188,6 +181,10 @@ public class Matriz {
         } catch (IOException | JSONException e) {
             
             // Si hay error, la matriz es inválida
+            
+        } catch (ExcDimensionVImposible e) {
+            
+            throw new ExcDimensionImposible(0, 0);
             
         }
         
@@ -276,15 +273,24 @@ public class Matriz {
      */
     public Matriz clonar() throws ExcDimensionImposible {
         
-        Matriz copia = new Matriz(this.ancho(), this.largo());
-        
-        for (int x = 0; x < this.ancho(); x++){
+        try {
             
-            copia.establecer(x, this.vector[x].clonar());
+        
+            Matriz copia = new Matriz(this.ancho(), this.largo());
+
+            for (int x = 0; x < this.ancho(); x++){
+
+                copia.establecer(x, this.vector[x].clonar() );
+
+            }
+
+            return copia;
+            
+        } catch (ExcDimensionVImposible e) {
+            
+            throw new ExcDimensionImposible( this.ancho(), this.largo() );
             
         }
-        
-        return copia;
         
     }
     
@@ -376,9 +382,16 @@ public class Matriz {
      */
     public void sumar(int indice, Vector vec){
         
-        if (indice >= 0 & indice < this.vector.length){
+        try {
             
-            this.vector[indice] = this.vector[indice].sumar(vec);
+        
+            if (indice >= 0 & indice < this.vector.length){
+
+                this.vector[indice] = this.vector[indice].sumar( vec );
+
+            }
+            
+        } catch (ExcDimensionVImposible e) {
             
         }
         
@@ -391,13 +404,22 @@ public class Matriz {
      */
     public Vector obtener(int indice){
         
-        if (indice >= 0 & indice < this.vector.length){
+        try {
             
-            return this.vector[indice];
+        
+            if (indice >= 0 & indice < this.vector.length){
+
+                return this.vector[indice];
+
+            }
+
+            return new Vector(this.vector.length);
+            
+        } catch (ExcDimensionVImposible e) {
+            
+            return null;
             
         }
-        
-        return new Vector(this.vector.length);
         
     }
     
@@ -426,22 +448,30 @@ public class Matriz {
      */
     public Matriz sumar(Matriz matriz) throws ExcDimensionImposible {
         
-        Matriz Salida = new Matriz(
+        Matriz salida = new Matriz(
             Math.max(matriz.ancho(), this.ancho()),
             Math.max(matriz.largo(), this.largo())
         );
         
-        for (int x = 0, A = Salida.ancho(); x < A; x++){
+        try {
+
+            for (int x = 0, A = salida.ancho(); x < A; x++){
+
+                salida.establecer(x,
+                    // Lamentablemente no se pueden utilizar operadores matemáticos en objetos
+                    // Así que es necesario usar Obtener(x).Sumar
+                    this.obtener(x).sumar( matriz.obtener(x) )
+                );
+
+            }
+
+            return salida;
             
-            Salida.establecer(x,
-                // Lamentablemente no se pueden utilizar operadores matemáticos en objetos
-                // Así que es necesario usar Obtener(x).Sumar
-                this.obtener(x).sumar( matriz.obtener(x) )
-            );
+        } catch (ExcDimensionVImposible e) {
+            
+            throw new ExcDimensionImposible( salida.ancho(), salida.largo() );
             
         }
-        
-        return Salida;
         
     }
     
@@ -457,16 +487,24 @@ public class Matriz {
             Math.max(matriz.largo(), this.largo())
         );
         
-        for (int x = 0, A = resta.ancho(); x < A; x++){
+        try {
             
-            resta.establecer(x,
-                // Mismo caso, no se pueden utilizar operadores matemáticos en objetos
-                this.obtener(x).restar( matriz.obtener(x) )
-            );
+            for (int x = 0, A = resta.ancho(); x < A; x++){
+
+                resta.establecer(x,
+                    // Mismo caso, no se pueden utilizar operadores matemáticos en objetos
+                    this.obtener(x).restar( matriz.obtener(x) )
+                );
+
+            }
+
+            return resta;
+            
+        } catch (ExcDimensionVImposible e) {
+            
+            throw new ExcDimensionImposible( resta.ancho(), resta.largo() );
             
         }
-        
-        return resta;
         
     }
     
@@ -485,25 +523,33 @@ public class Matriz {
         
         Matriz multiplicacion = new Matriz(this.ancho(), matriz.largo());
 
-        for (int x = 0, A = multiplicacion.ancho(); x < A; x++){
+        try {
+            
+            for (int x = 0, A = multiplicacion.ancho(); x < A; x++){
 
-            Vector vector = new Vector(multiplicacion.largo());
+                Vector vector = new Vector( multiplicacion.largo() );
 
-            for (int y = 0; y < A; y++){
+                for (int y = 0; y < A; y++){
 
-                for (int i = 0; i < A; i++){
+                    for (int i = 0; i < A; i++){
 
-                    vector.sumar(y, this.obtener(x).obtener(i) * matriz.obtener(i).obtener(y));
+                        vector.sumar(y, this.obtener(x).obtener(i) * matriz.obtener(i).obtener(y));
+
+                    }
 
                 }
-            
+
+                multiplicacion.establecer(x, vector);
+
             }
 
-            multiplicacion.establecer(x, vector);
-
+            return multiplicacion;
+            
+        } catch (ExcDimensionVImposible e) {
+            
+            throw new ExcDimensionImposible( multiplicacion.ancho(), multiplicacion.largo() );
+            
         }
-
-        return multiplicacion;
 
     }
     
@@ -516,13 +562,21 @@ public class Matriz {
         
         Matriz multiplicacion = new Matriz(this.ancho(), this.largo());
         
-        for (int x = 0, A = multiplicacion.ancho(); x < A; x++){
+        try {
             
-            multiplicacion.establecer(x, this.obtener(x).multiplicar(numero));
+            for (int x = 0, A = multiplicacion.ancho(); x < A; x++){
+
+                multiplicacion.establecer(x, this.obtener(x).multiplicar(numero) );
+
+            }
+
+            return multiplicacion;
+            
+        } catch (ExcDimensionVImposible e) {
+            
+            throw new ExcDimensionImposible( this.ancho(), this.largo() );
             
         }
-        
-        return multiplicacion;
         
     }
     
@@ -593,7 +647,7 @@ public class Matriz {
      * @param inversa la matriz invertida que se está procesando
      * @return true si se pudo generar una instrucción, caso contrario retorna false
      */
-    private boolean invertirParte(Matriz escalonada, Matriz inversa) {
+    private boolean invertirParte(Matriz escalonada, Matriz inversa) throws ExcDimensionVImposible {
         
         for (int ancho = escalonada.ancho(), indiceNulo = ancho - 1; indiceNulo >= 0 ; indiceNulo--){
             
@@ -606,13 +660,13 @@ public class Matriz {
                         inversa.agregarInstruccion("L" + (indiceNulo + 1) + (i + 1));
                         escalonada.agregarInstruccion("L" + (indiceNulo + 1) + (i + 1));
 
-                        Vector vector = escalonada.obtener(i);
+                        Vector vectorEscalonada = escalonada.obtener(i);
                         escalonada.establecer(i, escalonada.obtener(indiceNulo));
-                        escalonada.establecer(indiceNulo, vector);
+                        escalonada.establecer(indiceNulo, vectorEscalonada);
 
-                        Vector vectorInverso = inversa.obtener(i);
+                        Vector vectorInversa = inversa.obtener(i);
                         inversa.establecer(i, inversa.obtener(indiceNulo));
-                        inversa.establecer(indiceNulo, vectorInverso);
+                        inversa.establecer(indiceNulo, vectorInversa);
                         
                         return true;
                             
@@ -682,13 +736,22 @@ public class Matriz {
         Matriz escalonada = this.clonar();
         Matriz inversa = new Matriz(this.ancho());
         
-        for (boolean repetir = true; repetir;){
+        try {
             
-            repetir = this.invertirParte(escalonada, inversa);
+            for (boolean repetir = true; repetir;){
+
+                repetir = this.invertirParte(escalonada, inversa);
+
+            }
+
+            return inversa;
+            
+        } catch (ExcDimensionVImposible e) {
+            
+            throw new ExcDimensionImposible( inversa.ancho(), inversa.largo() );
             
         }
         
-        return inversa;
     }
     
     /**
@@ -696,7 +759,7 @@ public class Matriz {
      * @param escalonada la matriz que se está procesando
      * @return true si se pudo generar una instrucción de escalonado, caso contrario false
      */
-    private boolean escalonarParte(Matriz escalonada) {
+    private boolean escalonarParte(Matriz escalonada) throws ExcDimensionVImposible {
         
         for (int ancho = escalonada.ancho(), indiceNulo = ancho - 1; indiceNulo >= 0 ; indiceNulo--){
             
@@ -777,13 +840,21 @@ public class Matriz {
         
         Matriz escalonada = this.clonar();
         
-        for (boolean Repetir = true; Repetir;){
+        try {
             
-            Repetir = this.escalonarParte(escalonada);
+            for (boolean Repetir = true; Repetir;){
+
+                Repetir = this.escalonarParte(escalonada);
+
+            }
+
+            return escalonada;
+            
+        } catch (ExcDimensionVImposible e) {
+            
+            throw new ExcDimensionImposible( escalonada.ancho(), escalonada.largo() );
             
         }
-        
-        return escalonada;
         
     }
     
@@ -795,13 +866,21 @@ public class Matriz {
         
         Matriz opuesta = new Matriz(this.ancho(), this.largo());
         
-        for (int x = 0, A = this.ancho(); x < A; x++){
+        try {
             
-            opuesta.establecer(x, this.obtener(x).opuesto());
+            for (int x = 0, A = this.ancho(); x < A; x++){
+
+                opuesta.establecer(x, this.obtener(x).opuesto() );
+
+            }
+
+            return opuesta;
+            
+        } catch (ExcDimensionVImposible e) {
+            
+            throw new ExcDimensionImposible( opuesta.ancho(), opuesta.largo() );
             
         }
-        
-        return opuesta;
         
     }
     

@@ -5,6 +5,11 @@ import jmatrix.excepciones.*;
 public class Vector {
     
     /**
+     * Delta utilizado para comparar dos vectores
+     */
+    static double precision = Math.pow(2, -51);
+    
+    /**
      * Valores numéricos que se comparten con una matríz
      */
     private double [] elemento;
@@ -96,7 +101,7 @@ public class Vector {
 
             for (int x = 0; x < A; x++){
 
-                if (this.obtener(x) != vector.obtener(x)){
+                if ( Math.abs( this.obtener(x) - vector.obtener(x) ) > Vector.precision ){
 
                     return false;
 

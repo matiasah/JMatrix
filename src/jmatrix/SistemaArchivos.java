@@ -1,5 +1,7 @@
 package jmatrix;
 
+import jmatrix.excepciones.*;
+
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
@@ -78,6 +80,10 @@ public class SistemaArchivos {
                         JOptionPane.showMessageDialog(null, "Imposible cargar matriz, el archivo está archivo dañado");
 
                     }
+                    
+                } catch (ExcDimensionImposible e) {
+                    
+                    JOptionPane.showMessageDialog(null, "Imposible cargar matriz, dimensiones erroneas");
 
                 } catch (java.io.FileNotFoundException e) {
 
