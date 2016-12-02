@@ -68,6 +68,11 @@ public class ControladorGUI extends Controlador {
         
     }
     
+    /**
+     * La matriz seleccionada actualmente
+     * @return el índice de la matriz seleccionada actualmente
+     * @throws ExcListaSeleccion 
+     */
     private int obtenerSeleccion() throws ExcListaSeleccion {
         
         int seleccion = this.lista.getSelectedIndex();
@@ -82,6 +87,12 @@ public class ControladorGUI extends Controlador {
         
     }
     
+    /**
+     * Obtener la matriz en un índice especifico
+     * @param indice
+     * @return La matriz en el índice especificado
+     * @throws ExcMatrizInexistente 
+     */
     private Matriz obtenerMatriz(int indice) throws ExcMatrizInexistente {
         
         Matriz matriz = this.matrices.get(indice);

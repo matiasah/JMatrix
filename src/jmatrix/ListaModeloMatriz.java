@@ -2,6 +2,9 @@ package jmatrix;
 
 public class ListaModeloMatriz extends javax.swing.AbstractListModel<String> {
     
+    /**
+     * Lista de matrices asociada al modelo
+     */
     private java.util.ArrayList<Matriz> matrices;
     
     /**

@@ -17,6 +17,7 @@ public class Vector {
     /**
      * Constructor de la clase
      * @param ancho el número de ceros que debe contener el arreglo del vector
+     * @throws ExcDimensionVImposible
      */
     public Vector(int ancho) throws ExcDimensionVImposible {
         
@@ -43,6 +44,7 @@ public class Vector {
     /**
      * Copia todos los elementos del vector
      * @return el nuevo vector con los elementos copiados
+     * @throws ExcDimensionVImposible
      */
     public Vector clonar() throws ExcDimensionVImposible {
         
@@ -195,6 +197,7 @@ public class Vector {
      * Genera un vector cuyos valores numéricos es la suma de dos vectores
      * @param vec el vector que se desea sumar
      * @return la suma de ambos vectores
+     * @throws ExcDimensionVImposible
      */
     public Vector sumar(Vector vec) throws ExcDimensionVImposible {
         
@@ -223,6 +226,7 @@ public class Vector {
      * Genera un vector cuyos valores numéricos es la suma de dos vectores
      * @param vector el vector que se desea sumar
      * @return la suma de ambos vectores
+     * @throws ExcDimensionVImposible
      */
     public Vector restar(Vector vector) throws ExcDimensionVImposible {
         
@@ -251,6 +255,7 @@ public class Vector {
      * Genera un vector cuyos valores numéricos es la multiplicación de un vector con un número
      * @param numero el número que multiplicará el vector
      * @return la multiplicación entre el vector y el número
+     * @throws ExcDimensionVImposible
      */
     public Vector multiplicar(double numero) throws ExcDimensionVImposible {
         
@@ -271,6 +276,7 @@ public class Vector {
      * Genera un vector cuyos valores numéricos es la multiplicación de un vector con un número
      * @param numero el número que dividirá el vector
      * @return la división entre el vector y el número
+     * @throws ExcDimensionVImposible
      */
     public Vector dividir(double numero) throws ExcDimensionVImposible {
         
@@ -289,6 +295,7 @@ public class Vector {
     /**
      * Copia el vector y cambia el signo de sus valores numéricos
      * @return el vector opuesto
+     * @throws ExcDimensionVImposible
      */
     public Vector opuesto() throws ExcDimensionVImposible{
         

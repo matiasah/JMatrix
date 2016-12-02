@@ -26,6 +26,7 @@ public class Matriz {
      * Constructor principal de la clase, genera una matriz nula de dimensiones ancho x largo
      * @param ancho ancho de la matriz que se desea crear
      * @param largo largo de la matriz que se desea crear
+     * @throws ExcDimensionImposible
      */
     public Matriz(int ancho, int largo) throws ExcDimensionImposible {
         
@@ -57,6 +58,7 @@ public class Matriz {
     /**
      * Constructor de la clase, copia los datos de un objeto clase JTable
      * @param tabla la tabla que se desea copiar
+     * @throws ExcDimensionImposible
      */
     public Matriz(JTable tabla) throws ExcDimensionImposible {
         
@@ -101,6 +103,7 @@ public class Matriz {
     /**
      * Constructor de la clase, genera una matriz diagonal cuadrada
      * @param tamaño la dimension de la matriz cuadrada: tamaño x tamaño
+     * @throws ExcDimensionImposible
      */
     public Matriz(int tamaño) throws ExcDimensionImposible {
         
@@ -134,6 +137,7 @@ public class Matriz {
     /**
      * Constructor de la clase, lee un archivo y genera los datos de la matriz a partir del contenido
      * @param archivo archivo que se desea leer
+     * @throws ExcDimensionImposible
      */
     public Matriz(RandomAccessFile archivo) throws ExcDimensionImposible {
         
@@ -194,6 +198,7 @@ public class Matriz {
      * Función estática, genera matrices copiando las dimensiones de una matriz especificada
      * @param matriz la matriz de la cual se copian sus dimensiones
      * @return matriz identidad
+     * @throws ExcDimensionImposible
      */
     public static Matriz identidad(Matriz matriz) throws ExcDimensionImposible {
         
@@ -270,6 +275,7 @@ public class Matriz {
     /**
      * Copia los datos numericos de la matriz
      * @return matriz copiada
+     * @throws ExcDimensionImposible
      */
     public Matriz clonar() throws ExcDimensionImposible {
         
@@ -445,6 +451,7 @@ public class Matriz {
      * Suma los valores numéricos de dos matrices
      * @param matriz matriz con la cual se desea sumar la matriz actual
      * @return la matriz que contiene la suma de ambas matrices
+     * @throws ExcDimensionImposible
      */
     public Matriz sumar(Matriz matriz) throws ExcDimensionImposible {
         
@@ -479,6 +486,7 @@ public class Matriz {
      * Resta los valores numéricos de dos matrices
      * @param matriz matriz con la cual se desea restar la matriz actual
      * @return la matriz que contiene la resta de ambas matrices
+     * @throws ExcDimensionImposible
      */
     public Matriz restar(Matriz matriz) throws ExcDimensionImposible {
         
@@ -512,6 +520,7 @@ public class Matriz {
      * Multiplica los valores numéricos de ambas matrices
      * @param matriz matriz con la cual se desea multiplicar la matriz actual
      * @return la matriz que contiene la multiplicacion de ambas matrices
+     * @throws ExcDimensionImposible ExcMultiplicacionImposible
      */
     public Matriz multiplicar(Matriz matriz) throws ExcDimensionImposible, ExcMultiplicacionImposible {
         
@@ -557,6 +566,7 @@ public class Matriz {
      * Multiplica los valores numéricos de la matriz por un número
      * @param numero el número con el cual se desea multiplicar la matriz actual
      * @return la matriz que contiene la multiplicacion de la matriz con el número
+     * @throws ExcDimensionImposible
      */
     public Matriz multiplicar(double numero) throws ExcDimensionImposible {
         
@@ -584,6 +594,7 @@ public class Matriz {
      * Multiplica los valores numéricos de la matriz por si mismos la cantidad de veces especificada
      * @param exponente el número de veces que la matriz se multiplica por si misma
      * @return el resultado de la multiplicación
+     * @throws ExcDimensionImposible ExcMultiplicacionImposible
      */
     public Matriz elevar(int exponente) throws ExcDimensionImposible, ExcMultiplicacionImposible {
         
@@ -602,6 +613,7 @@ public class Matriz {
     /**
      * Transpone los valores numéricos diagonalmente de la matriz
      * @return la matriz transpuesta
+     * @throws ExcDimensionImposible
      */
     public Matriz transpuesta() throws ExcDimensionImposible {
         
@@ -730,6 +742,7 @@ public class Matriz {
     /**
      * Genera una matriz inversa a la matriz actual
      * @return la matriz inversa
+     * @throws ExcDimensionImposible
      */
     public Matriz inversa() throws ExcDimensionImposible {
         
@@ -835,6 +848,7 @@ public class Matriz {
     /**
      * Genera una matriz escalonada
      * @return la matriz escalonada
+     * @throws ExcDimensionImposible
      */
     public Matriz escalonar() throws ExcDimensionImposible {
         
@@ -861,6 +875,7 @@ public class Matriz {
     /**
      * Genera una matriz idéntica a la matriz actual, con la diferencia de que sus valores numéricos tienen signos opuestos
      * @return la matriz opuesta
+     * @throws ExcDimensionImposible
      */
     public Matriz opuesta() throws ExcDimensionImposible {
         

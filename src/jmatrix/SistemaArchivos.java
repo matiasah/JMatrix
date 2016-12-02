@@ -13,10 +13,24 @@ import javax.swing.JFileChooser;
 
 public class SistemaArchivos {
     
+    /**
+     * Lista de matrices seleccionables
+     */
     private JList<String> lista;
     
+    /**
+     * Lista de todas las matrices
+     */
     private ArrayList<Matriz> matrices;
+    
+    /**
+     * Todas las listas con matrices seleccionables
+     */
     private ArrayList<JList<String>> listas;
+    
+    /**
+     * Selector de archivos
+     */
     private JFileChooser selector;
     
     /**
@@ -50,6 +64,45 @@ public class SistemaArchivos {
             lista.setSelectedIndex(indice);
             
         }
+        
+    }
+    
+    /**
+     * La matriz seleccionada actualmente
+     * @return el índice de la matriz seleccionada actualmente
+     * @throws ExcListaSeleccion 
+     */
+    private int obtenerSeleccion() throws ExcListaSeleccion {
+        
+        int seleccion = this.lista.getSelectedIndex();
+        
+        if (seleccion < 0) {
+            
+            throw new ExcListaSeleccion();
+            
+        }
+        
+        return seleccion;
+        
+    }
+    
+    /**
+     * Obtener la matriz en un índice especifico
+     * @param indice
+     * @return La matriz en el índice especificado
+     * @throws ExcMatrizInexistente 
+     */
+    private Matriz obtenerMatriz(int indice) throws ExcMatrizInexistente {
+        
+        Matriz matriz = this.matrices.get(indice);
+        
+        if (matriz == null) {
+            
+            throw new ExcMatrizInexistente();
+            
+        }
+        
+        return matriz;
         
     }
     
@@ -102,45 +155,38 @@ public class SistemaArchivos {
      */
     public void guardar() {
         
-        int indice = this.lista.getSelectedIndex();
         
-        if (indice >= 0) {
+        try {
         
             switch (this.selector.showSaveDialog(null)) {
 
                 case javax.swing.JFileChooser.APPROVE_OPTION:
-
-                    Matriz matriz = this.matrices.get(indice);
                     
-                    if (matriz == null) {
-                        
-                        JOptionPane.showMessageDialog(null, "Matriz no encontrada en la memoria");
-                        
-                    }else{
+                    int indice = this.obtenerSeleccion();
+
+                    Matriz matriz = this.obtenerMatriz(indice);
                     
-                        File archivo = this.selector.getSelectedFile();
+                    File archivo = this.selector.getSelectedFile();
 
-                        try {
-
-                            RandomAccessFile escritorArchivo = new RandomAccessFile(archivo, "rw");
-                            matriz.guardar(escritorArchivo);
-
-                        } catch (java.io.FileNotFoundException e) {
-
-                            JOptionPane.showMessageDialog(null, "Dirección inválida");
-
-                        }
-                        
-                    }
+                    RandomAccessFile escritorArchivo = new RandomAccessFile(archivo, "rw");
+                    matriz.guardar(escritorArchivo);
                 
-                break;
+                    break;
                 
             }
             
-        }else{
+        } catch (java.io.FileNotFoundException e) {
+            
+            JOptionPane.showMessageDialog(null, "Dirección inválida");
+            
+        } catch (ExcListaSeleccion e) {
             
             JOptionPane.showMessageDialog(null, "Seleccione la matriz que desea guardar");
                     
+        } catch (ExcMatrizInexistente e) {
+            
+            JOptionPane.showMessageDialog(null, "Matriz no encontrada en la memoria");
+            
         }
         
     }
